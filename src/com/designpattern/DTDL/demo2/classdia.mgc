@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <Class name="com.designpattern.DTDL.demo2.Client" x="131" y="150">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Communication destinationClassName="com.designpattern.DTDL.demo2.UserManager"/>
+    </Class>
+    <Class name="com.designpattern.DTDL.demo2.UserManagerImpl" x="129" y="416">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="com.designpattern.DTDL.demo2.UserManager"/>
+    </Class>
+    <Class name="com.designpattern.DTDL.demo2.UserManager" x="278" y="113">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.designpattern.DTDL.demo2.UserManagerImplProxy"
+        x="420" y="419">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="com.designpattern.DTDL.demo2.UserManager"/>
+        <Association
+            destinationClassName="com.designpattern.DTDL.demo2.UserManager"
+            endpointName="userManager" kind="Simple"/>
+        <Communication destinationClassName="com.designpattern.DTDL.demo2.UserManager"/>
+    </Class>
+</ClassDiagram>

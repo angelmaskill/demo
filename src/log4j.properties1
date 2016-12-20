@@ -1,0 +1,59 @@
+log4j.rootLogger = debug, A1, DailyRolling
+
+
+log4j.logger.com.wehave=ERROR
+
+log4j.appender.A1 = org.apache.log4j.ConsoleAppender
+log4j.appender.A1.layout = org.apache.log4j.PatternLayout
+log4j.appender.A1.layout.ConversionPattern = %d{yyyy-MM-dd hh:mm:ss,SSS} %c{1} - %m%n
+#log4j.appender.A1.layout.ConversionPattern = %d{yyyy-MM-dd hh:mm:ss,SSS} %p %t %c - %m%n
+
+
+log4j.appender.A2 = org.apache.log4j.RollingFileAppender
+log4j.appender.A2.File = d:/logs/sys_log.log
+log4j.appender.A2.MaxFileSize = 10MB
+log4j.appender.A2.MaxBackupIndex = 10
+log4j.appender.A2.layout = org.apache.log4j.PatternLayout
+log4j.appender.A2.layout.ConversionPattern = %d{yyyy-MM-dd hh:mm:ss,SSS}:%p %t %c - %m%n
+
+log4j.appender.DailyRolling=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.DailyRolling.File= d:/logs/sys_log.log
+log4j.appender.DailyRolling.DatePattern=yyyy-MM-dd'.log'  
+log4j.appender.DailyRolling.layout=org.apache.log4j.PatternLayout
+log4j.appender.DailyRolling.layout.ConversionPattern=%-d %t %-5p [%c{1}:%L] %m%n
+
+log4j.appender.db=org.apache.log4j.jdbc.JDBCAppender
+log4j.appender.db.layout=org.apache.log4j.PatternLayout
+log4j.appender.db.BufferSize=1
+log4j.appender.db.driver=oracle.jdbc.driver.OracleDriver
+
+log4j.appender.db.URL=jdbc:oracle:thin:@localhost:1521:orcl
+log4j.appender.db.user=ptsys
+log4j.appender.db.password=111111
+log4j.appender.db.sql=insert into PT_SYSLOGS (CLASSNAME,METHODNAME,CREATETIME,LOGLEVEL,MESSAGE) values ('%C','%M',sysdate,'%p','%m')
+
+# SqlMap logging configuration...ERROR
+log4j.logger.com.ibatis = debug
+log4j.logger.com.ibatis.common.jdbc.SimpleDataSource = debug
+log4j.logger.com.ibatis.common.jdbc.ScriptRunner = debug
+log4j.logger.com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate = debug
+log4j.logger.java.sql.Connection=debug
+log4j.logger.java.sql.Statement=debug
+log4j.logger.java.sql.PreparedStatement=debug
+log4j.logger.java.sql.ResultSet=debug
+log4j.logger.javax.sql=debug
+
+log4j.logger.org=debug
+log4j.logger.org.platform.domain=debug
+log4j.logger.org.platform.domain.spring.ibatis=debug
+log4j.logger.org.platform.interceptor=debug
+log4j.logger.org.platform.actions=debug
+log4j.logger.org.platform.designs=debug
+log4j.logger.org.platform.results.json=debug
+
+#log4j.logger.net.htjs.aop.ExceptionAdviceHandler=debug, db, A1, A2
+
+
+
+
+

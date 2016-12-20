@@ -1,0 +1,64 @@
+/*    */ package com.xinnuo.se.servlet;
+/*    */ 
+/*    */ import com.xinnuo.se.search.SearchManager;
+/*    */ import java.io.File;
+/*    */ import java.io.IOException;
+/*    */ import java.io.PrintStream;
+/*    */ import java.util.List;
+/*    */ import javax.servlet.RequestDispatcher;
+/*    */ import javax.servlet.ServletException;
+/*    */ import javax.servlet.http.HttpServlet;
+/*    */ import javax.servlet.http.HttpServletRequest;
+/*    */ import javax.servlet.http.HttpServletResponse;
+/*    */ 
+/*    */ public class SearchController extends HttpServlet
+/*    */ {
+/*    */   private static final long serialVersionUID = -4691448849530043751L;
+/*    */ 
+/*    */   public void init()
+/*    */     throws ServletException
+/*    */   {
+/* 24 */     String dataDir = getInitParameter("dataDir");
+/* 25 */     File dir = new File(dataDir);
+/* 26 */     if (!dir.exists()) {
+/* 27 */       System.out.println("---------------------------------");
+/* 28 */       System.err.println("错误信息:错误文件目录  " + dataDir);
+/* 29 */       System.out.println("---------------------------------");
+/*    */     } else {
+/* 31 */       com.xinnuo.se.util.Constant.DATA_DIR = dataDir;
+/* 32 */       String indexDir = getInitParameter("indexDir");
+/* 33 */       dir = new File(indexDir);
+/* 34 */       if (!dir.exists()) {
+/* 35 */         System.out.println("---------------------------------");
+/* 36 */         System.out.println("警告信息:错误文件索引目录,用默认  " + dataDir + File.separator + "index");
+/* 37 */         System.out.println("---------------------------------");
+/* 38 */         dir = new File(dataDir + "/index");
+/* 39 */         dir.mkdir();
+/*    */       }
+/* 41 */       com.xinnuo.se.util.Constant.INDEX_DIR = indexDir;
+/*    */     }
+/*    */   }
+/*    */ 
+/*    */   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+/* 46 */     String searchWord = request.getParameter("w");
+/* 47 */     RequestDispatcher dispatcher = request.getRequestDispatcher("/");
+/* 48 */     if ((searchWord != null) && (!"".equals(searchWord.trim()))) {
+/* 49 */       searchWord = new String(searchWord.getBytes("ISO-8859-1"), "UTF-8");
+/* 50 */       SearchManager searchManager = new SearchManager(searchWord);
+/* 51 */       List searchResult = searchManager.search();
+/* 52 */       request.setAttribute("searchResult", searchResult);
+/*    */     }
+/* 54 */     request.setAttribute("w", searchWord);
+/* 55 */     dispatcher.forward(request, response);
+/*    */   }
+/*    */ 
+/*    */   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
+/*    */   {
+/* 60 */     doPost(request, response);
+/*    */   }
+/*    */ }
+
+/* Location:           C:\Documents and Settings\Administrator\桌面\lucene\lucene-test\WEB-INF\classes\
+ * Qualified Name:     com.xinnuo.se.servlet.SearchController
+ * JD-Core Version:    0.6.0
+ */

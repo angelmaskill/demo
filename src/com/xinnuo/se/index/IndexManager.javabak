@@ -1,0 +1,91 @@
+/*    */ package com.xinnuo.se.index;
+/*    */ 
+/*    */ import com.xinnuo.se.util.Constant;
+/*    */ import com.xinnuo.se.util.HTMLDocParser;
+/*    */ import java.io.File;
+/*    */ import java.io.IOException;
+/*    */ import java.io.LineNumberReader;
+/*    */ import java.io.Reader;
+/*    */ import org.apache.lucene.analysis.Analyzer;
+/*    */ import org.apache.lucene.document.Document;
+/*    */ import org.apache.lucene.document.Field;
+/*    */ import org.apache.lucene.document.Field.Index;
+/*    */ import org.apache.lucene.document.Field.Store;
+/*    */ import org.apache.lucene.index.IndexWriter;
+/*    */ import org.apache.lucene.store.Directory;
+/*    */ import org.apache.lucene.store.FSDirectory;
+/*    */ import org.mira.lucene.analysis.IK_CAnalyzer;
+/*    */ 
+/*    */ public class IndexManager
+/*    */ {
+/*    */   public boolean createIndex()
+/*    */     throws IOException
+/*    */   {
+/* 29 */     if (ifIndexExist()) {
+/* 30 */       return true;
+/*    */     }
+/* 32 */     File dir = new File(Constant.DATA_DIR);
+/* 33 */     if (!dir.exists()) {
+/* 34 */       return false;
+/*    */     }
+/* 36 */     File[] htmls = dir.listFiles();
+/* 37 */     Directory fsDirectory = FSDirectory.getDirectory(Constant.INDEX_DIR, true);
+/* 38 */     Analyzer analyzer = new IK_CAnalyzer();
+/* 39 */     IndexWriter indexWriter = new IndexWriter(fsDirectory, analyzer, true);
+/* 40 */     for (int i = 0; i < htmls.length; i++) {
+/* 41 */       String htmlPath = htmls[i].getAbsolutePath();
+/* 42 */       if ((htmlPath.endsWith(".html")) || (htmlPath.endsWith(".htm"))) {
+/* 43 */         addDocument(htmlPath, indexWriter);
+/*    */       }
+/*    */     }
+/* 46 */     indexWriter.optimize();
+/* 47 */     indexWriter.close();
+/* 48 */     return true;
+/*    */   }
+/*    */ 
+/*    */   public void addDocument(String htmlPath, IndexWriter indexWriter)
+/*    */   {
+/* 55 */     HTMLDocParser htmlParser = new HTMLDocParser(htmlPath);
+/* 56 */     String path = htmlParser.getPath();
+/* 57 */     String title = htmlParser.getTitle();
+/* 58 */     Reader content = htmlParser.getContent();
+/* 59 */     LineNumberReader reader = new LineNumberReader(content);
+/* 60 */     String snap = "";
+/*    */     try {
+/* 62 */       snap = reader.readLine();
+/* 63 */       String tp = reader.readLine();
+/* 64 */       if (((snap.length() < 30 ? 1 : 0) & (tp != null ? 1 : 0)) != 0)
+/* 65 */         snap = snap + tp;
+/*    */     }
+/*    */     catch (IOException e1) {
+/* 68 */       e1.printStackTrace();
+/*    */     }
+/* 70 */     Document document = new Document();
+/* 71 */     document.add(new Field("path", path, Field.Store.YES, Field.Index.NO));
+/* 72 */     document.add(new Field("title", title, Field.Store.YES, Field.Index.TOKENIZED));
+/* 73 */     document.add(new Field("snap", snap, Field.Store.YES, Field.Index.NO));
+/* 74 */     document.add(new Field("content", content));
+/*    */     try {
+/* 76 */       indexWriter.addDocument(document);
+/*    */     } catch (IOException e) {
+/* 78 */       e.printStackTrace();
+/*    */     }
+/*    */   }
+/*    */ 
+/*    */   public boolean ifIndexExist()
+/*    */   {
+/* 86 */     File directory = new File(Constant.INDEX_DIR);
+/*    */ 
+/* 88 */     return directory.listFiles().length > 0;
+/*    */   }
+/*    */ 
+/*    */   public String getIndexDir()
+/*    */   {
+/* 95 */     return Constant.INDEX_DIR;
+/*    */   }
+/*    */ }
+
+/* Location:           C:\Documents and Settings\Administrator\桌面\lucene\lucene-test\WEB-INF\classes\
+ * Qualified Name:     com.xinnuo.se.index.IndexManager
+ * JD-Core Version:    0.6.0
+ */

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="gb2312"?>
+<students>
+    <student age="25"><!--如果没有age属性，默认的为20-->
+        <name>崔卫兵</name>
+        <college>PC学院</college>
+        <telephone>62354666</telephone>
+        <notes>男,1982年生,硕士，现就读于北京邮电大学</notes>
+    </student>
+      <student>
+        <name>cwb</name>
+        <college leader="学院领导">PC学院</college><!--如果没有leader属性，默认的为leader-->
+        <telephone>62358888</telephone>
+        <notes>男,1987年生,硕士，现就读于中国农业大学</notes>
+    </student>
+    <student age="45">
+        <name>xxxxx</name>
+        <college leader="">xxx学院</college>
+        <telephone>66666666</telephone>
+        <notes>注视中，注释中</notes>
+    </student>
+    <student age="">
+        <name>lxx</name>
+        <college>yyyy学院</college>
+        <telephone>88888888</telephone>
+        <notes>注视中111，注释中222</notes>
+    </student>
+</students>

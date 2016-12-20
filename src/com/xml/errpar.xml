@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NDEML templateVersion="1.0">
+	<header>
+		<result>
+			<success>0</success>
+			<message>失败</message>
+		</result>
+		<createDate>2015-10-10 02:28:00</createDate>
+		<dataType>D101</dataType>
+		<sourceCode ref=""/>
+		<targetCode ref=""/>
+		<sourceType ref=""/>
+	</header>
+	<body>
+		<bodyItem itemId="41041101130003_410411_2015">
+			<data>
+				<D101-01>不能为空</D101-01>
+				<D101-02>不能为空啊啊 </D101-02>
+				<D101-03>xxxxx</D101-03>
+			</data>
+		</bodyItem>
+		<bodyItem itemId="41041101140002_410411_2015">
+			<data>
+				<D101-02>不能为空</D101-02>
+				<D101-02>不能为空嗷嗷</D101-02>
+				<D101-02>yyyyyyyyyyyy</D101-02>
+			</data>
+		</bodyItem>
+	</body>
+</NDEML>

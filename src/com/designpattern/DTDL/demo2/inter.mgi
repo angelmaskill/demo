@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <CommunicationClass name="com.designpattern.DTDL.demo2.Client"
+        x="408" y="311">
+        <Communication destinationClassName="com.designpattern.DTDL.demo2.UserManager"/>
+    </CommunicationClass>
+    <CommunicationClass
+        name="com.designpattern.DTDL.demo2.UserManagerImpl" x="239" y="380">
+        <Extension destinationClassName="com.designpattern.DTDL.demo2.UserManager"/>
+    </CommunicationClass>
+    <CommunicationClass name="com.designpattern.DTDL.demo2.UserManager"
+        x="239" y="103"/>
+    <CommunicationClass
+        name="com.designpattern.DTDL.demo2.UserManagerImplProxy" x="95" y="311">
+        <Extension destinationClassName="com.designpattern.DTDL.demo2.UserManager"/>
+        <Association
+            destinationClassName="com.designpattern.DTDL.demo2.UserManager"
+            endpointName="userManager" kind="Simple"/>
+        <Communication destinationClassName="com.designpattern.DTDL.demo2.UserManager"/>
+    </CommunicationClass>
+</ClassDiagram>

@@ -1,0 +1,79 @@
+/*    */ package com.xinnuo.se.search;
+/*    */ 
+/*    */ import com.xinnuo.se.index.IndexManager;
+/*    */ import java.io.IOException;
+/*    */ import java.util.ArrayList;
+/*    */ import java.util.List;
+/*    */ import org.apache.lucene.analysis.Analyzer;
+/*    */ import org.apache.lucene.document.Document;
+/*    */ import org.apache.lucene.queryParser.ParseException;
+/*    */ import org.apache.lucene.queryParser.QueryParser;
+/*    */ import org.apache.lucene.search.Hits;
+/*    */ import org.apache.lucene.search.IndexSearcher;
+/*    */ import org.apache.lucene.search.Query;
+/*    */ import org.mira.lucene.analysis.IK_CAnalyzer;
+/*    */ 
+/*    */ public class SearchManager
+/*    */ {
+/*    */   private String searchWord;
+/*    */   private IndexManager indexManager;
+/*    */   private Analyzer analyzer;
+/*    */ 
+/*    */   public SearchManager(String searchWord)
+/*    */   {
+/* 32 */     this.searchWord = searchWord;
+/* 33 */     this.indexManager = new IndexManager();
+/* 34 */     this.analyzer = new IK_CAnalyzer();
+/*    */   }
+/*    */ 
+/*    */   public List search()
+/*    */   {
+/* 41 */     List searchResult = new ArrayList();
+/* 42 */     if (!this.indexManager.ifIndexExist()) {
+/*    */       try {
+/* 44 */         if (!this.indexManager.createIndex())
+/* 45 */           return searchResult;
+/*    */       }
+/*    */       catch (IOException e) {
+/* 48 */         e.printStackTrace();
+/* 49 */         return searchResult;
+/*    */       }
+/*    */     }
+/*    */ 
+/* 53 */     IndexSearcher indexSearcher = null;
+/*    */     try
+/*    */     {
+/* 56 */       indexSearcher = new IndexSearcher(this.indexManager.getIndexDir());
+/*    */     } catch (IOException ioe) {
+/* 58 */       ioe.printStackTrace();
+/*    */     }
+/*    */ 
+/* 61 */     QueryParser queryParser = new QueryParser("content", this.analyzer);
+/* 62 */     Query query = null;
+/*    */     try {
+/* 64 */       query = queryParser.parse(this.searchWord);
+/*    */     } catch (ParseException e) {
+/* 66 */       e.printStackTrace();
+/*    */     }
+/* 68 */     if ((query != null) && (indexSearcher != null)) {
+/*    */       try {
+/* 70 */         Hits hits = indexSearcher.search(query);
+/* 71 */         for (int i = 0; i < hits.length(); i++) {
+/* 72 */           SearchResultBean resultBean = new SearchResultBean();
+/* 73 */           resultBean.setHtmlPath(hits.doc(i).get("path"));
+/* 74 */           resultBean.setHtmlTitle(hits.doc(i).get("title"));
+/* 75 */           resultBean.setHtmlSnap(hits.doc(i).get("snap"));
+/* 76 */           searchResult.add(resultBean);
+/*    */         }
+/*    */       } catch (IOException e) {
+/* 79 */         e.printStackTrace();
+/*    */       }
+/*    */     }
+/* 82 */     return searchResult;
+/*    */   }
+/*    */ }
+
+/* Location:           C:\Documents and Settings\Administrator\桌面\lucene\lucene-test\WEB-INF\classes\
+ * Qualified Name:     com.xinnuo.se.search.SearchManager
+ * JD-Core Version:    0.6.0
+ */

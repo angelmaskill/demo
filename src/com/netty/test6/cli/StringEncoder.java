@@ -6,7 +6,11 @@ import io.netty.handler.codec.MessageToByteEncoder;
 
 import com.netty.Util.Person;
   
-  
+/**
+ * StringEncoder 把Person对象转换成固定格式的String的二进制流进行传送  
+ * @author mayanlu
+ *
+ */
 public class StringEncoder extends MessageToByteEncoder<Person> {  
   
     @Override  

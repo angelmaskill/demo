@@ -11,6 +11,11 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 
 import com.netty.Util.Person;
   
+/**
+ * 客户端1发送Person格式的协议
+ * @author mayanlu
+ *
+ */
 public class Client {  
     public void connect(String host, int port) throws Exception {  
         EventLoopGroup workerGroup = new NioEventLoopGroup();  

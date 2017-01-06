@@ -9,6 +9,11 @@ import java.util.List;
 import com.netty.Util.ByteBufToBytes;
 import com.netty.Util.ByteObjConverter;
   
+/**
+ * PersonDecoder  把二进制流转换成Person对象
+ * @author mayanlu
+ *
+ */
 public class PersonDecoder extends ByteToMessageDecoder {  
     @Override  
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {  

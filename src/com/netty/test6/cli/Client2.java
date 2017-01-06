@@ -11,6 +11,11 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 
 import com.netty.Util.Person;
   
+/**
+ * 客户端2发送String格式的协议:Client2 StringEncoder 同样使用了客户端1中定义的ClientInitHandler 进行数据发送操作。
+ * @author mayanlu
+ *
+ */
 public class Client2 {  
     public void connect(String host, int port) throws Exception {  
         EventLoopGroup workerGroup = new NioEventLoopGroup();  

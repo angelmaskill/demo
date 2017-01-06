@@ -8,6 +8,11 @@ import io.netty.handler.codec.MessageToByteEncoder;
 import com.netty.Util.ByteObjConverter;
 import com.netty.Util.Person;
   
+/**
+ * PersonEncoder 把Person对象转换成二进制进行传送
+ * @author mayanlu
+ *
+ */
 public class PersonEncoder extends MessageToByteEncoder<Person>  {  
   
     @Override  

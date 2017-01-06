@@ -8,6 +8,11 @@ import org.slf4j.LoggerFactory;
 
 import com.netty.Util.Person;
   
+/**
+ * BusinessHandler 展现客户端请求的内容
+ * @author mayanlu
+ *
+ */
 public class BusinessHandler extends ChannelInboundHandlerAdapter {  
     private Logger  logger  = LoggerFactory.getLogger(BusinessHandler.class);  
   

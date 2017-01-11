@@ -10,6 +10,13 @@ import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.filter.logging.LoggingFilter;  
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;  
   
+/**
+ *  I/O Service 扮演实际的IO角色,接收,发送网络IO
+	I/O Filter Chain 在输入和输出的io流中进行过滤
+	I/O Handler 业务逻辑实现
+ * @author mayanlu
+ *
+ */
 public class ServerMain {  
       
     public static void main(String[] args) throws IOException {  
@@ -36,10 +43,13 @@ public class ServerMain {
         acceptor.getSessionConfig().setReadBufferSize(100);       
         acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 10);   
           
-        //  绑定服务器端口　  
+        /**
+         *   绑定服务器端口,每次监听一个端口,都启动一个线程.
+         *   针对一个端口的请求,只有一个线程来处理IO
+         */
         acceptor.bind(address);  
           
         System.out.println("服务器开始在 8888 端口监听.......");  
-          
+        
     }  
 }  

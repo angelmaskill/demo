@@ -30,12 +30,12 @@ public class MyDecoder extends CumulativeProtocolDecoder {
               
         }else{  
               
-            int length = buffer.getInt();  
+            int length = buffer.getInt(); //4个字节 
               
             MyMsg msg = new MyMsg();  
               
-            msg.setSender(buffer.getLong());  
-            msg.setReceiver(buffer.getLong());  
+            msg.setSender(buffer.getLong());  //8个字节
+            msg.setReceiver(buffer.getLong());  //8个字节
               
             //  注意：20 = 消息长度的字节 + 发送人和接收人的字节  
             msg.setContent(buffer.getString(length - 20, de));  

@@ -72,15 +72,15 @@ public class RedisClient {
 
 	public void show() {
 		// key检测
-		testKey();
+		//testKey();
 		// string检测
-		testString();
+		//testString();
 		// list检测
-		testList();
+		//testList();
 		// set检测
-		testSet();
+		//testSet();
 		// sortedSet检测
-		testSortedSet();
+		//testSortedSet();
 		// hash检测
 		testHash();
 		shardedJedisPool.returnResource(shardedJedis);
@@ -223,19 +223,19 @@ public class RedisClient {
 		shardedJedis.hset("hashs", "entryKey1", "entryValue1");
 		shardedJedis.hset("hashs", "entryKey2", "entryValue2");
 		// 判断某个值是否存在
-		System.out.println(shardedJedis.hexists("hashs", "entryKey"));
+		System.out.println("判断某个值是否存在"+shardedJedis.hexists("hashs", "entryKey"));
 		// 获取指定的值
-		System.out.println(shardedJedis.hget("hashs", "entryKey"));
+		System.out.println("获取指定的值"+shardedJedis.hget("hashs", "entryKey"));
 		// 批量获取指定的值
-		System.out.println(shardedJedis.hmget("hashs", "entryKey", "entryKey1"));
+		System.out.println("批量获取指定的值"+shardedJedis.hmget("hashs", "entryKey", "entryKey1"));
 		// 删除指定的值
-		System.out.println(shardedJedis.hdel("hashs", "entryKey"));
+		System.out.println("删除指定的值"+shardedJedis.hdel("hashs", "entryKey"));
 		// 为key中的域 field 的值加上增量 increment
-		System.out.println(shardedJedis.hincrBy("hashs", "entryKey", 123l));
+		System.out.println("为key中的域 field 的值加上增量 increment"+shardedJedis.hincrBy("hashs", "entryKey", 123l));
 		// 获取所有的keys
-		System.out.println(shardedJedis.hkeys("hashs"));
+		System.out.println("获取所有的keys"+shardedJedis.hkeys("hashs"));
 		// 获取所有的values
-		System.out.println(shardedJedis.hvals("hashs"));
+		System.out.println("获取所有的values"+shardedJedis.hvals("hashs"));
 	}
 
 	/**

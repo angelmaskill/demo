@@ -1,4 +1,4 @@
-package com.netty.NettyStickyPacket.Client;
+package com.netty.NettyStickyPacket.LineBasedFrame.Client;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;

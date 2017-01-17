@@ -1,4 +1,4 @@
-package com.netty.NettyStickyPacket.Server;
+package com.netty.NettyStickyPacket.LineBasedFrame.Server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;

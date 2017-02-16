@@ -1,6 +1,7 @@
 package com.designpattern.DTDL.demo4;
 
 /**
+ * 
  * 真正执行任务的类，实现了代理接口。
  */
 public class RealSubject implements Subject {

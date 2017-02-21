@@ -17,6 +17,8 @@ public class HelloClient {
 			Bootstrap b = new Bootstrap();
 			b.group(workerGroup);
 			b.channel(NioSocketChannel.class);
+			//优化:设置连接的时候的超时时间.超过3秒就不再尝试建立连接.
+			b.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 3000);
 			b.option(ChannelOption.SO_KEEPALIVE, true);
 			b.handler(new ChannelInitializer<SocketChannel>() {
 				@Override

@@ -17,7 +17,12 @@ import io.netty.handler.codec.http.HttpResponseDecoder;
 import io.netty.handler.codec.http.HttpVersion;  
   
 import java.net.URI;  
-  
+
+/**
+ * 注意:编码解码的顺序
+ * @author mayanlu
+ *
+ */
 public class Client {  
     public void connect(String host, int port) throws Exception {  
         EventLoopGroup workerGroup = new NioEventLoopGroup();  
@@ -29,9 +34,9 @@ public class Client {
             b.option(ChannelOption.SO_KEEPALIVE, true);   
             b.handler(new ChannelInitializer<SocketChannel>() {  
                 @Override  
-                public void initChannel(SocketChannel ch) throws Exception {  
-                    ch.pipeline().addLast(new HttpResponseDecoder());  
-                    ch.pipeline().addLast(new HttpRequestEncoder());  
+                public void initChannel(SocketChannel ch) throws Exception {
+                	ch.pipeline().addLast(new HttpResponseDecoder());  
+                	ch.pipeline().addLast(new HttpRequestEncoder());  
                     ch.pipeline().addLast(new ClientInitHandler());  
                 }  
             });  

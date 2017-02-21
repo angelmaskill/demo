@@ -20,4 +20,11 @@ public class ClientInitHandler extends ChannelInboundHandlerAdapter {
         ctx.write(person);  
         ctx.flush();  
     }  
+    
+    @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+    	 Person person = (Person) msg;  
+         logger.info("BusinessHandler read msg from server :" + person); 
+    }
+    
 }  

@@ -1,13 +1,15 @@
 package com.netty.test5.cli;
 
-import io.netty.bootstrap.Bootstrap;  
-import io.netty.channel.ChannelFuture;  
-import io.netty.channel.ChannelInitializer;  
-import io.netty.channel.ChannelOption;  
-import io.netty.channel.EventLoopGroup;  
-import io.netty.channel.nio.NioEventLoopGroup;  
-import io.netty.channel.socket.SocketChannel;  
-import io.netty.channel.socket.nio.NioSocketChannel;  
+import com.netty.test5.ser.PersonDecoder;
+
+import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
   
 public class Client {  
     public void connect(String host, int port) throws Exception {  
@@ -20,8 +22,12 @@ public class Client {
             b.option(ChannelOption.SO_KEEPALIVE, true);   
             b.handler(new ChannelInitializer<SocketChannel>() {  
                 @Override  
-                public void initChannel(SocketChannel ch) throws Exception {  
-                    ch.pipeline().addLast(new PersonEncoder());  
+                public void initChannel(SocketChannel ch) throws Exception { 
+                	/**
+                	 * 注意:想获取从服务端过来的信息,必须添加解码器.
+                	 */
+                	ch.pipeline().addLast(new PersonDecoder());  
+                	ch.pipeline().addLast(new PersonEncoder());  
                     ch.pipeline().addLast(new ClientInitHandler());  
                 }  
             });  

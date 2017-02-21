@@ -16,7 +16,9 @@ public class BusinessHandler extends ChannelInboundHandlerAdapter {
     @Override  
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {  
         Person person = (Person) msg;  
-        logger.info("BusinessHandler read msg from client :" + person);  
+        logger.info("BusinessHandler read msg from client :" + person); 
+        // 给客户端回复消息
+        ctx.write(person);  
     }  
   
     @Override  

@@ -23,16 +23,21 @@ import java.net.URL;
 import junit.framework.TestCase;
 
 /**
- * Class description goes here.
+ * 获取类加载 器的相关信息.
  *
  * @author Administrator
  * @since 2015-8-3
  */
 public class ClassLoade extends TestCase {
+	public static void main(String[] args) throws Exception {
+		ClassLoade cl = new ClassLoade();
+		cl.testClassload();
+	}
+	
 	class HelloWorld {
 
 	}
-
+	
 	public void testClassLoad() throws Exception {
 		ClassLoader loader = HelloWorld.class.getClassLoader();
 		System.out.println(loader);
@@ -100,7 +105,7 @@ public class ClassLoade extends TestCase {
 		};
 		Object obj = null;
 		try {
-			obj = myLoder.loadClass("com.jvm.classloader.ClassLoade").newInstance();
+			obj = myLoder.loadClass("com.jvm.classloader.demo3.ClassLoade").newInstance();
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {

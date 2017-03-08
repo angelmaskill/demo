@@ -33,6 +33,7 @@ public class HowswapCL extends ClassLoader {
 		Class cls = null;
 		StringBuffer sb = new StringBuffer(basedir);
 		String classname = name.replace('.', File.separatorChar) + ".class";
+		System.out.println("classname==="+classname);
 		sb.append(File.separator + classname);
 		File classF = new File(sb.toString());
 		try {

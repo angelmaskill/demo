@@ -2,6 +2,27 @@
 * Launcher$ExtClassLoader的实现是遵循的双亲委派模型，它重写的是findClass方法,
 * Launcher$AppClassLoader的实现是没有遵循双亲委派模型的，它重写的是loadClass方法,
 
+# 重点
+* 首先需要说明一下 Java 虚拟机是如何判定两个 Java 类是相同的。Java 虚拟机不仅要看类的全名是否相同，还要看加载此类的类加载器是否一样。只有两者都相同的情况，才认为两个类是相同的。即便是同样的字节代码，被不同的类加载器加载之后所得到的类，也是不同的。
+
+# 类的加载
+如果要加载的类是在类路径下，这个方法的实现可能是这样的：
+
+
+>String filename = name.replace('.', '/')+".class";  
+  
+>InputStream is = getClass().getResourceAsStream(filename);  
+
+
+如果要加载的类不是在类路径下，那可能要通过获取文件流的方式进行加载了，加载的的实现可能是这样的了：
+
+
+>InputStream is = new FileInputStream(new File(name));  
+
+也有可能是通过网络获取的，只要能够获取得到就行。
+    
+    
+    
 
 # 重写findClass,先父后子,遵双亲规则
 * 重写findClass方法的自定义类，首先会通过父类加载器进行加载，如果所有父类加载器都无法加载，再通过用户自定义的findClass方法进行加载。如果父类加载器可以加载这个类或者当前类已经存在于某个父类的容器中了，这个类是不会再次被加载的，此时用户自定义的findClass方法就不会被执行了。

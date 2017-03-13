@@ -15,7 +15,7 @@
  **********************************************
  */
 
-package com.thread;
+package com.thread.testFuture;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;

@@ -15,7 +15,7 @@
  **********************************************
  */
 
-package com.thread;
+package com.thread.testJoin;
 
 /**
  * Class description goes here.

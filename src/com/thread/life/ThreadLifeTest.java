@@ -12,8 +12,10 @@ public class ThreadLifeTest {
 		a.start();
 		b.start();
 		try {
-			/*
-			 * a.join(); b.join(); System.out.println(a.getState());
+			/**
+			 * a.join(); 
+			 * b.join(); 
+			 * System.out.println(a.getState());
 			 */
 			while (true) {
 				if (a.getState().equals(State.TERMINATED)) {

@@ -1,4 +1,4 @@
-package com.thread;
+package com.thread.testJoin;
 
 /***
  * 测试:join用法

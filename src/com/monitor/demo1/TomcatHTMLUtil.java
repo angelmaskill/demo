@@ -18,8 +18,8 @@ public class TomcatHTMLUtil {
 		getTomcatWebAppData();// 获取项目列表
 //		reloadWebApp(appname);//重启项目
 //		stopWebApp(appname);//停止项目
-		startWebApp(appname);// 启动项目
-		getTomcatWebAppData();// 获取项目列表
+//		startWebApp(appname);// 启动项目
+//		getTomcatWebAppData();// 获取项目列表
 	}
 
 	private static String message(String operateURL) {

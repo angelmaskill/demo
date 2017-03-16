@@ -22,9 +22,9 @@ Tomcat 7.x的查询URL有变化：
 Tomcat激活JMX远程配置 
  
 ① 先修改Tomcat的启动脚本，window下tomcat的bin/catalina.bat（linux为catalina.sh），添加以下内 容，8999是jmxremote使用的端口号，第二个false表示不需要鉴权：
-Java代码  收藏代码
-set JMX_REMOTE_CONFIG=-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=8999 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false  
-set CATALINA_OPTS=%CATALINA_OPTS% %JMX_REMOTE_CONFIG%  
+
+	set JMX_REMOTE_CONFIG=-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=8999 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false  
+	set CATALINA_OPTS=%CATALINA_OPTS% %JMX_REMOTE_CONFIG%  
  
 可以加在if "%OS%" == "Windows_NT" setlocal 一句后的大段的注释后面。
 
@@ -32,9 +32,9 @@ set CATALINA_OPTS=%CATALINA_OPTS% %JMX_REMOTE_CONFIG%
 http://tomcat.apache.org/tomcat-6.0-doc/monitoring.html#Enabling_JMX_Remote 
 
 ② 上面的配置是不需要鉴权的，如果需要鉴权则添加的内容为：
-Java代码  收藏代码
-set JMX_REMOTE_CONFIG=-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=8999 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=true -Dcom.sun.management.jmxremote.password.file=../conf/jmxremote.password -Dcom.sun.management.jmxremote.access.file=../conf/jmxremote.access  
-set CATALINA_OPTS=%CATALINA_OPTS% %JMX_REMOTE_CONFIG%  
+
+	set JMX_REMOTE_CONFIG=-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=8999 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=true -Dcom.sun.management.jmxremote.password.file=../conf/jmxremote.password -Dcom.sun.management.jmxremote.access.file=../conf/jmxremote.access  
+	set CATALINA_OPTS=%CATALINA_OPTS% %JMX_REMOTE_CONFIG%  
  
 然后复制并修改授权文件，$JAVA_HOME/jre/lib/management下有 jmxremote.access和jmxremote.password的模板文件，将两个文件复制到$CATALINA_BASE/conf目录下
 

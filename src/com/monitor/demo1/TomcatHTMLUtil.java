@@ -11,17 +11,26 @@ import sun.misc.BASE64Encoder;
 
 public class TomcatHTMLUtil {
 
+	
 	public static void main(String[] args) {
 		String appname = "examples";
-//		message("http://localhost:8088/manager/jmxproxy?qry=*%3Atype%3DManager%2C*");//获取JMX Proxy Servlet
+		message("http://localhost:8088/manager/jmxproxy?qry=*%3Atype%3DManager%2C*");//获取JMX Proxy Servlet
+		System.out.println("-----------------------");
 		message("http://localhost:8088/manager/serverinfo");// 获取服务器信息
+		System.out.println("-----------------------");
 		getTomcatWebAppData();// 获取项目列表
+		System.out.println("-----------------------");
 //		reloadWebApp(appname);//重启项目
 //		stopWebApp(appname);//停止项目
 //		startWebApp(appname);// 启动项目
 //		getTomcatWebAppData();// 获取项目列表
 	}
 
+	/**
+	 * 采集服务器基本信息
+	 * @param operateURL
+	 * @return
+	 */
 	private static String message(String operateURL) {
 
 		StringBuffer dataResult = new StringBuffer();
@@ -54,6 +63,10 @@ public class TomcatHTMLUtil {
 		return dataResult.toString();
 	}
 
+	/**
+	 * 通过list命令查看Web应用列表和会话数信息
+	 * @return
+	 */
 	public static ArrayList<WebApp> getTomcatWebAppData() {
 
 		ArrayList<WebApp> webAppArrayList = new ArrayList<WebApp>();

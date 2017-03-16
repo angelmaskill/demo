@@ -1,20 +1,36 @@
 # 方案一、使用 Tomcat提供的manager应用进行数据采集 
-◆ 采集Web应用列表信息
 
-通过list命令查看Web应用列表和会话数信息
-     http://localhost:8080/manager/list
+## 设置
+* 第一步:修改/conf目录下的tomcat-users.xml文件，添加如下代码：
+	
+		<user username="admin" password="123456" roles="manager,manager-gui,admin,manager-status,manager-jmx,manager-script"/>
 
-Tomcat 7.x的查询URL有变化：
-     http://localhost:8080/manager/text/list
+* 第二步:[Eclipse中tomcat能正常启动，但是浏览器访问不了tomcat首页](http://www.cnblogs.com/zhangmingcheng/p/5577295.html)
+双击eclipse中服务器中的tomcat,然后Server Locations中选择如图，选择第二个选项,然后将Deploy path选择到tomcat目录中的webapps目录，然后保存，重启tomcat后，问题解决。
+
+
+## 收集
+
+* 采集Web应用列表信息
+
+>通过list命令查看Web应用列表和会话数信息
+
+		http://localhost:8080/manager/list
+
+>Tomcat 7.x的查询URL有变化：
+
+		http://localhost:8080/manager/text/list
      
      
-◆ 采集服务器基本信息
+* 采集服务器基本信息
 
-通过serverinfo命令查看服务器基本信息
-     http://localhost:8080/manager/serverinfo
+>通过serverinfo命令查看服务器基本信息
+     
+     	http://localhost:8080/manager/serverinfo
 
-Tomcat 7.x的查询URL有变化：
-     http://localhost:8080/manager/text/serverinfo    
+>Tomcat 7.x的查询URL有变化：
+     
+     	http://localhost:8080/manager/text/serverinfo    
      
      
 # 方案二、使用JMX 接口开发监控程序 

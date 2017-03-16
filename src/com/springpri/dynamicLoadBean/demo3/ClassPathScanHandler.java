@@ -199,7 +199,8 @@ public class ClassPathScanHandler {
 		Set<Class<?>> classSet = handler.getPackageAllClasses("com.springpri.dynamicLoadBean.demo3", true);
 		for (Iterator iterator = classSet.iterator(); iterator.hasNext();) {
 			Class clazz = (Class) iterator.next();
-			System.out.println(clazz.getName());
+//			System.out.println(clazz.getName());
+			System.out.println(clazz.getSimpleName());
 		}
 	}
 }

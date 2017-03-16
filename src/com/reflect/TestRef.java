@@ -67,7 +67,7 @@ public class TestRef extends TestCase{
         m1.invoke(foo);
         m2.invoke(foo, "重新设置msg信息！");
         String msg = (String) m3.invoke(foo);
-        System.out.println(msg);
+        System.out.println("return:"+msg);
     }
     
     /*

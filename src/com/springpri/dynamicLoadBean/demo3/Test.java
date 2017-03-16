@@ -38,12 +38,12 @@ public class Test {
 				"testDao",
 				BeanDefinitionBuilder
 						.genericBeanDefinition(Class.forName("com.springpri.dynamicLoadBean.demo3.TestDaoImpl"))
-						.setScope("prototype").getRawBeanDefinition());
+						.setScope("singleton").getRawBeanDefinition());
 		beanFactory.registerBeanDefinition(
 				"testService",
 				BeanDefinitionBuilder
 						.genericBeanDefinition(Class.forName("com.springpri.dynamicLoadBean.demo3.TestServiceImpl"))
-						.setScope("prototype").addPropertyReference("testDao", "testDao").getRawBeanDefinition());
+						.setScope("singleton").addPropertyReference("testDao", "testDao").getRawBeanDefinition());
 		TestService testService2 = (TestService) beanFactory.getBean("testService");
 		TestService testService3 = (TestService) beanFactory.getBean("testService");
 

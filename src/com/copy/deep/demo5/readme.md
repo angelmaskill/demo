@@ -1,0 +1,1 @@
+[Java bean对象之间复制属性](http://colobu.com/2014/08/11/Copy-properties-between-java-beans/)

@@ -31,7 +31,7 @@ public class ServerHandler extends CustomHeartbeatHandler {
 
 	@Override
 	protected void messageReceived(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
-		// TODO Auto-generated method stub
-		
+		System.out.print(msg);
+		ctx.channel().writeAndFlush(msg);
 	}
 }

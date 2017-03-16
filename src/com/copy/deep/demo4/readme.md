@@ -1,0 +1,1 @@
+[Java的一个高性能快速深拷贝方法](http://www.cnblogs.com/zc22/p/3484981.html)

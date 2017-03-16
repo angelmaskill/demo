@@ -18,41 +18,52 @@
 package com.jvm.classloader.demo3;
 
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.net.URL;
 
 import junit.framework.TestCase;
 
 /**
- * Class description goes here.
+ * 获取类加载 器的相关信息.
  *
  * @author Administrator
  * @since 2015-8-3
  */
 public class ClassLoade extends TestCase {
+	public static void main(String[] args) throws Exception {
+		ClassLoade cl = new ClassLoade();
+//		cl.testGetClassLoader();
+		cl.testClassLoad();
+	}
+	
 	class HelloWorld {
 
 	}
-
+	
 	public void testClassLoad() throws Exception {
 		ClassLoader loader = HelloWorld.class.getClassLoader();
 		System.out.println(loader);
 		// 使用ClassLoader.loadClass()来加载类，不会执行初始化块
-		// loader.loadClass("com.jvm.classloader.Test2");
+		// loader.loadClass("com.jvm.classloader.demo3.Test2");
 
 		// 使用Class.forName()来加载类，默认会执行初始化块
-		// Class.forName("com.jvm.classloader.Test2");
+//		 Class.forName("com.jvm.classloader.demo3.Test2");
 
 		// 使用Class.forName()来加载类，并指定ClassLoader，初始化时不执行静态块
-		// Class.forName("com.jvm.classloader.Test2", false, loader);
+		 Class.forName("com.jvm.classloader.demo3.Test2", false, loader);
 	}
 
 	public void testGetClassLoader() {
 		HelloWorld hello = new HelloWorld();
 		Class c = hello.getClass();
 		ClassLoader loader = c.getClassLoader();
-		System.out.println(loader);
-		System.out.println(loader.getParent());
-		System.out.println(loader.getParent().getParent());
+//		System.out.println(loader);
+//		System.out.println(loader.getParent());
+//		System.out.println(loader.getParent().getParent());
+		while (loader != null) { 
+            System.out.println(loader.toString()); 
+            loader = loader.getParent(); 
+        } 
 	}
 
 	public void testBootClassload() {
@@ -100,7 +111,7 @@ public class ClassLoade extends TestCase {
 		};
 		Object obj = null;
 		try {
-			obj = myLoder.loadClass("com.jvm.classloader.ClassLoade").newInstance();
+			obj = myLoder.loadClass("com.jvm.classloader.demo3.ClassLoade").newInstance();
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
@@ -114,4 +125,26 @@ public class ClassLoade extends TestCase {
 		System.out.println(obj instanceof com.jvm.classloader.demo3.ClassLoade);
 
 	}
+	
+	/**
+	 * 测试同一个类,被不同的类加载器加载,是否相同.
+	 */
+	 public void testClassIdentity() { 
+		    String classDataRootPath = "C:\\workspace\\Classloader\\classData"; 
+		    FileSystemClassLoader fscl1 = new FileSystemClassLoader(classDataRootPath); 
+		    FileSystemClassLoader fscl2 = new FileSystemClassLoader(classDataRootPath); 
+		    String className = "com.example.Sample"; 	
+		    try { 
+		        Class<?> class1 = fscl1.loadClass(className); 
+		        Object obj1 = class1.newInstance(); 
+		        Class<?> class2 = fscl2.loadClass(className); 
+		        Object obj2 = class2.newInstance(); 
+		        Method setSampleMethod = class1.getMethod("setSample", java.lang.Object.class); 
+		        setSampleMethod.invoke(obj1, obj2); 
+		    } catch (Exception e) { 
+		        e.printStackTrace(); 
+		    } 
+		 }
+	 
+	 
 }

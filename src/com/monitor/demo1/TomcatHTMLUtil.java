@@ -149,6 +149,7 @@ public class TomcatHTMLUtil {
 				System.out.println("app 状态: " + webApp.toString());
 				// 只要发现了异常,就退出.
 				if ("停止".equals(appStatus)) {
+					isOK = false;
 					break;
 				} else {
 					isOK = true;

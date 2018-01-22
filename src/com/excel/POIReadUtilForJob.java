@@ -1303,7 +1303,7 @@ class Money implements Serializable, Comparable {
 
 class YearSettleResultDTO implements Serializable {
 
-    private static final long serialVersionUID = 3840151536536488630L;
+    private static final long serialVersionUID = -5936469934430068682L;
     private String settleYear ;						//年结年份
     private Long bailOrderId;                       //合同id													--第2列
     private Long userId;                            //商家ID													--第3列

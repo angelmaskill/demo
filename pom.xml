@@ -16,14 +16,26 @@
   </properties>
     <dependencies>
 
-    	<!-- https://mvnrepository.com/artifact/net.sf.dozer/dozer -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.14</version>
+		</dependency>
+
+		<!-- ooxml -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.14</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/net.sf.dozer/dozer -->
 		<dependency>
 		    <groupId>net.sf.dozer</groupId>
 		    <artifactId>dozer</artifactId>
 		    <version>5.5.1</version>
 		</dependency>
-    
-    
+
     	<!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib -->
 		<dependency>
 		    <groupId>net.sf.json-lib</groupId>
@@ -232,7 +244,17 @@
             <artifactId>netty-all</artifactId>
             <version>${netty.version}</version>
         </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10-HBASE-1</version>
+		</dependency>
+	</dependencies>
     
   <build>
     <sourceDirectory>src</sourceDirectory>

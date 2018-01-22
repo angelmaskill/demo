@@ -293,11 +293,13 @@ public class POIReadUtilForJob {
             "C:\\Users\\yanlu.myl\\Desktop\\temp\\2018年第二批ka结算(3).xlsx");
         if (list != null) {
             for (int i = 1; i < list.size(); i++) {
-                System.out.print("第" + (i) + "行");
+                System.out.print("第" + (i) + "行\t\t");
                 List<String> cellList = list.get(i);
                 YearSettleResultDTO dto = new YearSettleResultDTO();
+                dto.setSettleYear("2017");
                 for (int j = 0; j < cellList.size(); j++) {
-                    System.out.println("    第" + (j + 1) + "列值：" + cellList.get(j));
+                    /* 打印读取表格中的数据 */
+                    //System.out.println("    第" + (j + 1) + "列值：" + cellList.get(j));
                     if ((j + 1) == 1) {
                     } else if ((j + 1) == 2) {
                         dto.setBailOrderId(Long.valueOf(cellList.get(j)));
@@ -339,13 +341,23 @@ public class POIReadUtilForJob {
                 }
                 dto.setRealTimeSoftWareFee(
                     dto.getCunTaoRealTimeSoftWareFee() + dto.getRealTimeTecFee());
-                System.out.println(JSON.toJSONString(dto));
+
+                /* 打印序列化之后的对象字符串 */
+                //System.out.println(JSON.toJSONString(dto));
+
+                /* 测试反序列化是否能成功 */
+                //YearSettleResultDTO yearSettleResultDTO = JSON.parseObject(JSON.toJSONString(dto),
+                //    YearSettleResultDTO.class);
+                //System.out.println(yearSettleResultDTO.toString());
+
+                /* 输出sql语句 */
                 StringBuffer sb = new StringBuffer();
                 sb.append(
                     "insert into hj_bail_ext(gmt_create,  gmt_modified,  bail_order_id,  user_id,"
                         + "  name,  code,  value,  version,  status) values(now(),now(),"
-                        + dto.getBailOrderId() + "," + dto.getUserId() + ",'年结结果','yearsettleresult','" + JSON
-                        .toJSONString(dto) + "',0,1)");
+                        + dto.getBailOrderId() + "," + dto.getUserId()
+                        + ",'年结结果','yearsettleresult','" + JSON
+                        .toJSONString(dto) + "',0,1);");
                 System.out.println(sb);
             }
         }
@@ -404,7 +416,7 @@ class Money implements Serializable, Comparable {
      * 此处，“分”是指货币的最小单位，“元”是货币的最常用单位，
      * 不同的币种有不同的元/分换算比例，如人民币是100，而日元为1。
      */
-    private static final int[] centFactors = new int[] { 1, 10, 100, 1000 };
+    private static final int[] centFactors = new int[] {1, 10, 100, 1000};
 
     /**
      * 默認的地區
@@ -413,7 +425,9 @@ class Money implements Serializable, Comparable {
     /**
      * 保存货币单位的map，用来显示货币单位，如元，美元等
      */
-    protected static Map<String, Map<String, String>> CURRENCY_DISPLAY_UNIT_MAP = new HashMap<String, Map<String, String>>();
+    protected static Map<String, Map<String, String>> CURRENCY_DISPLAY_UNIT_MAP
+        = new HashMap<String, Map<String, String>>();
+
     //进行初始化工作
     static {
         //簡體中文的對應錶
@@ -488,12 +502,12 @@ class Money implements Serializable, Comparable {
      * <p>
      * 创建一个具有金额<code>yuan</code>元<code>cent</code>分和指定币种的货币对象。
      *
-     * @param yuan 金额元数。
-     * @param cent 金额分数。
+     * @param yuan     金额元数。
+     * @param cent     金额分数。
      * @param currency
      */
     public Money(long yuan, int cent, Currency currency) {
-        this.currency     = currency;
+        this.currency = currency;
 
         this.cent = (yuan * getCentFactor()) + (cent % getCentFactor());
     }
@@ -516,7 +530,7 @@ class Money implements Serializable, Comparable {
      * <p>
      * 创建一个具有金额<code>amount</code>元和指定币种<code>currency</code>的货币对象。
      *
-     * @param amount 金额，以元为单位。
+     * @param amount   金额，以元为单位。
      * @param currency 币种。
      */
     public Money(String amount, Currency currency) {
@@ -530,8 +544,8 @@ class Money implements Serializable, Comparable {
      * 创建一个具有金额<code>amount</code>元和指定币种<code>currency</code>的货币对象。
      * 如果金额不能转换为整数分，则使用指定的取整模式<code>roundingMode</code>取整。
      *
-     * @param amount 金额，以元为单位。
-     * @param currency 币种。
+     * @param amount       金额，以元为单位。
+     * @param currency     币种。
      * @param roundingMode 取整模式。
      */
     public Money(String amount, Currency currency, int roundingMode) {
@@ -559,7 +573,6 @@ class Money implements Serializable, Comparable {
      * </code>
      *
      * @param amount 金额，以元为单位。
-     *
      */
     public Money(double amount) {
         this(amount, Currency.getInstance(DEFAULT_CURRENCY_CODE));
@@ -585,12 +598,12 @@ class Money implements Serializable, Comparable {
      * assertEquals(1001, money.getCent());
      * </code>
      *
-     * @param amount 金额，以元为单位。
+     * @param amount   金额，以元为单位。
      * @param currency 币种。
      */
     public Money(double amount, Currency currency) {
-        this.currency     = currency;
-        this.cent         = Math.round(amount * getCentFactor());
+        this.currency = currency;
+        this.cent = Math.round(amount * getCentFactor());
     }
 
     /**
@@ -613,9 +626,8 @@ class Money implements Serializable, Comparable {
      * 创建一个具有参数<code>amount</code>指定金额和缺省币种的货币对象。
      * 如果金额不能转换为整数分，则使用指定的取整模式<code>roundingMode</code>取整。
      *
-     * @param amount 金额，以元为单位。
+     * @param amount       金额，以元为单位。
      * @param roundingMode 取整模式
-     *
      */
     public Money(BigDecimal amount, int roundingMode) {
         this(amount, Currency.getInstance(DEFAULT_CURRENCY_CODE), roundingMode);
@@ -628,7 +640,7 @@ class Money implements Serializable, Comparable {
      * 创建一个具有金额<code>amount</code>和指定币种的货币对象。
      * 如果金额不能转换为整数分，则使用缺省的取整模式<code>DEFAULT_ROUNDING_MODE</code>进行取整。
      *
-     * @param amount 金额，以元为单位。
+     * @param amount   金额，以元为单位。
      * @param currency 币种
      */
     public Money(BigDecimal amount, Currency currency) {
@@ -642,13 +654,13 @@ class Money implements Serializable, Comparable {
      * 创建一个具有金额<code>amount</code>和指定币种的货币对象。
      * 如果金额不能转换为整数分，则使用指定的取整模式<code>roundingMode</code>取整。
      *
-     * @param amount 金额，以元为单位。
-     * @param currency 币种。
+     * @param amount       金额，以元为单位。
+     * @param currency     币种。
      * @param roundingMode 取整模式。
      */
     public Money(BigDecimal amount, Currency currency, int roundingMode) {
-        this.currency     = currency;
-        this.cent         = rounding(amount.movePointRight(currency.getDefaultFractionDigits()),
+        this.currency = currency;
+        this.cent = rounding(amount.movePointRight(currency.getDefaultFractionDigits()),
             roundingMode);
     }
 
@@ -718,19 +730,18 @@ class Money implements Serializable, Comparable {
      *
      * <p>
      * 本货币对象与另一对象相等的充分必要条件是：<br>
-     *  <ul>
-     *   <li>另一对象也属货币对象类。
-     *   <li>金额相同。
-     *   <li>币种相同。
-     *  </ul>
+     * <ul>
+     * <li>另一对象也属货币对象类。
+     * <li>金额相同。
+     * <li>币种相同。
+     * </ul>
      *
      * @param other 待比较的另一对象。
      * @return <code>true</code>表示相等，<code>false</code>表示不相等。
-     *
      * @see Object#equals(Object)
      */
     public boolean equals(Object other) {
-        return (other instanceof Money) && equals((Money) other);
+        return (other instanceof Money) && equals((Money)other);
     }
 
     /**
@@ -738,10 +749,10 @@ class Money implements Serializable, Comparable {
      *
      * <p>
      * 本货币对象与另一货币对象相等的充分必要条件是：<br>
-     *  <ul>
-     *   <li>金额相同。
-     *   <li>币种相同。
-     *  </ul>
+     * <ul>
+     * <li>金额相同。
+     * <li>币种相同。
+     * </ul>
      *
      * @param other 待比较的另一货币对象。
      * @return <code>true</code>表示相等，<code>false</code>表示不相等。
@@ -754,11 +765,10 @@ class Money implements Serializable, Comparable {
      * 计算本货币对象的杂凑值。
      *
      * @return 本货币对象的杂凑值。
-     *
      * @see Object#hashCode()
      */
     public int hashCode() {
-        return (int) (this.cent ^ (this.cent >>> 32));
+        return (int)(this.cent ^ (this.cent >>> 32));
     }
 
     // Comparable接口 ========================================
@@ -776,14 +786,12 @@ class Money implements Serializable, Comparable {
      *
      * @param other 另一对象。
      * @return -1表示小于，0表示等于，1表示大于。
-     *
-     * @exception ClassCastException 待比较货币对象不是<code>Money</code>。
-     *            IllegalArgumentException 待比较货币对象与本货币对象的币种不同。
-     *
+     * @throws ClassCastException 待比较货币对象不是<code>Money</code>。
+     * IllegalArgumentException 待比较货币对象与本货币对象的币种不同。
      * @see Comparable#compareTo(Object)
      */
     public int compareTo(Object other) {
-        return compareTo((Money) other);
+        return compareTo((Money)other);
     }
 
     /**
@@ -798,8 +806,7 @@ class Money implements Serializable, Comparable {
      *
      * @param other 另一对象。
      * @return -1表示小于，0表示等于，1表示大于。
-     *
-     * @exception IllegalArgumentException 待比较货币对象与本货币对象的币种不同。
+     * @throws IllegalArgumentException 待比较货币对象与本货币对象的币种不同。
      */
     public int compareTo(Money other) {
         assertSameCurrencyAs(other);
@@ -823,8 +830,7 @@ class Money implements Serializable, Comparable {
      *
      * @param other 另一对象。
      * @return true表示大于，false表示不大于（小于等于）。
-     *
-     * @exception IllegalArgumentException 待比较货币对象与本货币对象的币种不同。
+     * @throws IllegalArgumentException 待比较货币对象与本货币对象的币种不同。
      */
     public boolean greaterThan(Money other) {
         return compareTo(other) > 0;
@@ -841,10 +847,8 @@ class Money implements Serializable, Comparable {
      * 如果两货币对象币种不同，抛出<code>java.lang.IllegalArgumentException</code>。
      *
      * @param other 作为加数的货币对象。
-     *
-     * @exception IllegalArgumentException 如果本货币对象与另一货币对象币种不同。
-     *
      * @return 相加后的结果。
+     * @throws IllegalArgumentException 如果本货币对象与另一货币对象币种不同。
      */
     public Money add(Money other) {
         assertSameCurrencyAs(other);
@@ -860,10 +864,8 @@ class Money implements Serializable, Comparable {
      * 如果两货币对象币种不同，抛出<code>java.lang.IllegalArgumentException</code>。
      *
      * @param other 作为加数的货币对象。
-     *
-     * @exception IllegalArgumentException 如果本货币对象与另一货币对象币种不同。
-     *
      * @return 累加后的本货币对象。
+     * @throws IllegalArgumentException 如果本货币对象与另一货币对象币种不同。
      */
     public Money addTo(Money other) {
         assertSameCurrencyAs(other);
@@ -882,10 +884,8 @@ class Money implements Serializable, Comparable {
      * 如果两货币币种不同，抛出<code>java.lang.IllegalArgumentException</code>。
      *
      * @param other 作为减数的货币对象。
-     *
-     * @exception IllegalArgumentException 如果本货币对象与另一货币对象币种不同。
-     *
      * @return 相减后的结果。
+     * @throws IllegalArgumentException 如果本货币对象与另一货币对象币种不同。
      */
     public Money subtract(Money other) {
         assertSameCurrencyAs(other);
@@ -901,10 +901,8 @@ class Money implements Serializable, Comparable {
      * 如果两货币币种不同，抛出<code>java.lang.IllegalArgumentException</code>。
      *
      * @param other 作为减数的货币对象。
-     *
-     * @exception IllegalArgumentException 如果本货币对象与另一货币对象币种不同。
-     *
      * @return 累减后的本货币对象。
+     * @throws IllegalArgumentException 如果本货币对象与另一货币对象币种不同。
      */
     public Money subtractFrom(Money other) {
         assertSameCurrencyAs(other);
@@ -922,7 +920,6 @@ class Money implements Serializable, Comparable {
      * 本货币对象的值不变。
      *
      * @param val 乘数
-     *
      * @return 乘法后的结果。
      */
     public Money multiply(long val) {
@@ -936,7 +933,6 @@ class Money implements Serializable, Comparable {
      * 本货币对象金额乘以乘数，并返回本货币对象。
      *
      * @param val 乘数
-     *
      * @return 累乘后的本货币对象。
      */
     public Money multiplyBy(long val) {
@@ -953,7 +949,6 @@ class Money implements Serializable, Comparable {
      * 本货币对象的值不变。如果相乘后的金额不能转换为整数分，则四舍五入。
      *
      * @param val 乘数
-     *
      * @return 相乘后的结果。
      */
     public Money multiply(double val) {
@@ -968,7 +963,6 @@ class Money implements Serializable, Comparable {
      * 如果相乘后的金额不能转换为整数分，则使用四舍五入。
      *
      * @param val 乘数
-     *
      * @return 累乘后的本货币对象。
      */
     public Money multiplyBy(double val) {
@@ -986,7 +980,6 @@ class Money implements Serializable, Comparable {
      * <code>DEFUALT_ROUNDING_MODE</code>进行取整。
      *
      * @param val 乘数
-     *
      * @return 相乘后的结果。
      */
     public Money multiply(BigDecimal val) {
@@ -1002,7 +995,6 @@ class Money implements Serializable, Comparable {
      * <code>DEFUALT_ROUNDING_MODE</code>进行取整。
      *
      * @param val 乘数
-     *
      * @return 累乘后的结果。
      */
     public Money multiplyBy(BigDecimal val) {
@@ -1017,9 +1009,8 @@ class Money implements Serializable, Comparable {
      * 本货币对象的值不变。如果相乘后的金额不能转换为整数分，使用指定的取整方式
      * <code>roundingMode</code>进行取整。
      *
-     * @param val 乘数
+     * @param val          乘数
      * @param roundingMode 取整方式
-     *
      * @return 相乘后的结果。
      */
     public Money multiply(BigDecimal val, int roundingMode) {
@@ -1036,9 +1027,8 @@ class Money implements Serializable, Comparable {
      * 如果相乘后的金额不能转换为整数分，使用指定的取整方式
      * <code>roundingMode</code>进行取整。
      *
-     * @param val 乘数
+     * @param val          乘数
      * @param roundingMode 取整方式
-     *
      * @return 累乘后的结果。
      */
     public Money multiplyBy(BigDecimal val, int roundingMode) {
@@ -1057,7 +1047,6 @@ class Money implements Serializable, Comparable {
      * 本货币对象的值不变。如果相除后的金额不能转换为整数分，使用四舍五入方式取整。
      *
      * @param val 除数
-     *
      * @return 相除后的结果。
      */
     public Money divide(double val) {
@@ -1072,7 +1061,6 @@ class Money implements Serializable, Comparable {
      * 如果相除后的金额不能转换为整数分，使用四舍五入方式取整。
      *
      * @param val 除数
-     *
      * @return 累除后的结果。
      */
     public Money divideBy(double val) {
@@ -1090,7 +1078,6 @@ class Money implements Serializable, Comparable {
      * <code>DEFAULT_ROUNDING_MODE</code>进行取整。
      *
      * @param val 除数
-     *
      * @return 相除后的结果。
      */
     public Money divide(BigDecimal val) {
@@ -1105,9 +1092,8 @@ class Money implements Serializable, Comparable {
      * 本货币对象的值不变。如果相除后的金额不能转换为整数分，使用指定的取整模式
      * <code>roundingMode</code>进行取整。
      *
-     * @param val 除数
+     * @param val          除数
      * @param roundingMode 取整
-     *
      * @return 相除后的结果。
      */
     public Money divide(BigDecimal val, int roundingMode) {
@@ -1125,7 +1111,6 @@ class Money implements Serializable, Comparable {
      * <code>DEFAULT_ROUNDING_MODE</code>进行取整。
      *
      * @param val 除数
-     *
      * @return 累除后的结果。
      */
     public Money divideBy(BigDecimal val) {
@@ -1140,9 +1125,8 @@ class Money implements Serializable, Comparable {
      * 如果相除后的金额不能转换为整数分，使用指定的取整模式
      * <code>roundingMode</code>进行取整。
      *
-     * @param val 除数
+     * @param val          除数
      * @param roundingMode
-     *
      * @return 累除后的结果。
      */
     public Money divideBy(BigDecimal val, int roundingMode) {
@@ -1162,17 +1146,16 @@ class Money implements Serializable, Comparable {
      * 运算能够确保不会丢失金额零头。
      *
      * @param targets 待分配的份数
-     *
      * @return 货币对象数组，数组的长度与分配份数相同，数组元素
-     *         从大到小排列，所有货币对象的金额最多只相差1分。
+     * 从大到小排列，所有货币对象的金额最多只相差1分。
      */
     public Money[] allocate(int targets) {
         Money[] results = new Money[targets];
 
-        Money   lowResult  = newMoneyWithSameCurrency(this.cent / targets);
-        Money   highResult = newMoneyWithSameCurrency(lowResult.cent + 1);
+        Money lowResult = newMoneyWithSameCurrency(this.cent / targets);
+        Money highResult = newMoneyWithSameCurrency(lowResult.cent + 1);
 
-        int     remainder = (int) this.cent % targets;
+        int remainder = (int)this.cent % targets;
 
         for (int i = 0; i < remainder; i++) {
             results[i] = highResult;
@@ -1194,13 +1177,12 @@ class Money implements Serializable, Comparable {
      *
      * @param ratios 分配比例数组，每一个比例是一个长整型，代表
      *               相对于总数的相对数。
-     *
      * @return 货币对象数组，数组的长度与分配比例数组的长度相同。
      */
     public Money[] allocate(long[] ratios) {
         Money[] results = new Money[ratios.length];
 
-        long    total = 0;
+        long total = 0;
 
         for (int i = 0; i < ratios.length; i++) {
             total += ratios[i];
@@ -1224,6 +1206,7 @@ class Money implements Serializable, Comparable {
 
     /**
      * 生成本对象的缺省字符串表示
+     *
      * @return string
      */
     public String toString() {
@@ -1239,7 +1222,8 @@ class Money implements Serializable, Comparable {
         //        if (getCentFactor() != 1) {
         //            sb.append(".");
         //
-        //            String remainder = String.valueOf(getCentFactor() + Math.abs(cent % getCentFactor()));
+        //            String remainder = String.valueOf(getCentFactor() + Math.abs(cent %
+        // getCentFactor()));
         //
         //            sb.append(remainder.substring(1));
         //        }
@@ -1257,8 +1241,7 @@ class Money implements Serializable, Comparable {
      * 否则抛出运行时异常<code>java.lang.IllegalArgumentException</code>。
      *
      * @param other 另一货币对象
-     *
-     * @exception IllegalArgumentException 如果本货币对象与另一货币对象币种不同。
+     * @throws IllegalArgumentException 如果本货币对象与另一货币对象币种不同。
      */
     protected void assertSameCurrencyAs(Money other) {
         if (!this.currency.equals(other.currency)) {
@@ -1269,9 +1252,8 @@ class Money implements Serializable, Comparable {
     /**
      * 对BigDecimal型的值按指定取整方式取整。
      *
-     * @param val 待取整的BigDecimal值
+     * @param val          待取整的BigDecimal值
      * @param roundingMode 取整方式
-     *
      * @return 取整后的long型值
      */
     protected long rounding(BigDecimal val, int roundingMode) {
@@ -1282,7 +1264,6 @@ class Money implements Serializable, Comparable {
      * 创建一个币种相同，具有指定金额的货币对象。
      *
      * @param cent1 金额，以分为单位
-     *
      * @return 一个新建的币种相同，具有指定金额的货币对象
      */
     protected Money newMoneyWithSameCurrency(long cent1) {
@@ -1301,7 +1282,7 @@ class Money implements Serializable, Comparable {
      * @return 本对象内部变量的字符串表示。
      */
     public String dump() {
-        String       lineSeparator = System.getProperty("line.separator");
+        String lineSeparator = System.getProperty("line.separator");
 
         StringBuffer sb = new StringBuffer();
 
@@ -1311,7 +1292,6 @@ class Money implements Serializable, Comparable {
         return sb.toString();
     }
 
-
     /**
      * @param cent The cent to set.
      */
@@ -1319,34 +1299,32 @@ class Money implements Serializable, Comparable {
         this.cent = cent;
     }
 
-
 }
 
 class YearSettleResultDTO implements Serializable {
 
     private static final long serialVersionUID = 3840151536536488630L;
-    private String settleYear;						// 年结年份
-    private Long bailOrderId;                       //合同id
-    private Long userId;                            //商家ID
-    private Long prePaySoftWareFee            ;		//预缴软件服务年费--预缴年费
-    private Long baseFee                      ;		//参与保底的成交额--参与保底成交额（包含村淘）
-    private Long cunTaoBaseFee                ;		//村淘参与保底的成交额--村淘成交额
-    private Long realTimeTecFee;                    //实时划扣技术服务费（不包含村淘）
-    private Long realTimeSoftWareFee          ;		//实时划扣软件服务费--实时划扣技术服务费（不包含村淘）+实时划扣村淘服务费
-    private Long cunTaoRealTimeSoftWareFee    ;		//村淘实时划扣软件服务费--实时划扣村淘服务费
-    private Boolean isFinishBaseFee           ;	    //是否完成保底成交额--是否达到保底
-    private Long receiveSoftWareFee           ;		//应收软件服务费--应收佣金
-    private Long refundAmount                 ;		//应退款金额--应退金额
-    private Long hasRefundAmountTechFee       ;		//已退款金额（年费）--已退年费
-    private Long hasRefundAmountCommission    ;		//已退款金额（佣金）--已退佣金
-    private Date techFeeRefundTime;					//已退年费的退款时间
-    private Date commissionRefundTime         ; 	//已退佣金的退款时间
-    private Long backAmount                   ;		//应补缴金额  amount
-    private Long hasBackAmount                ;		//已补缴金额 amount - unpay_amount
-    private Long notBackAmount                ;		//未补缴金额 unpay_amount
-    private Long curOrderAmount               ;		//当前实时成交额 baseFee
-    private Long monthTotalCurOrderAmount     ;		//月汇总成交额 baseFee
-
+    private String settleYear ;						//年结年份
+    private Long bailOrderId;                       //合同id													--第2列
+    private Long userId;                            //商家ID													--第3列
+    private Long prePaySoftWareFee            ;		//预缴软件服务年费			--总预缴						    --第8列
+    private Long baseFee                      ;		//参与保底的成交额		    --参与保底成交额（包含村淘）	    --第10列
+    private Long cunTaoBaseFee                ;		//村淘参与保底的成交额	    --村淘成交额					    --第11列
+    private Long realTimeSoftWareFee          ;		//实时划扣软件服务费		--实时划扣技术服务费（不包含村淘）+实时划扣村淘服务费
+    private Long realTimeTecFee;                    //实时划扣技术服务费（不包含村淘）						    --第13列
+    private Long cunTaoRealTimeSoftWareFee    ;		//村淘实时划扣软件服务费	--实时划扣村淘服务费			    --第14列
+    private Boolean isFinishBaseFee           ;		//是否完成保底成交额		--是否达到保底				    --第12列
+    private Long receiveSoftWareFee           ;		//应收软件服务费			--应收佣金						--第15列
+    private Long refundAmount                 ;		//应退款金额				--应退金额						--第16列
+    private Long hasRefundAmountTechFee       ;		//已退款金额（年费）		--已退年费						--第17列
+    private Long hasRefundAmountCommission    ;		//已退款金额（佣金）		--已退佣金						--第19列
+    private Date techFeeRefundTime;					//已退年费的退款时间										--第18列
+    private Date commissionRefundTime; 				//已退佣金的退款时间										--第20列
+    private Long backAmount                   ;		//应补缴金额  			amount
+    private Long hasBackAmount                ;		//已补缴金额  			amount - unpay_amount
+    private Long notBackAmount                ;		//未补缴金额  			unpay_amount
+    private Long curOrderAmount               ;		//当前实时成交额 			baseFee
+    private Long monthTotalCurOrderAmount     ;		//月汇总成交额 			baseFee
 
     public String getSettleYear() {
         return settleYear;
@@ -1443,6 +1421,7 @@ class YearSettleResultDTO implements Serializable {
     public void setHasRefundAmountTechFee(Long hasRefundAmountTechFee) {
         this.hasRefundAmountTechFee = hasRefundAmountTechFee;
     }
+
     public Long getRealTimeTecFee() {
         return realTimeTecFee;
     }
@@ -1450,7 +1429,6 @@ class YearSettleResultDTO implements Serializable {
     public void setRealTimeTecFee(Long realTimeTecFee) {
         this.realTimeTecFee = realTimeTecFee;
     }
-
 
     public Long getHasRefundAmountCommission() {
         return hasRefundAmountCommission;
@@ -1514,5 +1492,32 @@ class YearSettleResultDTO implements Serializable {
 
     public void setMonthTotalCurOrderAmount(Long monthTotalCurOrderAmount) {
         this.monthTotalCurOrderAmount = monthTotalCurOrderAmount;
+    }
+
+    @Override
+    public String toString() {
+        return "YearSettleResultDTO{" +
+            "settleYear='" + settleYear + '\'' +
+            ", bailOrderId=" + bailOrderId +
+            ", userId=" + userId +
+            ", prePaySoftWareFee=" + prePaySoftWareFee +
+            ", baseFee=" + baseFee +
+            ", cunTaoBaseFee=" + cunTaoBaseFee +
+            ", realTimeSoftWareFee=" + realTimeSoftWareFee +
+            ", realTimeTecFee=" + realTimeTecFee +
+            ", cunTaoRealTimeSoftWareFee=" + cunTaoRealTimeSoftWareFee +
+            ", isFinishBaseFee=" + isFinishBaseFee +
+            ", receiveSoftWareFee=" + receiveSoftWareFee +
+            ", refundAmount=" + refundAmount +
+            ", hasRefundAmountTechFee=" + hasRefundAmountTechFee +
+            ", hasRefundAmountCommission=" + hasRefundAmountCommission +
+            ", techFeeRefundTime=" + techFeeRefundTime +
+            ", commissionRefundTime=" + commissionRefundTime +
+            ", backAmount=" + backAmount +
+            ", hasBackAmount=" + hasBackAmount +
+            ", notBackAmount=" + notBackAmount +
+            ", curOrderAmount=" + curOrderAmount +
+            ", monthTotalCurOrderAmount=" + monthTotalCurOrderAmount +
+            '}';
     }
 }

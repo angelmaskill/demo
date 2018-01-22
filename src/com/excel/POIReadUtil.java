@@ -25,103 +25,103 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class POIReadUtil {
     private DecimalFormat df = new DecimalFormat("0.00");
     /**
-     * æ€»è¡Œæ•°
+     * ×ÜĞĞÊı
      */
     private int totalRows = 0;
     /**
-     * æ€»åˆ—æ•°
+     * ×ÜÁĞÊı
      */
     private int totalCells = 0;
     /**
-     * é”™è¯¯ä¿¡æ¯
+     * ´íÎóĞÅÏ¢
      */
     private String errorInfo;
 
     /**
-     * æ„é€ æ–¹æ³•
+     * ¹¹Ôì·½·¨
      */
     public POIReadUtil() {
     }
 
     /**
-     * @æè¿°ï¼šå¾—åˆ°æ€»è¡Œæ•°
-     * @ä½œè€…ï¼šyanlu.myl
-     * @æ—¶é—´ï¼š2018/1/22 ä¸‹åˆ16:27:15
-     * @å‚æ•°ï¼š@return
-     * @è¿”å›å€¼ï¼šint
+     * @ÃèÊö£ºµÃµ½×ÜĞĞÊı
+     * @×÷Õß£ºyanlu.myl
+     * @Ê±¼ä£º2018/1/22 ÏÂÎç16:27:15
+     * @²ÎÊı£º@return
+     * @·µ»ØÖµ£ºint
      */
     public int getTotalRows() {
         return totalRows;
     }
 
     /**
-     * @æè¿°ï¼šå¾—åˆ°æ€»åˆ—æ•°
-     * @ä½œè€…ï¼šyanlu.myl
-     * @æ—¶é—´ï¼š2018/1/22 ä¸‹åˆ16:27:15
-     * @å‚æ•°ï¼š@return
-     * @è¿”å›å€¼ï¼šint
+     * @ÃèÊö£ºµÃµ½×ÜÁĞÊı
+     * @×÷Õß£ºyanlu.myl
+     * @Ê±¼ä£º2018/1/22 ÏÂÎç16:27:15
+     * @²ÎÊı£º@return
+     * @·µ»ØÖµ£ºint
      */
     public int getTotalCells() {
         return totalCells;
     }
 
     /**
-     * @æè¿°ï¼šå¾—åˆ°é”™è¯¯ä¿¡æ¯
-     * @ä½œè€…ï¼šyanlu.myl
-     * @æ—¶é—´ï¼š2018/1/22 ä¸‹åˆ16:27:15
-     * @å‚æ•°ï¼š@return
-     * @è¿”å›å€¼ï¼šString
+     * @ÃèÊö£ºµÃµ½´íÎóĞÅÏ¢
+     * @×÷Õß£ºyanlu.myl
+     * @Ê±¼ä£º2018/1/22 ÏÂÎç16:27:15
+     * @²ÎÊı£º@return
+     * @·µ»ØÖµ£ºString
      */
     public String getErrorInfo() {
         return errorInfo;
     }
 
     /**
-     * @æè¿°ï¼šéªŒè¯excelæ–‡ä»¶
-     * @ä½œè€…ï¼šyanlu.myl
-     * @æ—¶é—´ï¼š2018/1/22 ä¸‹åˆ16:27:15
-     * @å‚æ•°ï¼š@param filePathã€€æ–‡ä»¶å®Œæ•´è·¯å¾„
-     * @å‚æ•°ï¼š@return
-     * @è¿”å›å€¼ï¼šboolean
+     * @ÃèÊö£ºÑéÖ¤excelÎÄ¼ş
+     * @×÷Õß£ºyanlu.myl
+     * @Ê±¼ä£º2018/1/22 ÏÂÎç16:27:15
+     * @²ÎÊı£º@param filePath¡¡ÎÄ¼şÍêÕûÂ·¾¶
+     * @²ÎÊı£º@return
+     * @·µ»ØÖµ£ºboolean
      */
     public boolean validateExcel(String filePath) {
-        /** æ£€æŸ¥æ–‡ä»¶åæ˜¯å¦ä¸ºç©ºæˆ–è€…æ˜¯å¦æ˜¯Excelæ ¼å¼çš„æ–‡ä»¶ */
+        /** ¼ì²éÎÄ¼şÃûÊÇ·ñÎª¿Õ»òÕßÊÇ·ñÊÇExcel¸ñÊ½µÄÎÄ¼ş */
         if (filePath == null || !(WDWUtil.isExcel2003(filePath) || WDWUtil.isExcel2007(filePath))) {
-            errorInfo = "æ–‡ä»¶åä¸æ˜¯excelæ ¼å¼";
+            errorInfo = "ÎÄ¼şÃû²»ÊÇexcel¸ñÊ½";
             return false;
         }
-        /** æ£€æŸ¥æ–‡ä»¶æ˜¯å¦å­˜åœ¨ */
+        /** ¼ì²éÎÄ¼şÊÇ·ñ´æÔÚ */
         File file = new File(filePath);
         if (file == null || !file.exists()) {
-            errorInfo = "æ–‡ä»¶ä¸å­˜åœ¨";
+            errorInfo = "ÎÄ¼ş²»´æÔÚ";
             return false;
         }
         return true;
     }
 
     /**
-     * @æè¿°ï¼šæ ¹æ®æ–‡ä»¶åè¯»å–excelæ–‡ä»¶
-     * @ä½œè€…ï¼šyanlu.myl
-     * @æ—¶é—´ï¼š2018/1/22 ä¸‹åˆ16:27:15
-     * @å‚æ•°ï¼š@param filePath æ–‡ä»¶å®Œæ•´è·¯å¾„
-     * @å‚æ•°ï¼š@return
-     * @è¿”å›å€¼ï¼šList
+     * @ÃèÊö£º¸ù¾İÎÄ¼şÃû¶ÁÈ¡excelÎÄ¼ş
+     * @×÷Õß£ºyanlu.myl
+     * @Ê±¼ä£º2018/1/22 ÏÂÎç16:27:15
+     * @²ÎÊı£º@param filePath ÎÄ¼şÍêÕûÂ·¾¶
+     * @²ÎÊı£º@return
+     * @·µ»ØÖµ£ºList
      */
     public List<List<String>> read(String filePath) {
         List<List<String>> dataLst = new ArrayList<List<String>>();
         InputStream is = null;
         try {
-            /** éªŒè¯æ–‡ä»¶æ˜¯å¦åˆæ³• */
+            /** ÑéÖ¤ÎÄ¼şÊÇ·ñºÏ·¨ */
             if (!validateExcel(filePath)) {
                 System.out.println(errorInfo);
                 return null;
             }
-            /** åˆ¤æ–­æ–‡ä»¶çš„ç±»å‹ï¼Œæ˜¯2003è¿˜æ˜¯2007 */
+            /** ÅĞ¶ÏÎÄ¼şµÄÀàĞÍ£¬ÊÇ2003»¹ÊÇ2007 */
             boolean isExcel2003 = true;
             if (WDWUtil.isExcel2007(filePath)) {
                 isExcel2003 = false;
             }
-            /** è°ƒç”¨æœ¬ç±»æä¾›çš„æ ¹æ®æµè¯»å–çš„æ–¹æ³• */
+            /** µ÷ÓÃ±¾ÀàÌá¹©µÄ¸ù¾İÁ÷¶ÁÈ¡µÄ·½·¨ */
             File file = new File(filePath);
             is = new FileInputStream(file);
             dataLst = read(is, isExcel2003);
@@ -138,23 +138,23 @@ public class POIReadUtil {
                 }
             }
         }
-        /** è¿”å›æœ€åè¯»å–çš„ç»“æœ */
+        /** ·µ»Ø×îºó¶ÁÈ¡µÄ½á¹û */
         return dataLst;
     }
 
     /**
-     * @æè¿°ï¼šæ ¹æ®æµè¯»å–Excelæ–‡ä»¶
-     * @ä½œè€…ï¼šyanlu.myl
-     * @æ—¶é—´ï¼š2018/1/22 ä¸‹åˆ16:40:15
-     * @å‚æ•°ï¼š@param inputStream
-     * @å‚æ•°ï¼š@param isExcel2003
-     * @å‚æ•°ï¼š@return
-     * @è¿”å›å€¼ï¼šList
+     * @ÃèÊö£º¸ù¾İÁ÷¶ÁÈ¡ExcelÎÄ¼ş
+     * @×÷Õß£ºyanlu.myl
+     * @Ê±¼ä£º2018/1/22 ÏÂÎç16:40:15
+     * @²ÎÊı£º@param inputStream
+     * @²ÎÊı£º@param isExcel2003
+     * @²ÎÊı£º@return
+     * @·µ»ØÖµ£ºList
      */
     public List<List<String>> read(InputStream inputStream, boolean isExcel2003) {
         List<List<String>> dataLst = null;
         try {
-            /** æ ¹æ®ç‰ˆæœ¬é€‰æ‹©åˆ›å»ºWorkbookçš„æ–¹å¼ */
+            /** ¸ù¾İ°æ±¾Ñ¡Ôñ´´½¨WorkbookµÄ·½Ê½ */
             Workbook wb = null;
             if (isExcel2003) {
                 wb = new HSSFWorkbook(inputStream);
@@ -169,88 +169,88 @@ public class POIReadUtil {
     }
 
     /**
-     * @æè¿°ï¼šè¯»å–æ•°æ®
-     * @ä½œè€…ï¼šyanlu.myl
-     * @æ—¶é—´ï¼š2018/1/22 ä¸‹åˆ16:50:15
-     * @å‚æ•°ï¼š@param Workbook
-     * @å‚æ•°ï¼š@return
-     * @è¿”å›å€¼ï¼šList<List<String>>
+     * @ÃèÊö£º¶ÁÈ¡Êı¾İ
+     * @×÷Õß£ºyanlu.myl
+     * @Ê±¼ä£º2018/1/22 ÏÂÎç16:50:15
+     * @²ÎÊı£º@param Workbook
+     * @²ÎÊı£º@return
+     * @·µ»ØÖµ£ºList<List<String>>
      */
     private List<List<String>> read(Workbook wb) {
         List<List<String>> dataLst = new ArrayList<List<String>>();
-        /** å¾—åˆ°ç¬¬ä¸€ä¸ªshell */
+        /** µÃµ½µÚÒ»¸öshell */
         Sheet sheet = wb.getSheetAt(0);
-        /** å¾—åˆ°Excelçš„è¡Œæ•° */
+        /** µÃµ½ExcelµÄĞĞÊı */
         this.totalRows = sheet.getPhysicalNumberOfRows();
-        /** å¾—åˆ°Excelçš„åˆ—æ•° */
+        /** µÃµ½ExcelµÄÁĞÊı */
         if (this.totalRows >= 1 && sheet.getRow(0) != null) {
             this.totalCells = sheet.getRow(0).getPhysicalNumberOfCells();
         }
-        /** å¾ªç¯Excelçš„è¡Œ */
+        /** Ñ­»·ExcelµÄĞĞ */
         for (int r = 0; r < this.totalRows; r++) {
             Row row = sheet.getRow(r);
             if (row == null) {
                 continue;
             }
             List<String> rowLst = new ArrayList<String>();
-            /** å¾ªç¯Excelçš„åˆ— */
+            /** Ñ­»·ExcelµÄÁĞ */
             for (int c = 0; c < this.getTotalCells(); c++) {
                 Cell cell = row.getCell(c);
                 String cellValue = "";
                 if (null != cell) {
-                    // ä»¥ä¸‹æ˜¯åˆ¤æ–­æ•°æ®çš„ç±»å‹
+                    // ÒÔÏÂÊÇÅĞ¶ÏÊı¾İµÄÀàĞÍ
                     switch (cell.getCellType()) {
-                        case HSSFCell.CELL_TYPE_NUMERIC: // æ•°å­—
+                        case HSSFCell.CELL_TYPE_NUMERIC: // Êı×Ö
                             //cellValue = cell.getNumericCellValue() + "";
                             cellValue = df.format(cell.getNumericCellValue());
                             //cellValue = String.format("%.4f",cell.getNumericCellValue());
                             break;
-                        case HSSFCell.CELL_TYPE_STRING: // å­—ç¬¦ä¸²
+                        case HSSFCell.CELL_TYPE_STRING: // ×Ö·û´®
                             cellValue = cell.getStringCellValue();
                             break;
                         case HSSFCell.CELL_TYPE_BOOLEAN: // Boolean
                             cellValue = cell.getBooleanCellValue() + "";
                             break;
-                        case HSSFCell.CELL_TYPE_FORMULA: // å…¬å¼
+                        case HSSFCell.CELL_TYPE_FORMULA: // ¹«Ê½
                             cellValue = cell.getCellFormula() + "";
                             break;
-                        case HSSFCell.CELL_TYPE_BLANK: // ç©ºå€¼
+                        case HSSFCell.CELL_TYPE_BLANK: // ¿ÕÖµ
                             cellValue = "";
                             break;
-                        case HSSFCell.CELL_TYPE_ERROR: // æ•…éšœ
-                            cellValue = "éæ³•å­—ç¬¦";
+                        case HSSFCell.CELL_TYPE_ERROR: // ¹ÊÕÏ
+                            cellValue = "·Ç·¨×Ö·û";
                             break;
                         default:
-                            cellValue = "æœªçŸ¥ç±»å‹";
+                            cellValue = "Î´ÖªÀàĞÍ";
                             break;
                     }
                 }
                 rowLst.add(cellValue);
             }
-            /** ä¿å­˜ç¬¬rè¡Œçš„ç¬¬cåˆ— */
+            /** ±£´æµÚrĞĞµÄµÚcÁĞ */
             dataLst.add(rowLst);
         }
         return dataLst;
     }
 
     /**
-     * @æè¿°ï¼šmainæµ‹è¯•æ–¹æ³•
-     * @ä½œè€…ï¼šyanlu.myl
-     * @æ—¶é—´ï¼š2018/1/22 ä¸‹åˆ17:12:15
-     * @å‚æ•°ï¼š@param args
-     * @å‚æ•°ï¼š@throws Exception
-     * @è¿”å›å€¼ï¼švoid
+     * @ÃèÊö£ºmain²âÊÔ·½·¨
+     * @×÷Õß£ºyanlu.myl
+     * @Ê±¼ä£º2018/1/22 ÏÂÎç17:12:15
+     * @²ÎÊı£º@param args
+     * @²ÎÊı£º@throws Exception
+     * @·µ»ØÖµ£ºvoid
      */
     public static void main(String[] args) throws Exception {
         POIReadUtil poi = new POIReadUtil();
         List<List<String>> list = poi.read(
-            "C:\\Users\\yanlu.myl\\Desktop\\temp\\2018å¹´ç¬¬äºŒæ‰¹kaç»“ç®—(3).xlsx");
+            "C:\\Users\\yanlu.myl\\Desktop\\temp\\2018ÄêµÚ¶şÅúka½áËã(3).xlsx");
         if (list != null) {
             for (int i = 0; i < list.size(); i++) {
-                System.out.print("ç¬¬" + (i) + "è¡Œ");
+                System.out.print("µÚ" + (i) + "ĞĞ");
                 List<String> cellList = list.get(i);
                 for (int j = 0; j < cellList.size(); j++) {
-                    System.out.print("    ç¬¬" + (j + 1) + "åˆ—å€¼ï¼š" + cellList.get(j));
+                    System.out.print("    µÚ" + (j + 1) + "ÁĞÖµ£º" + cellList.get(j));
                 }
                 System.out.println();
             }
@@ -259,30 +259,30 @@ public class POIReadUtil {
 }
 
 /**
- * @æè¿°ï¼šå·¥å…·ç±»
- * @ä½œè€…ï¼šyanlu.myl
- * @æ—¶é—´ï¼š2018/1/22 ä¸‹åˆ16:30:40
+ * @ÃèÊö£º¹¤¾ßÀà
+ * @×÷Õß£ºyanlu.myl
+ * @Ê±¼ä£º2018/1/22 ÏÂÎç16:30:40
  */
 class WDWUtil {
     /**
-     * @æè¿°ï¼šæ˜¯å¦æ˜¯2003çš„excelï¼Œè¿”å›trueæ˜¯2003
-     * @ä½œè€…ï¼šyanlu.myl
-     * @æ—¶é—´ï¼š2018/1/22 ä¸‹åˆ16:29:11
-     * @å‚æ•°ï¼š@param filePathã€€æ–‡ä»¶å®Œæ•´è·¯å¾„
-     * @å‚æ•°ï¼š@return
-     * @è¿”å›å€¼ï¼šboolean
+     * @ÃèÊö£ºÊÇ·ñÊÇ2003µÄexcel£¬·µ»ØtrueÊÇ2003
+     * @×÷Õß£ºyanlu.myl
+     * @Ê±¼ä£º2018/1/22 ÏÂÎç16:29:11
+     * @²ÎÊı£º@param filePath¡¡ÎÄ¼şÍêÕûÂ·¾¶
+     * @²ÎÊı£º@return
+     * @·µ»ØÖµ£ºboolean
      */
     public static boolean isExcel2003(String filePath) {
         return filePath.matches("^.+\\.(?i)(xls)$");
     }
 
     /**
-     * @æè¿°ï¼šæ˜¯å¦æ˜¯2007çš„excelï¼Œè¿”å›trueæ˜¯2007
-     * @ä½œè€…ï¼šyanlu.myl
-     * @æ—¶é—´ï¼š2018/1/22 ä¸‹åˆ16:28:20
-     * @å‚æ•°ï¼š@param filePathã€€æ–‡ä»¶å®Œæ•´è·¯å¾„
-     * @å‚æ•°ï¼š@return
-     * @è¿”å›å€¼ï¼šboolean
+     * @ÃèÊö£ºÊÇ·ñÊÇ2007µÄexcel£¬·µ»ØtrueÊÇ2007
+     * @×÷Õß£ºyanlu.myl
+     * @Ê±¼ä£º2018/1/22 ÏÂÎç16:28:20
+     * @²ÎÊı£º@param filePath¡¡ÎÄ¼şÍêÕûÂ·¾¶
+     * @²ÎÊı£º@return
+     * @·µ»ØÖµ£ºboolean
      */
     public static boolean isExcel2007(String filePath) {
         return filePath.matches("^.+\\.(?i)(xlsx)$");

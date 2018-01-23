@@ -337,6 +337,7 @@ public class POIReadUtilForJob {
                     } else if ((j + 1) == 20) {
                         dto.setCommissionRefundTime(getDate(cellList.get(j)));
                     } else if ((j + 1) == 21) {
+                        dto.setBackAmount(changY2f(cellList.get(j)));
                     }
                 }
                 dto.setRealTimeSoftWareFee(

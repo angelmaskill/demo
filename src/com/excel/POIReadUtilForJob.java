@@ -290,10 +290,11 @@ public class POIReadUtilForJob {
     public static void main(String[] args) throws Exception {
         POIReadUtilForJob poi = new POIReadUtilForJob();
         List<List<String>> list = poi.read(
-            "C:\\Users\\yanlu.myl\\Desktop\\temp\\2018年第二批ka结算(3).xlsx");
+            //"C:\\Users\\yanlu.myl\\Desktop\\temp\\2018年第二批ka结算(3).xlsx");
+            "C:\\Users\\yanlu.myl\\Desktop\\temp\\2018年第二批ka结算(check).xlsx");
         if (list != null) {
             for (int i = 1; i < list.size(); i++) {
-                System.out.print("第" + (i) + "行\t\t");
+                //System.out.print("第" + (i) + "行\t\t");
                 List<String> cellList = list.get(i);
                 YearSettleResultDTO dto = new YearSettleResultDTO();
                 dto.setSettleYear("2017");
@@ -353,12 +354,15 @@ public class POIReadUtilForJob {
 
                 /* 输出sql语句 */
                 StringBuffer sb = new StringBuffer();
-                sb.append(
+                /*sb.append(
                     "insert into hj_bail_ext(gmt_create,  gmt_modified,  bail_order_id,  user_id,"
                         + "  name,  code,  value,  version,  status) values(now(),now(),"
                         + dto.getBailOrderId() + "," + dto.getUserId()
                         + ",'年结结果','yearsettleresult','" + JSON
-                        .toJSONString(dto) + "',0,1);");
+                        .toJSONString(dto) + "',0,1);");*/
+                sb.append("update hj_bail_ext set gmt_modified = now(), version=1 , value='" + JSON
+                    .toJSONString(dto) + "' where bail_order_id=" + dto.getBailOrderId()
+                    + " and code='yearsettleresult';");
                 System.out.println(sb);
             }
         }

@@ -95,13 +95,23 @@ public class EmployeeServiceTest_3 {
     }
 
     /**
-     * mock静态方法的返回值.
-     * 说明： 当需要mock final方法的时候，必须加注解@PrepareForTest和@RunWith。
-     * 注解@PrepareForTest里写的类是final方法所在的类。
+     * mock普通对象的静态方法的返回值.
+     * 说明： 当需要mock 静态方法的时候，必须加注解@PrepareForTest和@RunWith。
+     * 注解@PrepareForTest里写的类是静态方法所在的类。
      */
     @Test
     @PrepareForTest(Employee.class)
     public void testCallFinalMethod() {
+        EmployeeService underTest = new EmployeeService();
+        PowerMockito.mockStatic(Employee.class);
+        PowerMockito.when(Employee.isExist()).thenReturn(true);
+        Assert.assertTrue(underTest.callStaticMethod());
+
+    }
+
+    @Test
+    @PrepareForTest(Employee.class)
+    public void testCallStaticMethod() {
 
         final Employee employeeMock = PowerMockito.mock(Employee.class);
         EmployeeService underTest = new EmployeeService();
@@ -153,6 +163,12 @@ class Employee {
     public final boolean isAlive() {
         // do something
         return false;
+    }
+
+    public static boolean isExist() {
+        // do something
+        return false;
+
     }
 }
 
@@ -211,6 +227,10 @@ class EmployeeService {
 
     public boolean callFinalMethod(Employee employeeMock) {
         return employeeMock.isAlive();
+    }
+
+    public boolean callStaticMethod() {
+        return Employee.isExist();
     }
 }
 

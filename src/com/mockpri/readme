@@ -1,5 +1,21 @@
-Java单元测试之模拟利器（1）：Powermock介绍
-http://www.importnew.com/24288.html
+参考资料:
+    Java单元测试之模拟利器（1）：Powermock介绍
+    http://www.importnew.com/24288.html
 
-Java单元测试之模拟利器（2）：Powermock在Spring测试的应用
-http://www.importnew.com/24294.html
+    Java单元测试之模拟利器（2）：Powermock在Spring测试的应用
+    http://www.importnew.com/24294.html
+
+    PowerMock介绍
+    https://my.oschina.net/jackieyeah/blog/157076
+
+
+无所不能的PowerMock
+    (1) 验证静态方法：
+    PowerMockito.verifyStatic();
+    Static.firstStaticMethod(param);
+
+    (2) 扩展验证:
+    PowerMockito.verifyStatic(Mockito.times(2)); //  被调用2次                                Static.thirdStaticMethod(Mockito.anyInt()); // 以任何整数值被调用
+
+    (3) 更多的Mock方法
+    http://code.google.com/p/powermock/wiki/MockitoUsage13

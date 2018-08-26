@@ -101,7 +101,7 @@ public class EmployeeServiceTest_3 {
      */
     @Test
     @PrepareForTest(Employee.class)
-    public void testCallFinalMethod() {
+    public void testCallStaticMethod() {
         EmployeeService underTest = new EmployeeService();
         PowerMockito.mockStatic(Employee.class);
         PowerMockito.when(Employee.isExist()).thenReturn(true);
@@ -111,14 +111,42 @@ public class EmployeeServiceTest_3 {
 
     @Test
     @PrepareForTest(Employee.class)
-    public void testCallStaticMethod() {
+    public void testCallFinalMethod() {
 
         final Employee employeeMock = PowerMockito.mock(Employee.class);
         EmployeeService underTest = new EmployeeService();
-
         PowerMockito.when(employeeMock.isAlive()).thenReturn(true);
-
         Assert.assertTrue(underTest.callFinalMethod(employeeMock));
+
+    }
+
+    /**
+     * mock 私有方法.
+     * 说明：和Mock普通方法一样，只是需要加注解@PrepareForTest(ClassUnderTest.class)，注解里写的类是私有方法所在的类。
+     * @throws Exception
+     */
+    @Test
+    @PrepareForTest(EmployeeService.class)
+    public void testCallPrivateMethod() throws Exception {
+        EmployeeService underTest = PowerMockito.mock(EmployeeService.class);
+        PowerMockito.when(underTest.callPrivateMethod()).thenCallRealMethod();
+        PowerMockito.when(underTest, "isExist").thenReturn(true);
+        Assert.assertTrue(underTest.callPrivateMethod());
+
+    }
+
+    /**
+     * Mock系统类的静态和final方法
+     * 注解里写的类是需要调用系统方法所在的类。
+     */
+    @Test
+    @PrepareForTest(EmployeeService.class)
+    public void testCallSystemStaticMethod() {
+
+        EmployeeService underTest = new EmployeeService();
+        PowerMockito.mockStatic(System.class);
+        PowerMockito.when(System.getProperty("aaa")).thenReturn("bbb");
+        Assert.assertEquals("bbb", underTest.callSystemFinalMethod("aaa"));
 
     }
 
@@ -231,6 +259,22 @@ class EmployeeService {
 
     public boolean callStaticMethod() {
         return Employee.isExist();
+    }
+
+    public boolean callPrivateMethod() {
+        return isExist();
+    }
+
+    private boolean isExist() {
+        return false;
+    }
+
+    public boolean callSystemFinalMethod(String str) {
+        return str.isEmpty();
+    }
+
+    public String  callSystemStaticMethod(String str) {
+        return System.getProperty(str);
     }
 }
 

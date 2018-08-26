@@ -20,7 +20,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({EmployeeIdGenerator.class, EmployeeService.class})
 public class EmployeeServiceTest_3 {
-   public boolean callInternalInstance(String path) {
+    public boolean callInternalInstance(String path) {
         File file = new File(path);
         return file.exists();
     }
@@ -94,6 +94,25 @@ public class EmployeeServiceTest_3 {
         Assert.assertTrue(underTest.callInternalInstance("bbb"));
     }
 
+    /**
+     * mock静态方法的返回值.
+     * 说明： 当需要mock final方法的时候，必须加注解@PrepareForTest和@RunWith。
+     * 注解@PrepareForTest里写的类是final方法所在的类。
+     */
+    @Test
+    @PrepareForTest(Employee.class)
+    public void testCallFinalMethod() {
+
+        final Employee employeeMock = PowerMockito.mock(Employee.class);
+        EmployeeService underTest = new EmployeeService();
+
+        PowerMockito.when(employeeMock.isAlive()).thenReturn(true);
+
+        Assert.assertTrue(underTest.callFinalMethod(employeeMock));
+
+    }
+
+
     @Test
     public void shouldInvokeTheCreateEmployeeMethodWhileSavingANewEmployee_2() throws Exception {
 
@@ -129,6 +148,11 @@ class Employee {
 
     public void setEmployeeId(int nextId) {
         throw new UnsupportedOperationException();
+    }
+
+    public final boolean isAlive() {
+        // do something
+        return false;
     }
 }
 
@@ -183,6 +207,10 @@ class EmployeeService {
         WelcomeEmail emailSender = new WelcomeEmail(employee,
                 "Welcome to Mocking with PowerMock How-to!");
         emailSender.send();
+    }
+
+    public boolean callFinalMethod(Employee employeeMock) {
+        return employeeMock.isAlive();
     }
 }
 

@@ -7,6 +7,9 @@ package com.mockpri.demo3;
  * @Modified By:
  */
 
+import java.io.File;
+
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -17,6 +20,12 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({EmployeeIdGenerator.class, EmployeeService.class})
 public class EmployeeServiceTest_3 {
+   public boolean callInternalInstance(String path) {
+        File file = new File(path);
+        return file.exists();
+    }
+
+
     @Test
     public void shouldGenerateEmployeeIdIfEmployeeIsNew() {
 
@@ -66,6 +75,23 @@ public class EmployeeServiceTest_3 {
         PowerMockito.doNothing().when(spy).createEmployee(employeeMock);
         spy.saveEmployee_3(employeeMock);
         Mockito.verify(spy).createEmployee(employeeMock);
+    }
+
+    /**
+     * PowerMockito.whenNew方法时，必须加注解@PrepareForTest和@RunWith
+     * 注解@PrepareForTest里写的类是需要mock的new对象代码所在的类。
+     * @throws Exception
+     */
+    @Test
+    @PrepareForTest(EmployeeServiceTest_3.class)
+    public void testCallInternalInstance() throws Exception {
+        File file = PowerMockito.mock(File.class);
+        EmployeeServiceTest_3 underTest = new EmployeeServiceTest_3();
+        // 当遇到初始化file的时候,就传递参数bbb,返回file对象.
+        PowerMockito.whenNew(File.class).withArguments("bbb").thenReturn(file);
+        // 当遇到file 的exists 方法调用的时候,直接返回true
+        PowerMockito.when(file.exists()).thenReturn(true);
+        Assert.assertTrue(underTest.callInternalInstance("bbb"));
     }
 
     @Test

@@ -1,12 +1,17 @@
 package com.mockpri.demo1;
 
-import static org.junit.Assert.*;
+import java.io.File;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.powermock.api.mockito.PowerMockito;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 
 /**
  * @Author: yanlu.myl
@@ -16,6 +21,10 @@ import org.powermock.api.mockito.PowerMockito;
  */
 public class EmployeeControllerTest {
 
+    public boolean callArgumentInstance(File file) {
+        return file.exists();
+    }
+
     /**
      * 人工设置方法调用返回值
      */
@@ -23,10 +32,23 @@ public class EmployeeControllerTest {
     public void shouldReturnProjectedCountOfEmployeesFromTheService() {
 
         EmployeeService mock = PowerMockito.mock(EmployeeService.class);
+        //当开始调用到这个getEmployeeCount 的时候,直接返回8.
         PowerMockito.when(mock.getEmployeeCount()).thenReturn(8);
         EmployeeController employeeController = new EmployeeController(mock);
         assertEquals(10, employeeController.getProjectedEmployeeCount());
     }
+
+    /**
+     * mock指定方法的调用结果.
+     */
+    @Test
+    public void testCallArgumentInstance() {
+        File file = PowerMockito.mock(File.class);
+        EmployeeControllerTest underTest = new EmployeeControllerTest();
+        PowerMockito.when(file.exists()).thenReturn(true);
+        Assert.assertTrue(underTest.callArgumentInstance(file));
+    }
+
 
     @Test
     public void
@@ -81,9 +103,9 @@ public class EmployeeControllerTest {
 
             public Employee answer(InvocationOnMock invocation) throws Throwable {
                 final String email = (String) invocation.getArguments()[0];
-                if(email == null) return null;
-                if(email.startsWith("deep")) return employee;
-                if(email.endsWith("packtpub.com")) return employee;
+                if (email == null) return null;
+                if (email.startsWith("deep")) return employee;
+                if (email.endsWith("packtpub.com")) return employee;
                 return null;
             }
         });
@@ -127,13 +149,14 @@ class EmployeeController {
     public int getProjectedEmployeeCount() {
 
         final int actualEmployeeCount = employeeService.getEmployeeCount();
-        return (int) Math.ceil(actualEmployeeCount * 1.2);
+        return (int)Math.ceil(actualEmployeeCount * 1.2);
     }
 
     public void saveEmployee(Employee employee) {
 
         employeeService.saveEmployee(employee);
     }
+
     public Employee findEmployeeByEmail(String email) {
         return employeeService.findEmployeeByEmail(email);
     }
@@ -153,6 +176,7 @@ class EmployeeService {
     public void saveEmployee(Employee employee) {
         throw new UnsupportedOperationException();
     }
+
     public Employee findEmployeeByEmail(String email) {
         throw new UnsupportedOperationException();
     }

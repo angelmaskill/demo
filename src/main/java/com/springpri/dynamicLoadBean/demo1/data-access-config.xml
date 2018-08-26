@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<bean id="dynamicLoadBean" class="com.springpri.dynamicLoadBean.demo1.DynamicLoadBean">
+	</bean>
+	<bean id="magazineService" class="com.springpri.dynamicLoadBean.demo1.domain.v1.MagazineService">
+	</bean>
+
+	<bean id="protocolMap" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="dynamicLoadBean" value-ref="dynamicLoadBean" />
+				<entry key="01" value-ref="magazineService" />
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="msg" class="com.springpri.dynamicLoadBean.demo1.Msg">
+		<property name="protocolMap" ref="protocolMap" />
+	</bean>
+
+
+</beans>

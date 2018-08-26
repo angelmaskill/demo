@@ -1,4 +1,0 @@
-
-想必学过java的都知道Object.wait和Object.notify，同时也应该知晓这两个方法的使用离不开synchronized关键字。synchronized是jvm级别提供的同步原语，它的实现机制隐藏在jvm实现中。
-
-作为Lock系列功能中的Condition，就是用来实现类似 Object.wait和Object.notify 对应功能的。

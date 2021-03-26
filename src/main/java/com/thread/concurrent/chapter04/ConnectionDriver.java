@@ -1,4 +1,4 @@
-﻿package com.thread.concurrent.chapter04;
+package com.thread.concurrent.chapter04;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -21,7 +21,7 @@ public class ConnectionDriver {
 
     // 创建一个Connection的代理，在commit时休眠1秒
     public static final Connection createConnection() {
-        return (Connection) Proxy.newProxyInstance(ConnectionDriver.class.getClassLoader(), new Class<?>[] { Connection.class },
-            new ConnectionHandler());
+        return (Connection) Proxy.newProxyInstance(ConnectionDriver.class.getClassLoader(), new Class<?>[]{Connection.class},
+                new ConnectionHandler());
     }
 }

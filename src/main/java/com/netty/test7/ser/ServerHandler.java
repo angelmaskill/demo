@@ -1,10 +1,9 @@
 package com.netty.test7.ser;
 
+import com.netty.test7.cli.CustomHeartbeatHandler;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
-
-import com.netty.test7.cli.CustomHeartbeatHandler;
 
 public class ServerHandler extends CustomHeartbeatHandler {
     public ServerHandler() {
@@ -29,9 +28,9 @@ public class ServerHandler extends CustomHeartbeatHandler {
         ctx.close();
     }
 
-	@Override
-	protected void messageReceived(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
-		System.out.print(msg);
-		ctx.channel().writeAndFlush(msg);
-	}
+    @Override
+    protected void messageReceived(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
+        System.out.print(msg);
+        ctx.channel().writeAndFlush(msg);
+    }
 }

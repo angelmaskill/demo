@@ -4,14 +4,10 @@
  */
 package com.netty.test14;
 
-import java.util.ArrayList;
-
 /**
- *
  * @author songxuejun
- * 
  */
-public class MessageModel implements java.io.Serializable{
+public class MessageModel implements java.io.Serializable {
     private String tag;//
     private int type;//
     private int protocolVer;//
@@ -72,14 +68,14 @@ public class MessageModel implements java.io.Serializable{
 
 
     public String getProtocolNo() {
-		return protocolNo;
-	}
+        return protocolNo;
+    }
 
-	public void setProtocolNo(String protocolNo) {
-		this.protocolNo = protocolNo;
-	}
+    public void setProtocolNo(String protocolNo) {
+        this.protocolNo = protocolNo;
+    }
 
-	public String getData() {
+    public String getData() {
         return data;
     }
 
@@ -94,5 +90,5 @@ public class MessageModel implements java.io.Serializable{
     public void setCrc(String crc) {
         this.crc = crc;
     }
-    
+
 }

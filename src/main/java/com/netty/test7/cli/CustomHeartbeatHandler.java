@@ -25,7 +25,7 @@ public abstract class CustomHeartbeatHandler extends SimpleChannelInboundHandler
     protected void channelRead0(ChannelHandlerContext context, ByteBuf byteBuf) throws Exception {
         if (byteBuf.getByte(4) == PING_MSG) {
             sendPongMsg(context);
-        } else if (byteBuf.getByte(4) == PONG_MSG){
+        } else if (byteBuf.getByte(4) == PONG_MSG) {
             System.out.println(name + " get pong msg from " + context.channel().remoteAddress());
         } else {
             handleData(context, byteBuf);

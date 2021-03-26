@@ -1,8 +1,5 @@
 /**
- * @(#)HelloDao.java
- * 
- * Copyright Oristand.All rights reserved. This software is the XXX system.
- * 
+ * @(#)HelloDao.java Copyright Oristand.All rights reserved. This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: webservice
@@ -20,7 +17,7 @@ import org.apache.log4j.Logger;
 
 /**
  * Class description goes here.
- * 
+ *
  * @author Administrator
  * @since 2014-10-21
  */
@@ -29,9 +26,9 @@ public class HelloLog4j {
 
     public static void main(String[] args) {
         logger.debug("This is debug message from Dao.");
-      
+
         logger.info("This is info message from Dao.");
-  
+
         logger.error("This is error message from Dao.");
     }
 }

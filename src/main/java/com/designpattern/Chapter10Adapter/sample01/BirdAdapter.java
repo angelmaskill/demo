@@ -1,16 +1,13 @@
 package com.designpattern.Chapter10Adapter.sample01;
 
-public class BirdAdapter extends Bird implements Robot
-{
-	public void cry()
-	{
-		System.out.print("»úÆ÷ÈËÄ£·Â£º");
-		super.tweedle();
-	}
-	
-	public void move()
-	{
-		System.out.print("»úÆ÷ÈËÄ£·Â£º");
-		super.fly();
-	}
+public class BirdAdapter extends Bird implements Robot {
+    public void cry() {
+        System.out.print("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½Â£ï¿½");
+        super.tweedle();
+    }
+
+    public void move() {
+        System.out.print("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½Â£ï¿½");
+        super.fly();
+    }
 }

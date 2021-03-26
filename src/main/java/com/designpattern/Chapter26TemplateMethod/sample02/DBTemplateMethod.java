@@ -1,55 +1,48 @@
 package com.designpattern.Chapter26TemplateMethod.sample02;
 
-abstract class DBOperator
-{
-	public abstract void connDB();
-    public void openDB()
-	{
-		System.out.println("´ò¿ªÊý¾Ý¿â");
-	}
-	public void useDB()
-	{
-		System.out.println("Ê¹ÓÃÊý¾Ý¿â");
-	}
-	public void closeDB()
-	{
-		System.out.println("¹Ø±ÕÊý¾Ý¿â");	
-	}
-   public void process()
-   {
-    connDB();
-   	openDB();
-   	useDB();
-   	closeDB();
-   }
-} 
+abstract class DBOperator {
+    public abstract void connDB();
 
-class DBOperatorSubA extends DBOperator
-{
-	public void connDB()
-	{
-		System.out.println("Ê¹ÓÃJDBC-ODBCÇÅ½ÓÁ¬½ÓÊý¾Ý¿â");		
-	}
+    public void openDB() {
+        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½");
+    }
+
+    public void useDB() {
+        System.out.println("Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½");
+    }
+
+    public void closeDB() {
+        System.out.println("ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½");
+    }
+
+    public void process() {
+        connDB();
+        openDB();
+        useDB();
+        closeDB();
+    }
 }
 
-class DBOperatorSubB extends DBOperator
-{
-	public void connDB()
-	{
-		System.out.println("Ê¹ÓÃÁ¬½Ó³ØÁ¬½ÓÊý¾Ý¿â");		
-	}
+class DBOperatorSubA extends DBOperator {
+    public void connDB() {
+        System.out.println("Ê¹ï¿½ï¿½JDBC-ODBCï¿½Å½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½");
+    }
 }
 
-class Client
-{
-	public static void main(String a[])
-	{
-		DBOperator db1;
-		
-		db1=new DBOperatorSubA();
-		db1.process();
-		System.out.println("---------------------------------------");			
-		db1=new DBOperatorSubB();
-		db1.process();
-	}
+class DBOperatorSubB extends DBOperator {
+    public void connDB() {
+        System.out.println("Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½");
+    }
+}
+
+class Client {
+    public static void main(String a[]) {
+        DBOperator db1;
+
+        db1 = new DBOperatorSubA();
+        db1.process();
+        System.out.println("---------------------------------------");
+        db1 = new DBOperatorSubB();
+        db1.process();
+    }
 }

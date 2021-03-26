@@ -1,9 +1,6 @@
 /**
- * @(#)Addresses.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)Addresses.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -43,7 +40,7 @@ public class Addresses {
 
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        for (Iterator it = listAdd.iterator(); it.hasNext();) {
+        for (Iterator it = listAdd.iterator(); it.hasNext(); ) {
             Address add = (Address) it.next();
             sb.append(add.toString());
         }

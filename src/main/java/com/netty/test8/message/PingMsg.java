@@ -1,13 +1,14 @@
 package com.netty.test8.message;
+
 /**
  * @author buer
  * @since 16/6/28
  */
 public class PingMsg extends BaseMsg {
 
-	private static final long serialVersionUID = 5088195529308606085L;
+    private static final long serialVersionUID = 5088195529308606085L;
 
-	public PingMsg() {
-		setType(MsgType.PING);
-	}
+    public PingMsg() {
+        setType(MsgType.PING);
+    }
 }

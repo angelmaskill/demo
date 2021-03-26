@@ -1,49 +1,44 @@
 package com.designpattern.Chapter09Singleton.other;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class MainClass extends JFrame
-{
-	private JButton button;
-	private JDesktopPane desktopPane; 
-	private SubFrame iFrame=null;
-	
-    public  MainClass()
-    {
-    	super("Ö÷´°Ìå");
-    	Container c=this.getContentPane();
-    	c.setLayout(new BorderLayout());
-		
-    	button=new JButton("µã»÷´´½¨Ò»¸öÄÚ²¿´°Ìå");
-    	button.addActionListener(new BtListener());
-    	c.add(button, BorderLayout.SOUTH);
-    	
-    	desktopPane = new JDesktopPane(); //´´½¨desktopPane  
-		c.add(desktopPane);
-    	
-    	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	this.setLocationRelativeTo(null);
-    	this.setSize(400,400);
-    	this.show();
+public class MainClass extends JFrame {
+    private JButton button;
+    private JDesktopPane desktopPane;
+    private SubFrame iFrame = null;
+
+    public MainClass() {
+        super("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+        Container c = this.getContentPane();
+        c.setLayout(new BorderLayout());
+
+        button = new JButton("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½");
+        button.addActionListener(new BtListener());
+        c.add(button, BorderLayout.SOUTH);
+
+        desktopPane = new JDesktopPane(); //ï¿½ï¿½ï¿½ï¿½desktopPane
+        c.add(desktopPane);
+
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setSize(400, 400);
+        this.show();
     }
-    
-    class BtListener implements ActionListener
-    {
-    	public void actionPerformed(ActionEvent e)
-    	{	
-    		if(iFrame!=null)
-    		{
-    			 desktopPane.remove(iFrame);
-    		}
-    		iFrame=SubFrame.getFrame();
-    		desktopPane.add(iFrame);
-    	}
+
+    class BtListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (iFrame != null) {
+                desktopPane.remove(iFrame);
+            }
+            iFrame = SubFrame.getFrame();
+            desktopPane.add(iFrame);
+        }
     }
-    
-    public static void main (String[] args) 
-    {
-    	new MainClass();
-	}  
+
+    public static void main(String[] args) {
+        new MainClass();
+    }
 }

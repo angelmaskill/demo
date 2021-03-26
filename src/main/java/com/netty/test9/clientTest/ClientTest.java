@@ -1,5 +1,6 @@
 package com.netty.test9.clientTest;
 
+import com.netty.test9.domain.ERequestType;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -23,8 +24,6 @@ import io.netty.handler.codec.http.HttpVersion;
 
 import java.net.URI;
 
-import com.netty.test9.domain.ERequestType;
-
 /**
  * @project: nettygame
  * @Title: ClientTest.java
@@ -36,85 +35,85 @@ import com.netty.test9.domain.ERequestType;
  * @version:
  */
 public class ClientTest {
-	public void connect(String host, int port, final ERequestType requestType) throws Exception {
-		EventLoopGroup workerGroup = new NioEventLoopGroup();
-		String msg = "Are you ok?";
-		if (ERequestType.SOCKET.equals(requestType)) {
-			try {
-				Bootstrap b = new Bootstrap();
-				b.group(workerGroup).channel(NioSocketChannel.class);
-				b.handler(new ChannelInitializer<Channel>() {
-					@Override
-					protected void initChannel(Channel ch) throws Exception {
-						ChannelPipeline pipeline = ch.pipeline();
-						pipeline.addLast("frameDecoder",
-								new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
-						pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
-						pipeline.addLast("handler", new ClientInboundHandler());
-					}
-				});
-				b.option(ChannelOption.SO_KEEPALIVE, true);
+    public void connect(String host, int port, final ERequestType requestType) throws Exception {
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        String msg = "Are you ok?";
+        if (ERequestType.SOCKET.equals(requestType)) {
+            try {
+                Bootstrap b = new Bootstrap();
+                b.group(workerGroup).channel(NioSocketChannel.class);
+                b.handler(new ChannelInitializer<Channel>() {
+                    @Override
+                    protected void initChannel(Channel ch) throws Exception {
+                        ChannelPipeline pipeline = ch.pipeline();
+                        pipeline.addLast("frameDecoder",
+                                new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
+                        pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
+                        pipeline.addLast("handler", new ClientInboundHandler());
+                    }
+                });
+                b.option(ChannelOption.SO_KEEPALIVE, true);
 
-				ChannelFuture f = b.connect(host, port).sync();
-				ByteBuf messageData = Unpooled.buffer();
-				messageData.writeInt(999);
-				messageData.writeInt(msg.length());
-				messageData.writeBytes(msg.getBytes());
-				f.channel().writeAndFlush(messageData).sync();
-				f.channel().closeFuture().sync();
+                ChannelFuture f = b.connect(host, port).sync();
+                ByteBuf messageData = Unpooled.buffer();
+                messageData.writeInt(999);
+                messageData.writeInt(msg.length());
+                messageData.writeBytes(msg.getBytes());
+                f.channel().writeAndFlush(messageData).sync();
+                f.channel().closeFuture().sync();
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-		} else if (ERequestType.HTTP.equals(requestType)) {
+        } else if (ERequestType.HTTP.equals(requestType)) {
 
-			Bootstrap b = new Bootstrap();
+            Bootstrap b = new Bootstrap();
 
-			b.group(workerGroup);
-			b.channel(NioSocketChannel.class);
-			b.option(ChannelOption.SO_KEEPALIVE, true);
-			b.handler(new ChannelInitializer<SocketChannel>() {
-				@Override
-				public void initChannel(SocketChannel ch) throws Exception {
+            b.group(workerGroup);
+            b.channel(NioSocketChannel.class);
+            b.option(ChannelOption.SO_KEEPALIVE, true);
+            b.handler(new ChannelInitializer<SocketChannel>() {
+                @Override
+                public void initChannel(SocketChannel ch) throws Exception {
 
-					// 客户端接收到的是httpResponse响应，所以要使用HttpResponseDecoder进行解码
-					ch.pipeline().addLast(new HttpResponseDecoder());
-					// 客户端发送的是httprequest，所以要使用HttpRequestEncoder进行编码
-					ch.pipeline().addLast(new HttpRequestEncoder());
-					ch.pipeline().addLast(new ClientInboundHandler());
+                    // 客户端接收到的是httpResponse响应，所以要使用HttpResponseDecoder进行解码
+                    ch.pipeline().addLast(new HttpResponseDecoder());
+                    // 客户端发送的是httprequest，所以要使用HttpRequestEncoder进行编码
+                    ch.pipeline().addLast(new HttpRequestEncoder());
+                    ch.pipeline().addLast(new ClientInboundHandler());
 
-				}
-			});
-			ChannelFuture f = b.connect(host, port).sync();
-			b.option(ChannelOption.TCP_NODELAY, true);
-			b.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000);
+                }
+            });
+            ChannelFuture f = b.connect(host, port).sync();
+            b.option(ChannelOption.TCP_NODELAY, true);
+            b.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000);
 
-			URI uri = new URI("http://" + host + ":" + port);
+            URI uri = new URI("http://" + host + ":" + port);
 
-			DefaultFullHttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.POST,
-					uri.toASCIIString(), Unpooled.wrappedBuffer(
-							new StringBuffer().append("999").append(",").append(msg).toString().getBytes("UTF-8")));
+            DefaultFullHttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.POST,
+                    uri.toASCIIString(), Unpooled.wrappedBuffer(
+                    new StringBuffer().append("999").append(",").append(msg).toString().getBytes("UTF-8")));
 
-			// 构建http请求
-			request.headers().set(HttpHeaders.Names.HOST, host);
-			request.headers().set(HttpHeaders.Names.CONNECTION, HttpHeaders.Values.KEEP_ALIVE);
-			request.headers().set(HttpHeaders.Names.CONTENT_LENGTH, request.content().readableBytes());
-			// 发送http请求
-			f.channel().write(request);
-			f.channel().flush();
-			f.channel().closeFuture().sync();
-		}
+            // 构建http请求
+            request.headers().set(HttpHeaders.Names.HOST, host);
+            request.headers().set(HttpHeaders.Names.CONNECTION, HttpHeaders.Values.KEEP_ALIVE);
+            request.headers().set(HttpHeaders.Names.CONTENT_LENGTH, request.content().readableBytes());
+            // 发送http请求
+            f.channel().write(request);
+            f.channel().flush();
+            f.channel().closeFuture().sync();
+        }
 
-		try {
-		} finally {
-			workerGroup.shutdownGracefully();
-		}
+        try {
+        } finally {
+            workerGroup.shutdownGracefully();
+        }
 
-	}
+    }
 
-	public static void main(String[] args) throws Exception {
-		ClientTest client = new ClientTest();
-		client.connect("127.0.0.1", 8080, ERequestType.HTTP);
-	}
+    public static void main(String[] args) throws Exception {
+        ClientTest client = new ClientTest();
+        client.connect("127.0.0.1", 8080, ERequestType.HTTP);
+    }
 }

@@ -1,9 +1,6 @@
 /**
- * @(#)ThumbnailatorTest.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)ThumbnailatorTest.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -17,16 +14,15 @@
 
 package com.thumb;
 
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
-import javax.imageio.ImageIO;
-
-import net.coobird.thumbnailator.Thumbnails;
-import net.coobird.thumbnailator.geometry.Positions;
 
 /**
  * Class description goes here.
@@ -36,7 +32,7 @@ import net.coobird.thumbnailator.geometry.Positions;
  */
 public class ThumbnailatorTest {
     /**
-     * 
+     *
      * @param args
      * @throws IOException
      */
@@ -55,7 +51,7 @@ public class ThumbnailatorTest {
 
     /**
      * 指定大小进行缩放
-     * 
+     *
      * @throws IOException
      */
     private void test1() throws IOException {
@@ -70,7 +66,7 @@ public class ThumbnailatorTest {
 
     /**
      * 按照比例进行缩放
-     * 
+     *
      * @throws IOException
      */
     private void test2() throws IOException {
@@ -83,7 +79,7 @@ public class ThumbnailatorTest {
 
     /**
      * 不按照比例，指定大小进行缩放
-     * 
+     *
      * @throws IOException
      */
     private void test3() throws IOException {
@@ -95,7 +91,7 @@ public class ThumbnailatorTest {
 
     /**
      * 旋转
-     * 
+     *
      * @throws IOException
      */
     private void test4() throws IOException {
@@ -108,7 +104,7 @@ public class ThumbnailatorTest {
 
     /**
      * 水印
-     * 
+     *
      * @throws IOException
      */
     private void test5() throws IOException {
@@ -123,7 +119,7 @@ public class ThumbnailatorTest {
 
     /**
      * 裁剪
-     * 
+     *
      * @throws IOException
      */
     private void test6() throws IOException {
@@ -145,7 +141,7 @@ public class ThumbnailatorTest {
 
     /**
      * 转化图像格式
-     * 
+     *
      * @throws IOException
      */
     private void test7() throws IOException {
@@ -158,7 +154,7 @@ public class ThumbnailatorTest {
 
     /**
      * 输出到OutputStream
-     * 
+     *
      * @throws IOException
      */
     private void test8() throws IOException {
@@ -171,7 +167,7 @@ public class ThumbnailatorTest {
 
     /**
      * 输出到BufferedImage
-     * 
+     *
      * @throws IOException
      */
     private void test9() throws IOException {

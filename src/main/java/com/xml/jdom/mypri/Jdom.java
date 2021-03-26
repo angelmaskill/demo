@@ -1,8 +1,5 @@
 /**
- * @(#)Jdom.java
- * 
- * Copyright Oristand.All rights reserved. This software is the XXX system.
- * 
+ * @(#)Jdom.java Copyright Oristand.All rights reserved. This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -16,14 +13,7 @@
 
 package com.xml.jdom.mypri;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
-
 import junit.framework.TestCase;
-
 import org.jdom.Attribute;
 import org.jdom.Comment;
 import org.jdom.Document;
@@ -33,9 +23,15 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+
 /**
  * Class description goes here.
- * 
+ *
  * @author Administrator
  * @since 2014-11-4
  */

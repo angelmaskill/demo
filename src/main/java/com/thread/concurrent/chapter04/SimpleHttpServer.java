@@ -1,5 +1,5 @@
-﻿/**
- * 
+/**
+ *
  */
 package com.thread.concurrent.chapter04;
 
@@ -21,10 +21,10 @@ public class SimpleHttpServer {
     // 处理HttpRequest的线程池
     static ThreadPool<HttpRequestHandler> threadPool = new DefaultThreadPool<HttpRequestHandler>(11);
     // SimpleHttpServer的根路径
-    static String                         basePath;
-    static ServerSocket                   serverSocket;
+    static String basePath;
+    static ServerSocket serverSocket;
     // 服务监听端口
-    static int                            port       = 8080;
+    static int port = 8080;
 
     public static void setPort(int port) {
         if (port > 0) {

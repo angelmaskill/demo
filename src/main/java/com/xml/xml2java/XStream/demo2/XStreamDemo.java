@@ -1,9 +1,6 @@
 /**
- * @(#)XStreamDemo.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)XStreamDemo.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -23,32 +20,33 @@ package com.xml.xml2java.XStream.demo2;
  * @author Administrator
  * @since 2015-5-27
  */
-import java.util.ArrayList;
-import java.util.List;
 
 import com.thoughtworks.xstream.XStream;
 
-/** 
- * 
- *  
-        @需要的jar包如下：
-        @xpp3_min-1.1.4c.jar
-        @xstream-1.3.jar
-        
- * Created by IntelliJ IDEA. 
- * File: demo3.java 
- * User: leizhimin 
- * Date: 2008-3-4 14:44:03 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ *
+ @需要的jar包如下：
+ @xpp3_min-1.1.4c.jar
+ @xstream-1.3.jar
+
+  * Created by IntelliJ IDEA.
+  * File: demo3.java
+  * User: leizhimin
+  * Date: 2008-3-4 14:44:03
  */
 public class XStreamDemo {
     public static void main(String args[]) {
         testBean2XML();
     }
 
-    /** 
+    /**
      * 生成一个Persons对象 
-     * 
-     * @return Persons对象 
+     *
+     * @return Persons对象
      */
     public static Persons getPersons() {
         Address add1 = new Address("type1", "郑州市经三路财富广场1");
@@ -75,7 +73,7 @@ public class XStreamDemo {
         return persons;
     }
 
-    /** 
+    /**
      * 利用XStream在Java对象和XML之间相互转换 
      */
     public static void testBean2XML() {

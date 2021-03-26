@@ -1,5 +1,6 @@
 package com.netty.test7.clirecon;
 
+import com.netty.test7.cli.CustomHeartbeatHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
@@ -15,8 +16,6 @@ import io.netty.handler.timeout.IdleStateHandler;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-
-import com.netty.test7.cli.CustomHeartbeatHandler;
 
 public class Client {
     private NioEventLoopGroup workGroup = new NioEventLoopGroup(4);

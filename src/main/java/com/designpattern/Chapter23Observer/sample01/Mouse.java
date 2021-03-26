@@ -1,9 +1,7 @@
 package com.designpattern.Chapter23Observer.sample01;
 
-public class Mouse implements MyObserver
-{
-	public void response()
-	{
-		System.out.println("ÀÏÊóÅ¬Á¦ÌÓÅÜ£¡");
-	}
+public class Mouse implements MyObserver {
+    public void response() {
+        System.out.println("ï¿½ï¿½ï¿½ï¿½Å¬ï¿½ï¿½ï¿½ï¿½ï¿½Ü£ï¿½");
+    }
 }

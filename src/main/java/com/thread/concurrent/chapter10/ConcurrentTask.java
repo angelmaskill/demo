@@ -1,4 +1,4 @@
-﻿package com.thread.concurrent.chapter10;
+package com.thread.concurrent.chapter10;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.CancellationException;

@@ -1,24 +1,23 @@
 package com.designpattern.Chapter07Builder.sample01;
 
-public class Meal
-{
-	//foodºÍdrinkÊÇ²¿¼þ
-	private String food;
-	private String drink;
-	
-	public void setFood(String food) {
-		this.food = food; 
-	}
+public class Meal {
+    //foodï¿½ï¿½drinkï¿½Ç²ï¿½ï¿½ï¿½
+    private String food;
+    private String drink;
 
-	public void setDrink(String drink) {
-		this.drink = drink; 
-	}
+    public void setFood(String food) {
+        this.food = food;
+    }
 
-	public String getFood() {
-		return (this.food); 
-	}
+    public void setDrink(String drink) {
+        this.drink = drink;
+    }
 
-	public String getDrink() {
-		return (this.drink); 
-	}
+    public String getFood() {
+        return (this.food);
+    }
+
+    public String getDrink() {
+        return (this.drink);
+    }
 }

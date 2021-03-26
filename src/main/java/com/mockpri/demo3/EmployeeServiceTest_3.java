@@ -7,8 +7,6 @@ package com.mockpri.demo3;
  * @Modified By:
  */
 
-import java.io.File;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +14,8 @@ import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
+import java.io.File;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({EmployeeIdGenerator.class, EmployeeService.class})
@@ -44,6 +44,7 @@ public class EmployeeServiceTest_3 {
 
     /**
      * 模拟构造函数
+     *
      * @throws Exception
      */
     @Test
@@ -80,6 +81,7 @@ public class EmployeeServiceTest_3 {
     /**
      * PowerMockito.whenNew方法时，必须加注解@PrepareForTest和@RunWith
      * 注解@PrepareForTest里写的类是需要mock的new对象代码所在的类。
+     *
      * @throws Exception
      */
     @Test
@@ -123,6 +125,7 @@ public class EmployeeServiceTest_3 {
     /**
      * mock 私有方法.
      * 说明：和Mock普通方法一样，只是需要加注解@PrepareForTest(ClassUnderTest.class)，注解里写的类是私有方法所在的类。
+     *
      * @throws Exception
      */
     @Test
@@ -222,15 +225,17 @@ class EmployeeService {
         }
         employee.update();
     }
+
     public void saveEmployee_3(Employee employee) {
-        if(employee.isNew()) {
+        if (employee.isNew()) {
             createEmployee(employee);
             return;
         }
         employee.update();
     }
+
     public void saveEmployee_4(Employee employee) {
-        if(employee.isNew()) {
+        if (employee.isNew()) {
             createEmployee_4(employee);
             return;
         }
@@ -273,7 +278,7 @@ class EmployeeService {
         return str.isEmpty();
     }
 
-    public String  callSystemStaticMethod(String str) {
+    public String callSystemStaticMethod(String str) {
         return System.getProperty(str);
     }
 }

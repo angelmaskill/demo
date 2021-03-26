@@ -1,9 +1,7 @@
 package com.designpattern.Chapter04SimpleFactory.sample01;
 
-public class HisenseTV implements TV
-{
-	public void play()
-	{
-		System.out.println("º£ÐÅµçÊÓ»ú²¥·ÅÖÐ......");
-	}	
+public class HisenseTV implements TV {
+    public void play() {
+        System.out.println("ï¿½ï¿½ï¿½Åµï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½......");
+    }
 }

@@ -1,9 +1,7 @@
 package com.designpattern.Chapter04SimpleFactory.sample01;
 
-public class HaierTV implements TV
-{
-	public void play()
-	{
-		System.out.println("º£¶ûµçÊÓ»ú²¥·ÅÖÐ......");
-	}
+public class HaierTV implements TV {
+    public void play() {
+        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½......");
+    }
 }

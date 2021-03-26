@@ -1,21 +1,17 @@
 package com.designpattern.Chapter21Mediator.sample01;
 
-public class DiamondMember extends Member
-{
-	public DiamondMember(String name)
-	{
-		super(name);
-	}
-	
-	public void sendText(String to,String message)
-	{
-	    System.out.println("×êÊ¯»áÔ±·¢ËÍÐÅÏ¢£º");
-	    chatroom.sendText(name,to,message);  //·¢ËÍ
-	}
-	
-	public void sendImage(String to,String image)
-	{
-		System.out.println("×êÊ¯»áÔ±·¢ËÍÍ¼Æ¬£º");
-	    chatroom.sendImage(name,to,image);  //·¢ËÍ
-	}
+public class DiamondMember extends Member {
+    public DiamondMember(String name) {
+        super(name);
+    }
+
+    public void sendText(String to, String message) {
+        System.out.println("ï¿½ï¿½Ê¯ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½");
+        chatroom.sendText(name, to, message);  //ï¿½ï¿½ï¿½ï¿½
+    }
+
+    public void sendImage(String to, String image) {
+        System.out.println("ï¿½ï¿½Ê¯ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½");
+        chatroom.sendImage(name, to, image);  //ï¿½ï¿½ï¿½ï¿½
+    }
 }

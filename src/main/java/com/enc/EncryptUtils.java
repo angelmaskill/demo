@@ -1,11 +1,8 @@
 package com.enc;
 
 /**
- * @(#)EncryptUtils.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)EncryptUtils.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -18,12 +15,11 @@ package com.enc;
  */
 
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 /**
  * Class description goes here.
@@ -45,7 +41,8 @@ public class EncryptUtils {
         return new String(b);
 
     }
-    /// <summary>  
+
+    /// <summary>
     /// 3des加密  
     /// </summary>  
     /// <param name="value">待加密字符串</param>  
@@ -58,11 +55,11 @@ public class EncryptUtils {
         return str;
 
     }
-   
+
     //计算24位长的密码byte值,首先对原始密钥做MD5算hash值，再用前8位数据对应补全后8位
     public static byte[] GetKeyBytes(String strKey) throws Exception {
 
-        if (null == strKey || strKey.length() < 1){
+        if (null == strKey || strKey.length() < 1) {
             throw new Exception("key is null or empty!");
         }
         java.security.MessageDigest alg = java.security.MessageDigest.getInstance("MD5");
@@ -121,7 +118,8 @@ public class EncryptUtils {
         return null;
 
     }
-    //keybyte为加密密钥，长度为24字节    
+
+    //keybyte为加密密钥，长度为24字节
     //src为加密后的缓冲区  
     public static byte[] decryptMode(byte[] keybyte, byte[] src) {
 

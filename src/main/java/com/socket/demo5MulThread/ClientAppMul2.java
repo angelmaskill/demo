@@ -1,9 +1,6 @@
 /**
- * @(#)ClientAppMul.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)ClientAppMul.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -34,8 +31,8 @@ public class ClientAppMul2 {
 
     /**
      * @param args
-     * @throws IOException 
-     * @throws UnknownHostException 
+     * @throws IOException
+     * @throws UnknownHostException
      */
     /*public static void main(String[] args) throws UnknownHostException, IOException {
         // TODO Auto-generated method stub
@@ -76,7 +73,6 @@ public class ClientAppMul2 {
             System.out.println("IOException when connecting Server!");
         }
     }*/
-    
     public static void main(String[] args) throws Exception {
         // TODO Auto-generated method stub
         Socket client;
@@ -91,15 +87,15 @@ public class ClientAppMul2 {
         /*
          * 发送信息到服务器
          */
-        
-        String str="";
+
+        String str = "";
         String info;
-        while(!"bye".equals(str)){
+        while (!"bye".equals(str)) {
             System.out.print("客户端输入信息：");
             str = input.readLine(); // 接收键盘的输入信息
             out.println(str);
             info = buf.readLine();
-            System.out.println("服务器端回复："+info);
+            System.out.println("服务器端回复：" + info);
         }
         /*
          * 从服务器读取信息
@@ -111,6 +107,6 @@ public class ClientAppMul2 {
         }*/
         buf.close();
         client.close();
-       
+
     }
 }

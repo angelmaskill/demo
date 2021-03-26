@@ -1,8 +1,5 @@
 /**
- * @(#)Test.java
- * 
- * Copyright Oristand.All rights reserved. This software is the XXX system.
- * 
+ * @(#)Test.java Copyright Oristand.All rights reserved. This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -20,7 +17,7 @@ import junit.framework.TestCase;
 
 /**
  * Class description goes here.
- * 
+ *
  * @author Administrator
  * @since 2014-10-22
  */
@@ -42,7 +39,7 @@ public class TestRefactor extends TestCase {
     }
 
     /*
-     * 第一次优化：把临时变量声明为final，检查他们是否的确只被赋值一次 
+     * 第一次优化：把临时变量声明为final，检查他们是否的确只被赋值一次
      * 首先我把赋值（assignment）动作的右侧表达式提炼出来：
      */
     private int basePrice() {
@@ -50,7 +47,7 @@ public class TestRefactor extends TestCase {
 
     }
 
-    private double  discountFactor(){
+    private double discountFactor() {
         if (basePrice() > 1000)
             return 0.95;
         else

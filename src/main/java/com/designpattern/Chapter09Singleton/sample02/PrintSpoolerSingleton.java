@@ -1,29 +1,22 @@
 package com.designpattern.Chapter09Singleton.sample02;
 
-public class PrintSpoolerSingleton
-{
-	private static PrintSpoolerSingleton instance=null;
-	
-	private PrintSpoolerSingleton()
-	{	
-	}
-	
-	public static PrintSpoolerSingleton getInstance() throws PrintSpoolerException
-	{
-		if(instance==null)
-		{
-			System.out.println("´´½¨´òÓ¡³Ø£¡");
-		    instance=new PrintSpoolerSingleton();		
-		}
-		else
-		{
-			throw new PrintSpoolerException("´òÓ¡³ØÕýÔÚ¹¤×÷ÖÐ£¡");
-		}
-		return instance;
-	}
-	
-	public void manageJobs()
-	{
-	    System.out.println("¹ÜÀí´òÓ¡ÈÎÎñ£¡");
-	}	
+public class PrintSpoolerSingleton {
+    private static PrintSpoolerSingleton instance = null;
+
+    private PrintSpoolerSingleton() {
+    }
+
+    public static PrintSpoolerSingleton getInstance() throws PrintSpoolerException {
+        if (instance == null) {
+            System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½Ø£ï¿½");
+            instance = new PrintSpoolerSingleton();
+        } else {
+            throw new PrintSpoolerException("ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½Ð£ï¿½");
+        }
+        return instance;
+    }
+
+    public void manageJobs() {
+        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½");
+    }
 }

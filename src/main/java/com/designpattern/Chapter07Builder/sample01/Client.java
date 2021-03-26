@@ -1,20 +1,18 @@
 package com.designpattern.Chapter07Builder.sample01;
 
-public class Client
-{
-	public static void main(String args[])
-	{
-		//¶¯Ì¬È·¶¨Ì×²ÍÖÖÀà
-	    MealBuilder mb=(MealBuilder)XMLUtil.getBean();
-		//·þÎñÔ±ÊÇÖ¸»ÓÕß
-		KFCWaiter waiter=new KFCWaiter();
-	    //·þÎñÔ±×¼±¸Ì×²Í
-	    waiter.setMealBuilder(mb);
-	    //¿Í»§»ñµÃÌ×²Í
-	    Meal meal=waiter.construct();
-        
-        System.out.println("Ì×²Í×é³É£º");
+public class Client {
+    public static void main(String args[]) {
+        //ï¿½ï¿½Ì¬È·ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½
+        MealBuilder mb = (MealBuilder) XMLUtil.getBean();
+        //ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½
+        KFCWaiter waiter = new KFCWaiter();
+        //ï¿½ï¿½ï¿½ï¿½Ô±×¼ï¿½ï¿½ï¿½×²ï¿½
+        waiter.setMealBuilder(mb);
+        //ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½
+        Meal meal = waiter.construct();
+
+        System.out.println("ï¿½×²ï¿½ï¿½ï¿½É£ï¿½");
         System.out.println(meal.getFood());
         System.out.println(meal.getDrink());
-	}
+    }
 }

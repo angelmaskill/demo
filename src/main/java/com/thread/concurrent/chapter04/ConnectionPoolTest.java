@@ -1,4 +1,4 @@
-﻿package com.thread.concurrent.chapter04;
+package com.thread.concurrent.chapter04;
 
 import java.sql.Connection;
 import java.util.concurrent.CountDownLatch;
@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 6-18
  */
 public class ConnectionPoolTest {
-    static ConnectionPool pool  = new ConnectionPool(10);
+    static ConnectionPool pool = new ConnectionPool(10);
     // 保证所有ConnectionRunner能够同时开始
     static CountDownLatch start = new CountDownLatch(1);
     // main线程将会等待所有ConnectionRunner结束后才能继续执行
@@ -33,7 +33,7 @@ public class ConnectionPoolTest {
     }
 
     static class ConnetionRunner implements Runnable {
-        int           count;
+        int count;
         AtomicInteger got;
         AtomicInteger notGot;
 

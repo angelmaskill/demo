@@ -10,28 +10,28 @@ import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.util.CharsetUtil;
 
-/** 
-* @project:		demo
-* @Title:		HttpUtils.java
-* @Package:		cpgame.demo.utils
-  @author: 		chenpeng
-* @email: 		46731706@qq.com
-* @date:		2015年8月27日 上午10:10:31 
-* @description:
-* @version:
-*/
+/**
+ * @project: demo
+ * @Title: HttpUtils.java
+ * @Package: cpgame.demo.utils
+ * @author: chenpeng
+ * @email: 46731706@qq.com
+ * @date: 2015年8月27日 上午10:10:31
+ * @description:
+ * @version:
+ */
 public class HttpUtils {
-	public static void sendHttpResponse(ChannelHandlerContext ctx, FullHttpRequest req, FullHttpResponse res) {
-		if (res.getStatus().code() != 200) {
-			ByteBuf buf = Unpooled.copiedBuffer(res.getStatus().toString(), CharsetUtil.UTF_8);
+    public static void sendHttpResponse(ChannelHandlerContext ctx, FullHttpRequest req, FullHttpResponse res) {
+        if (res.getStatus().code() != 200) {
+            ByteBuf buf = Unpooled.copiedBuffer(res.getStatus().toString(), CharsetUtil.UTF_8);
 
-			res.content().writeBytes(buf);
-			buf.release();
-			HttpHeaders.setContentLength(res, res.content().readableBytes());
-		}
+            res.content().writeBytes(buf);
+            buf.release();
+            HttpHeaders.setContentLength(res, res.content().readableBytes());
+        }
 
-		ChannelFuture f = ctx.channel().writeAndFlush(res);
-		if ((!HttpHeaders.isKeepAlive(req)) || (res.getStatus().code() != 200))
-			f.addListener(ChannelFutureListener.CLOSE);
-	}
+        ChannelFuture f = ctx.channel().writeAndFlush(res);
+        if ((!HttpHeaders.isKeepAlive(req)) || (res.getStatus().code() != 200))
+            f.addListener(ChannelFutureListener.CLOSE);
+    }
 }

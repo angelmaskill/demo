@@ -1,13 +1,13 @@
 package com.BASETEST.date;
 
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
 import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 
 /**
  * @Author: yanlu.myl
@@ -18,8 +18,8 @@ import org.testng.annotations.Test;
 public class CalendarTest {
     @DataProvider(name = "user")
     public Object[][] createUser(Method m) {
-        return new Object[][] {
-            {"2018-8-31 21:59:06", new String[] {"星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"}}
+        return new Object[][]{
+                {"2018-8-31 21:59:06", new String[]{"星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"}}
         };
     }
 
@@ -44,7 +44,7 @@ public class CalendarTest {
             for (int j = 1; j <= 7; j++) {
                 cale.setMinimalDaysInFirstWeek(j);
                 System.out.println(
-                    weeks[(i - 1)] + "/t" + j + "/t" + cale.get(Calendar.WEEK_OF_MONTH));
+                        weeks[(i - 1)] + "/t" + j + "/t" + cale.get(Calendar.WEEK_OF_MONTH));
             }
         }
     }

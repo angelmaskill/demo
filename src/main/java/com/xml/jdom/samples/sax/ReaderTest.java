@@ -53,21 +53,20 @@
  */
 package com.xml.jdom.samples.sax;
 
+import org.jdom.Document;
+import org.jdom.input.SAXBuilder;
+import org.jdom.output.XMLOutputter;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
+
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
-
-import org.jdom.Document;
-import org.jdom.input.SAXBuilder;
-import org.jdom.output.XMLOutputter;
-
 /**
  * Tests DocumentReader
- * 
- * @author  joe.bowbeer
+ *
+ * @author joe.bowbeer
  */
 public class ReaderTest {
 
@@ -76,16 +75,16 @@ public class ReaderTest {
     }
 
     /**
-    * @param args the command line arguments
-    */
-    public static void main (String args[]) throws Exception {
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) throws Exception {
 
         /* XMLWriter for viewing SAX events. */
-        
+
         XMLWriter echo = new XMLWriter();
-        
+
         /* Build document from xml file. */
-        
+
         SAXBuilder builder = new SAXBuilder();
         builder.setXMLFilter(echo);
         InputStream in = FilterTest.class.getResourceAsStream("test2.xml");
@@ -98,10 +97,10 @@ public class ReaderTest {
         echo.setParent(parser);
         StringWriter writer = new StringWriter();
         parser = new XMLWriter(echo, writer);
-        parser.parse((InputSource)null);
+        parser.parse((InputSource) null);
 
         /* Reconstitute document from regurgitated string. */
-        
+
         builder = new SAXBuilder();
         builder.setXMLFilter(echo);
         String xml = writer.toString();

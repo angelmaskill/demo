@@ -1,30 +1,28 @@
 package com.designpattern.Chapter22Memoto.sample01;
 
 
-public class Client
-{
-	public static void main(String a[])
-	{
-	UserInfoDTO user=new UserInfoDTO();
-	Caretaker c=new Caretaker();
-	
-	user.setAccount("zhangsan");
-	user.setPassword("123456");
-	user.setTelNo("13000000000");
-	System.out.println("×´Ì¬Ò»£º");
-	user.show();
-	c.setMemento(user.saveMemento());//±£´æ±¸ÍüÂ¼
-	System.out.println("---------------------------");
+public class Client {
+    public static void main(String a[]) {
+        UserInfoDTO user = new UserInfoDTO();
+        Caretaker c = new Caretaker();
 
-	user.setPassword("111111");
-	user.setTelNo("13100001111");
-	System.out.println("×´Ì¬¶þ£º");	
-	user.show();
-	System.out.println("---------------------------");
-		
-	user.restoreMemento(c.getMemento());//´Ó±¸ÍüÂ¼ÖÐ»Ö¸´
-	System.out.println("»Øµ½×´Ì¬Ò»£º");
-	user.show();
-    System.out.println("---------------------------");
-	}
+        user.setAccount("zhangsan");
+        user.setPassword("123456");
+        user.setTelNo("13000000000");
+        System.out.println("×´Ì¬Ò»ï¿½ï¿½");
+        user.show();
+        c.setMemento(user.saveMemento());//ï¿½ï¿½ï¿½æ±¸ï¿½ï¿½Â¼
+        System.out.println("---------------------------");
+
+        user.setPassword("111111");
+        user.setTelNo("13100001111");
+        System.out.println("×´Ì¬ï¿½ï¿½ï¿½ï¿½");
+        user.show();
+        System.out.println("---------------------------");
+
+        user.restoreMemento(c.getMemento());//ï¿½Ó±ï¿½ï¿½ï¿½Â¼ï¿½Ð»Ö¸ï¿½
+        System.out.println("ï¿½Øµï¿½×´Ì¬Ò»ï¿½ï¿½");
+        user.show();
+        System.out.println("---------------------------");
+    }
 }

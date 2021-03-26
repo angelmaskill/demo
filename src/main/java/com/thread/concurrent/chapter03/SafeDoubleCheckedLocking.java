@@ -1,4 +1,4 @@
-﻿package com.thread.concurrent.chapter03;
+package com.thread.concurrent.chapter03;
 
 public class SafeDoubleCheckedLocking {
     private volatile static Instance instance;

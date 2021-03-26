@@ -1,8 +1,5 @@
 /**
- * @(#)Temp.java
- * 
- * Copyright Oristand.All rights reserved. This software is the XXX system.
- * 
+ * @(#)Temp.java Copyright Oristand.All rights reserved. This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -22,7 +19,7 @@ import java.util.Date;
 
 /**
  * Class description goes here.
- * 
+ *
  * @author Administrator
  * @since 2014-1-8
  */
@@ -39,7 +36,7 @@ public class Temp {
         if (aa.getYear() == bb.getYear()) {
             System.out.println("true");
         }*/
-        String  dateStr="201404010000";
+        String dateStr = "201404010000";
         convertInputToDateString2(dateStr);
     }
 
@@ -54,18 +51,18 @@ public class Temp {
         sdf.applyPattern("yyyy-MM-dd hh:mm");
         return sdf.format(date);
     }
-    
-    public static void  convertInputToDateString2(String dateStr) throws ParseException {
-        dateStr="201404010000";
+
+    public static void convertInputToDateString2(String dateStr) throws ParseException {
+        dateStr = "201404010000";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmm");
         Date date = sdf.parse(dateStr);
-        Date dateNow =new Date();
-        if(dateNow.before(date)){
+        Date dateNow = new Date();
+        if (dateNow.before(date)) {
             System.out.println("1");//出院时间
-        }else{
+        } else {
             System.out.println("2");//入院时间
         }
-        System.out.println("政策: "+date);
-        System.out.println("当前："+dateNow);
+        System.out.println("政策: " + date);
+        System.out.println("当前：" + dateNow);
     }
 }

@@ -1,9 +1,6 @@
 /**
- * @(#)BeanInfoSample.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)BeanInfoSample.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -28,48 +25,48 @@ import java.beans.PropertyDescriptor;
  * @since 2015-8-17
  */
 public class BeanInfoSample {
-	static class User {
-		private String username;
-		private String password;
-		private String gender;
+    static class User {
+        private String username;
+        private String password;
+        private String gender;
 
-		public String getUsername() {
-			return username;
-		}
+        public String getUsername() {
+            return username;
+        }
 
-		public void setUsername(String username) {
-			this.username = username;
-		}
+        public void setUsername(String username) {
+            this.username = username;
+        }
 
-		public String getPassword() {
-			return password;
-		}
+        public String getPassword() {
+            return password;
+        }
 
-		public void setPassword(String password) {
-			this.password = password;
-		}
+        public void setPassword(String password) {
+            this.password = password;
+        }
 
-		public String getGender() {
-			return gender;
-		}
+        public String getGender() {
+            return gender;
+        }
 
-		public void setGender(String gender) {
-			this.gender = gender;
-		}
-	}
+        public void setGender(String gender) {
+            this.gender = gender;
+        }
+    }
 
-	public static void main(String[] args) throws Exception {
-		User u = new User();
-		u.setUsername("Tom");
-		u.setPassword("123");
-		u.setGender("male");
+    public static void main(String[] args) throws Exception {
+        User u = new User();
+        u.setUsername("Tom");
+        u.setPassword("123");
+        u.setGender("male");
 
-		BeanInfo beanInfo = Introspector.getBeanInfo(User.class);
-		PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-		for (PropertyDescriptor pd : propertyDescriptors) {
-			String proName = pd.getName();
-			Object v = pd.getReadMethod().invoke(u, null);
-			System.out.println(proName + "=" + v);
-		}
-	}
+        BeanInfo beanInfo = Introspector.getBeanInfo(User.class);
+        PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+        for (PropertyDescriptor pd : propertyDescriptors) {
+            String proName = pd.getName();
+            Object v = pd.getReadMethod().invoke(u, null);
+            System.out.println(proName + "=" + v);
+        }
+    }
 }

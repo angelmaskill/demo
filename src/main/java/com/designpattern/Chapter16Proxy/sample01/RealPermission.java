@@ -1,25 +1,21 @@
 package com.designpattern.Chapter16Proxy.sample01;
 
-public class RealPermission implements AbstractPermission
-{	
-	public void modifyUserInfo()
-	{
-		System.out.println("ÐÞ¸ÄÓÃ»§ÐÅÏ¢£¡");
-	}
+public class RealPermission implements AbstractPermission {
+    public void modifyUserInfo() {
+        System.out.println("ï¿½Þ¸ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½");
+    }
 
-	public void viewNote()
-	{   }
-	
-	public void publishNote()
-	{
-		System.out.println("·¢²¼ÐÂÌû£¡");
-	}
-	
-	public void modifyNote()
-	{
-		System.out.println("ÐÞ¸Ä·¢ÌûÄÚÈÝ£¡");
-	}
-	
-	public void setLevel(int level)
-	{	}
+    public void viewNote() {
+    }
+
+    public void publishNote() {
+        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+    }
+
+    public void modifyNote() {
+        System.out.println("ï¿½Þ¸Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½");
+    }
+
+    public void setLevel(int level) {
+    }
 }

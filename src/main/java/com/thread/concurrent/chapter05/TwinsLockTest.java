@@ -1,11 +1,11 @@
-﻿/**
- * 
+/**
+ *
  */
 package com.thread.concurrent.chapter05;
 
-import java.util.concurrent.locks.Lock;
+import com.thread.concurrent.chapter04.SleepUtils;
 
-import  com.thread.concurrent.chapter04.SleepUtils;
+import java.util.concurrent.locks.Lock;
 
 /**
  * 10-11

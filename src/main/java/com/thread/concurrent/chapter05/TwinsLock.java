@@ -1,5 +1,5 @@
-﻿/**
- * 
+/**
+ *
  */
 package com.thread.concurrent.chapter05;
 
@@ -25,7 +25,7 @@ public class TwinsLock implements Lock {
         }
 
         public int tryAcquireShared(int reduceCount) {
-            for (;;) {
+            for (; ; ) {
                 int current = getState();
                 int newCount = current - reduceCount;
                 if (newCount < 0 || compareAndSetState(current, newCount)) {
@@ -35,7 +35,7 @@ public class TwinsLock implements Lock {
         }
 
         public boolean tryReleaseShared(int returnCount) {
-            for (;;) {
+            for (; ; ) {
                 int current = getState();
                 int newCount = current + returnCount;
                 if (compareAndSetState(current, newCount)) {

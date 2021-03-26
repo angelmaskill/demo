@@ -5,8 +5,6 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
-import java.util.Date;
-
 /**
  * Created by Idea 14 whih "netty"
  *
@@ -15,18 +13,18 @@ import java.util.Date;
  * @Date: 2015-11-28
  * @Time: 16:13
  */
-public class TimeServerHandler extends ChannelHandlerAdapter{
+public class TimeServerHandler extends ChannelHandlerAdapter {
 
-    private int counter=0;
+    private int counter = 0;
 
     // 用于网络的读写操作
     @Override
-    public void channelRead(ChannelHandlerContext ctx,Object msg)
-            throws Exception{
+    public void channelRead(ChannelHandlerContext ctx, Object msg)
+            throws Exception {
 
-        String body = (String)msg;
-        System.out.println("the time server order : " + body+";the counter is :"+ (++counter));
-        body+="_#_";
+        String body = (String) msg;
+        System.out.println("the time server order : " + body + ";the counter is :" + (++counter));
+        body += "_#_";
 
         ByteBuf resp = Unpooled.copiedBuffer(body.getBytes());
         ctx.writeAndFlush(resp);
@@ -38,7 +36,7 @@ public class TimeServerHandler extends ChannelHandlerAdapter{
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause){
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();
         ctx.close();
     }

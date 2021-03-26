@@ -1,48 +1,44 @@
 package com.designpattern.Chapter11Bridge.sample01;
 
-import javax.xml.parsers.*;
-import org.w3c.dom.*;
-import org.xml.sax.SAXException;
-import java.io.*;
-public class XMLUtilPen
-{
-//¸Ã·½·¨ÓÃÓÚ´ÓXMLÅäÖÃÎÄ¼þÖÐÌáÈ¡¾ßÌåÀàÀàÃû£¬²¢·µ»ØÒ»¸öÊµÀý¶ÔÏó
-	public static Object getBean(String args)
-	{
-		try
-		{
-			//´´½¨ÎÄµµ¶ÔÏó
-			DocumentBuilderFactory dFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = dFactory.newDocumentBuilder();
-			Document doc;							
-			doc = builder.parse(new File("configPen.xml")); 
-			NodeList nl=null;
-			Node classNode=null;
-			String cName=null;
-			nl = doc.getElementsByTagName("className");
-			
-			if(args.equals("color"))
-			{
-				//»ñÈ¡°üº¬ÀàÃûµÄÎÄ±¾½Úµã
-	            classNode=nl.item(0).getFirstChild();
-	            
-			}
-			else if(args.equals("pen"))
-			{
-			   //»ñÈ¡°üº¬ÀàÃûµÄÎÄ±¾½Úµã
-	            classNode=nl.item(1).getFirstChild();
-			}
-			
-	         cName=classNode.getNodeValue();
-	         //Í¨¹ýÀàÃûÉú³ÉÊµÀý¶ÔÏó²¢½«Æä·µ»Ø
-	         Class c=Class.forName(cName);
-		  	 Object obj=c.newInstance();
-	         return obj;		
-           }   
-           	catch(Exception e)
-           	{
-           		e.printStackTrace();
-           		return null;
-           	}
-		}
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
+
+public class XMLUtilPen {
+    //ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½XMLï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public static Object getBean(String args) {
+        try {
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½
+            DocumentBuilderFactory dFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = dFactory.newDocumentBuilder();
+            Document doc;
+            doc = builder.parse(new File("configPen.xml"));
+            NodeList nl = null;
+            Node classNode = null;
+            String cName = null;
+            nl = doc.getElementsByTagName("className");
+
+            if (args.equals("color")) {
+                //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½Úµï¿½
+                classNode = nl.item(0).getFirstChild();
+
+            } else if (args.equals("pen")) {
+                //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½Úµï¿½
+                classNode = nl.item(1).getFirstChild();
+            }
+
+            cName = classNode.getNodeValue();
+            //Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ó²¢½ï¿½ï¿½ä·µï¿½ï¿½
+            Class c = Class.forName(cName);
+            Object obj = c.newInstance();
+            return obj;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

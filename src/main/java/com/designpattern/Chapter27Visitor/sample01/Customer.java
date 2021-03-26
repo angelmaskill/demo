@@ -1,14 +1,11 @@
 package com.designpattern.Chapter27Visitor.sample01;
 
-public class Customer extends Visitor
-{
-	public void visit(Apple apple)
-	{
-		System.out.println("¹Ë¿Í" + name + "Ñ¡Æ»¹û¡£");
-	}
-	
-	public void visit(Book book)
-	{
-		System.out.println("¹Ë¿Í" + name + "ÂòÊé¡£");
-	}
+public class Customer extends Visitor {
+    public void visit(Apple apple) {
+        System.out.println("ï¿½Ë¿ï¿½" + name + "Ñ¡Æ»ï¿½ï¿½ï¿½ï¿½");
+    }
+
+    public void visit(Book book) {
+        System.out.println("ï¿½Ë¿ï¿½" + name + "ï¿½ï¿½ï¿½é¡£");
+    }
 }

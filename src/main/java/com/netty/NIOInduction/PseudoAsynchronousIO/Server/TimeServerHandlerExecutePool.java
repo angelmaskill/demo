@@ -15,7 +15,7 @@ public class TimeServerHandlerExecutePool {
     // Thread Pool
     private ExecutorService executor;
 
-    public TimeServerHandlerExecutePool(int maxPoolSize,int queueSize){
+    public TimeServerHandlerExecutePool(int maxPoolSize, int queueSize) {
         executor = new ThreadPoolExecutor(
                 Runtime.getRuntime().availableProcessors(), /* //获取当前系统的CPU 数目 */
                 maxPoolSize,
@@ -24,7 +24,7 @@ public class TimeServerHandlerExecutePool {
                 new ArrayBlockingQueue<Runnable>(queueSize));
     }
 
-    public void exceute(Runnable task){
+    public void exceute(Runnable task) {
         executor.execute(task);
     }
 }

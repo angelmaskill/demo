@@ -1,9 +1,7 @@
 package com.designpattern.Chapter12Composite.sample01;
 
-public class Banana extends MyElement
-{
-	public void eat()
-	{
-		System.out.println("³ÔÏã½¶£¡");
-	}
+public class Banana extends MyElement {
+    public void eat() {
+        System.out.println("ï¿½ï¿½ï¿½ã½¶ï¿½ï¿½");
+    }
 }

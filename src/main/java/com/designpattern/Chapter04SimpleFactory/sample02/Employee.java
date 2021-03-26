@@ -1,14 +1,11 @@
 package com.designpattern.Chapter04SimpleFactory.sample02;
 
-public class Employee extends User
-{
-	public Employee()
-	{
-		System.out.println("´´½¨Ô±¹¤¶ÔÏó£¡");
-	}
-	
-	public void diffOperation()
-	{
-		System.out.println("Ô±¹¤ÓµÓÐ´´½¨¼ÙÌõÈ¨ÏÞ£¡");
-	}
+public class Employee extends User {
+    public Employee() {
+        System.out.println("ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+    }
+
+    public void diffOperation() {
+        System.out.println("Ô±ï¿½ï¿½Óµï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½Þ£ï¿½");
+    }
 }

@@ -1,32 +1,31 @@
 package com.designpattern.Chapter04SimpleFactory.sample01;
 
-import javax.xml.parsers.*;
-import org.w3c.dom.*;
-import org.xml.sax.SAXException;
-import java.io.*;
-public class XMLUtilTV
-{
-    //¸Ã·½·¨ÓÃÓÚ´ÓXMLÅäÖÃÎÄ¼þÖÐÌáÈ¡Æ·ÅÆÃû³Æ£¬²¢·µ»Ø¸ÃÆ·ÅÆÃû³Æ
-	public static String getBrandName()
-	{
-		try
-		{
-			//´´½¨ÎÄµµ¶ÔÏó
-			DocumentBuilderFactory dFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = dFactory.newDocumentBuilder();
-			Document doc;							
-			doc = builder.parse(new File("configTV.xml")); 
-		
-			//»ñÈ¡°üº¬Æ·ÅÆÃû³ÆµÄÎÄ±¾½Úµã
-			NodeList nl = doc.getElementsByTagName("brandName");
-            Node classNode=nl.item(0).getFirstChild();
-            String brandName=classNode.getNodeValue().trim();
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
+
+public class XMLUtilTV {
+    //ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½XMLï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½È¡Æ·ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public static String getBrandName() {
+        try {
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½
+            DocumentBuilderFactory dFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = dFactory.newDocumentBuilder();
+            Document doc;
+            doc = builder.parse(new File("configTV.xml"));
+
+            //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½Ä±ï¿½ï¿½Úµï¿½
+            NodeList nl = doc.getElementsByTagName("brandName");
+            Node classNode = nl.item(0).getFirstChild();
+            String brandName = classNode.getNodeValue().trim();
             return brandName;
-           }   
-           	catch(Exception e)
-           	{
-           		e.printStackTrace();
-           		return null;
-           	}
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

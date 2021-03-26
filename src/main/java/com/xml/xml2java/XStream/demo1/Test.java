@@ -1,19 +1,17 @@
 package com.xml.xml2java.XStream.demo1;
 
+import com.thoughtworks.xstream.XStream;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.thoughtworks.xstream.XStream;
-
-/** 
- * 
- * @author leiwei 
- * 
- * 将 java 对象转换成 xml 或 将 xml 转换成 java 对象 
- * 
- * 需要使用到 xstream - 1.3.jar 、 xpp3_min - 1.1.4c.jar 
- * 
+/**
+ * @author leiwei
+ * <p>
+ * 将 java 对象转换成 xml 或 将 xml 转换成 java 对象
+ * <p>
+ * 需要使用到 xstream - 1.3.jar 、 xpp3_min - 1.1.4c.jar
  */
 public class Test {
 
@@ -49,7 +47,7 @@ public class Test {
         // 将 xml 转换成 java 对象 
         Persons xml2obj = (Persons) stream.fromXML(obj2xml);
 
-        for (Iterator iterator = xml2obj.getListPerson().iterator(); iterator.hasNext();) {
+        for (Iterator iterator = xml2obj.getListPerson().iterator(); iterator.hasNext(); ) {
             Person person = (Person) iterator.next();
 
             System.out.println(person.getIdCard() + "--" + person.getName() + "--" + person.getAge());

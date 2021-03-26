@@ -1,4 +1,4 @@
-﻿package com.thread.concurrent.chapter03;
+package com.thread.concurrent.chapter03;
 
 class MonitorExample {
     int a = 0;

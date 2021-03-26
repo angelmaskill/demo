@@ -15,230 +15,227 @@ import java.nio.charset.CharsetDecoder;
 import java.util.Iterator;
 
 /**
- * 
  * 测试文件下载的NIOServer
- * 
- * 
- * 
+ *
  * @author tenyears.cn
  */
 
 public class NIOServer {
 
-	static int BLOCK = 4096;
+    static int BLOCK = 4096;
 
-	// 处理与客户端的交互
+    // 处理与客户端的交互
 
-	public class HandleClient {
+    public class HandleClient {
 
-		protected FileChannel channel;
+        protected FileChannel channel;
 
-		protected ByteBuffer buffer;
+        protected ByteBuffer buffer;
 
-		public HandleClient() throws IOException {
+        public HandleClient() throws IOException {
 
-			this.channel = new FileInputStream(filename).getChannel();
+            this.channel = new FileInputStream(filename).getChannel();
 
-			this.buffer = ByteBuffer.allocate(BLOCK);
+            this.buffer = ByteBuffer.allocate(BLOCK);
 
-		}
+        }
 
-		public ByteBuffer readBlock() {
+        public ByteBuffer readBlock() {
 
-			try {
+            try {
 
-				buffer.clear();
+                buffer.clear();
 
-				int count = channel.read(buffer);
+                int count = channel.read(buffer);
 
-				buffer.flip();
+                buffer.flip();
 
-				if (count <= 0)
+                if (count <= 0)
 
-					return null;
+                    return null;
 
-			} catch (IOException e) {
+            } catch (IOException e) {
 
-				e.printStackTrace();
+                e.printStackTrace();
 
-			}
+            }
 
-			return buffer;
+            return buffer;
 
-		}
+        }
 
-		public void close() {
+        public void close() {
 
-			try {
+            try {
 
-				channel.close();
+                channel.close();
 
-			} catch (IOException e) {
+            } catch (IOException e) {
 
-				e.printStackTrace();
+                e.printStackTrace();
 
-			}
+            }
 
-		}
+        }
 
-	}
+    }
 
-	protected Selector selector;
+    protected Selector selector;
 
-	protected String filename = "d:\\bigfile.dat"; // a big file
+    protected String filename = "d:\\bigfile.dat"; // a big file
 
-	protected ByteBuffer clientBuffer = ByteBuffer.allocate(BLOCK);
+    protected ByteBuffer clientBuffer = ByteBuffer.allocate(BLOCK);
 
-	protected CharsetDecoder decoder;
+    protected CharsetDecoder decoder;
 
-	public NIOServer(int port) throws IOException {
+    public NIOServer(int port) throws IOException {
 
-		selector = this.getSelector(port);
+        selector = this.getSelector(port);
 
-		Charset charset = Charset.forName("GB2312");
+        Charset charset = Charset.forName("GB2312");
 
-		decoder = charset.newDecoder();
+        decoder = charset.newDecoder();
 
-	}
+    }
 
-	// 获取Selector
+    // 获取Selector
 
-	protected Selector getSelector(int port) throws IOException {
+    protected Selector getSelector(int port) throws IOException {
 
-		ServerSocketChannel server = ServerSocketChannel.open();
+        ServerSocketChannel server = ServerSocketChannel.open();
 
-		Selector sel = Selector.open();
+        Selector sel = Selector.open();
 
-		server.socket().bind(new InetSocketAddress(port));
+        server.socket().bind(new InetSocketAddress(port));
 
-		server.configureBlocking(false);
+        server.configureBlocking(false);
 
-		server.register(sel, SelectionKey.OP_ACCEPT);
+        server.register(sel, SelectionKey.OP_ACCEPT);
 
-		return sel;
+        return sel;
 
-	}
+    }
 
-	// 监听端口
+    // 监听端口
 
-	public void listen() {
+    public void listen() {
 
-		try {
+        try {
 
-			for (;;) {
+            for (; ; ) {
 
-				selector.select();
+                selector.select();
 
-				Iterator<SelectionKey> iter = selector.selectedKeys()
+                Iterator<SelectionKey> iter = selector.selectedKeys()
 
-				.iterator();
+                        .iterator();
 
-				while (iter.hasNext()) {
+                while (iter.hasNext()) {
 
-					SelectionKey key = iter.next();
+                    SelectionKey key = iter.next();
 
-					iter.remove();
+                    iter.remove();
 
-					handleKey(key);
+                    handleKey(key);
 
-				}
+                }
 
-			}
+            }
 
-		} catch (IOException e) {
+        } catch (IOException e) {
 
-			e.printStackTrace();
+            e.printStackTrace();
 
-		}
+        }
 
-	}
+    }
 
-	// 处理事件
+    // 处理事件
 
-	protected void handleKey(SelectionKey key) throws IOException {
+    protected void handleKey(SelectionKey key) throws IOException {
 
-		if (key.isAcceptable()) { // 接收请求
+        if (key.isAcceptable()) { // 接收请求
 
-			ServerSocketChannel server = (ServerSocketChannel) key.channel();
+            ServerSocketChannel server = (ServerSocketChannel) key.channel();
 
-			SocketChannel channel = server.accept();
+            SocketChannel channel = server.accept();
 
-			channel.configureBlocking(false);
+            channel.configureBlocking(false);
 
-			channel.register(selector, SelectionKey.OP_READ);
+            channel.register(selector, SelectionKey.OP_READ);
 
-		} else if (key.isReadable()) { // 读信息
+        } else if (key.isReadable()) { // 读信息
 
-			SocketChannel channel = (SocketChannel) key.channel();
+            SocketChannel channel = (SocketChannel) key.channel();
 
-			int count = channel.read(clientBuffer);
+            int count = channel.read(clientBuffer);
 
-			if (count > 0) {
+            if (count > 0) {
 
-				clientBuffer.flip();
+                clientBuffer.flip();
 
-				CharBuffer charBuffer = decoder.decode(clientBuffer);
+                CharBuffer charBuffer = decoder.decode(clientBuffer);
 
-				System.out.println("Client >>" + charBuffer.toString());
+                System.out.println("Client >>" + charBuffer.toString());
 
-				SelectionKey wKey = channel.register(selector,
+                SelectionKey wKey = channel.register(selector,
 
-				SelectionKey.OP_WRITE);
+                        SelectionKey.OP_WRITE);
 
-				wKey.attach(new HandleClient());
+                wKey.attach(new HandleClient());
 
-			} else
+            } else
 
-				channel.close();
+                channel.close();
 
-			clientBuffer.clear();
+            clientBuffer.clear();
 
-		} else if (key.isWritable()) { // 写事件
+        } else if (key.isWritable()) { // 写事件
 
-			SocketChannel channel = (SocketChannel) key.channel();
+            SocketChannel channel = (SocketChannel) key.channel();
 
-			HandleClient handle = (HandleClient) key.attachment();
+            HandleClient handle = (HandleClient) key.attachment();
 
-			ByteBuffer block = handle.readBlock();
+            ByteBuffer block = handle.readBlock();
 
-			if (block != null)
+            if (block != null)
 
-				channel.write(block);
+                channel.write(block);
 
-			else {
+            else {
 
-				handle.close();
+                handle.close();
 
-				channel.close();
+                channel.close();
 
-			}
+            }
 
-		}
+        }
 
-	}
+    }
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		int port = 12345;
+        int port = 12345;
 
-		try {
+        try {
 
-			NIOServer server = new NIOServer(port);
+            NIOServer server = new NIOServer(port);
 
-			System.out.println("Listernint on " + port);
+            System.out.println("Listernint on " + port);
 
-			while (true) {
+            while (true) {
 
-				server.listen();
+                server.listen();
 
-			}
+            }
 
-		} catch (IOException e) {
+        } catch (IOException e) {
 
-			e.printStackTrace();
+            e.printStackTrace();
 
-		}
+        }
 
-	}
+    }
 
 }

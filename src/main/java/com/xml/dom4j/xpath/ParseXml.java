@@ -1,13 +1,5 @@
 package com.xml.dom4j.xpath;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -17,6 +9,14 @@ import org.dom4j.Node;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ParseXml {
 
@@ -88,6 +88,7 @@ public class ParseXml {
 
     /**
      * 对指定的节点增加属性和文本
+     *
      * @param elmt
      * @param name
      * @param value
@@ -101,6 +102,7 @@ public class ParseXml {
 
     /**
      * 修改指定节点的属性和文本
+     *
      * @param elmt
      * @param name
      * @param value
@@ -119,6 +121,7 @@ public class ParseXml {
 
     /**
      * 删除指定节点的指定属性
+     *
      * @param elmt
      * @param name
      * @return
@@ -128,11 +131,11 @@ public class ParseXml {
         return elmt;
     }
 
-    /** 
-     * 将文档输出到文件保存，可指定格式化输出,可指定字符编码。 
-     *  
-     * @param document 
-     * @param outputFile 
+    /**
+     * 将文档输出到文件保存，可指定格式化输出,可指定字符编码。
+     *
+     * @param document
+     * @param outputFile
      */
     public void saveDocument(Document doc, String outputPath) {
         // 输出文件  

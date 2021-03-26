@@ -1,15 +1,12 @@
 package com.designpattern.Chapter13Decorator.sample01;
 
-public class Airplane extends Changer
-{
-	public Airplane(Transform transform)
-	{
-		super(transform);
-		System.out.println("±ä³É·É»ú£¡");
-	}
-	
-	public void fly()
-	{
-		System.out.println("ÔÚÌì¿Õ·ÉÏè£¡");	
-	}
+public class Airplane extends Changer {
+    public Airplane(Transform transform) {
+        super(transform);
+        System.out.println("ï¿½ï¿½É·É»ï¿½ï¿½ï¿½");
+    }
+
+    public void fly() {
+        System.out.println("ï¿½ï¿½ï¿½ï¿½Õ·ï¿½ï¿½è£¡");
+    }
 }

@@ -1,37 +1,29 @@
 package com.designpattern.Chapter09Singleton.sample01;
 
-public class IdentityCardNo
-{
-	private static IdentityCardNo instance=null;
-	private String no;
-	
-	private IdentityCardNo()
-	{	
-	}
-	
-	public static IdentityCardNo getInstance()
-	{
-		if(instance==null)
-		{
-			System.out.println("µÚÒ»´Î°ìÀíÉí·ÝÖ¤£¬·ÖÅäÐÂºÅÂë£¡");
-		    instance=new IdentityCardNo();
-		    instance.setIdentityCardNo("No400011112222");		
-		}
-		else
-		{
-			System.out.println("ÖØ¸´°ìÀíÉí·ÝÖ¤£¬»ñÈ¡¾ÉºÅÂë£¡");  
-		}
-		return instance;
-	}
-	
-	private void setIdentityCardNo(String no)
-	{
-	    this.no=no;
-	}
-	
-	public String getIdentityCardNo()
-	{
-		return this.no;
-	}
-	
+public class IdentityCardNo {
+    private static IdentityCardNo instance = null;
+    private String no;
+
+    private IdentityCardNo() {
+    }
+
+    public static IdentityCardNo getInstance() {
+        if (instance == null) {
+            System.out.println("ï¿½ï¿½Ò»ï¿½Î°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âºï¿½ï¿½ë£¡");
+            instance = new IdentityCardNo();
+            instance.setIdentityCardNo("No400011112222");
+        } else {
+            System.out.println("ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½È¡ï¿½Éºï¿½ï¿½ë£¡");
+        }
+        return instance;
+    }
+
+    private void setIdentityCardNo(String no) {
+        this.no = no;
+    }
+
+    public String getIdentityCardNo() {
+        return this.no;
+    }
+
 }

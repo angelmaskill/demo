@@ -1,62 +1,50 @@
 package com.designpattern.Chapter25Strategy.sample02;
 
-interface TravelStrategy
-{
-	
-	public void travelMethod();
+interface TravelStrategy {
+
+    public void travelMethod();
 
 }
 
-class AirplaneStrategy implements  TravelStrategy
-{	
-	public void travelMethod()
-	{
-		System.out.println("·É»úÓÎ£¡");
-	}
+class AirplaneStrategy implements TravelStrategy {
+    public void travelMethod() {
+        System.out.println("ï¿½É»ï¿½ï¿½Î£ï¿½");
+    }
 }
 
-class TrainStrategy implements  TravelStrategy
-{
-	public void travelMethod()
-	{
-		System.out.println("»ð³µÓÎ£¡");
-	}
+class TrainStrategy implements TravelStrategy {
+    public void travelMethod() {
+        System.out.println("ï¿½ï¿½ï¿½Î£ï¿½");
+    }
 }
 
-class SelfTravelStrategy implements  TravelStrategy
-{
-	public void travelMethod()
-	{
-		System.out.println("×Ô¼ÝÓÎ£¡");
-	}
+class SelfTravelStrategy implements TravelStrategy {
+    public void travelMethod() {
+        System.out.println("ï¿½Ô¼ï¿½ï¿½Î£ï¿½");
+    }
 }
 
-class BicycleTravelStrategy implements  TravelStrategy
-{
-	public void travelMethod()
-	{
-		System.out.println("×ÔÐÐ³µÓÎ£¡");
-	}
+class BicycleTravelStrategy implements TravelStrategy {
+    public void travelMethod() {
+        System.out.println("ï¿½ï¿½ï¿½Ð³ï¿½ï¿½Î£ï¿½");
+    }
 }
 
-class MyContext
-{
-	private TravelStrategy ts;
-	public MyContext(TravelStrategy ts)
-	{
-		this.ts=ts;
-	}
-	public void travelMethod()
-	{
-		ts.travelMethod();
-	}
+class MyContext {
+    private TravelStrategy ts;
+
+    public MyContext(TravelStrategy ts) {
+        this.ts = ts;
+    }
+
+    public void travelMethod() {
+        ts.travelMethod();
+    }
 }
 
-class Client
-{
-	public static void main(String args[])
-	{
-		MyContext mc=new MyContext((TravelStrategy)XMLUtil.getBean());
-		mc.travelMethod();
-	}
+class Client {
+    public static void main(String args[]) {
+        MyContext mc = new MyContext((TravelStrategy) XMLUtil.getBean());
+        mc.travelMethod();
+    }
 }

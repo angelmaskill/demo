@@ -1,36 +1,30 @@
 package com.designpattern.Chapter20Iterator.sample01;
 
-public class Client
-{
-	public static void display(Television tv)
-	{
-		TVIterator i=tv.createIterator();
-		System.out.println("µçÊÓ»úÆµµÀ£º");
-		while(!i.isLast())
-		{
-			System.out.println(i.currentChannel().toString());
-			i.next();
-		}
-	}
-	
-	public static void reverseDisplay(Television tv)
-	{
-		TVIterator i=tv.createIterator();
-		i.setChannel(5);
-		System.out.println("ÄæÏò±éÀúµçÊÓ»úÆµµÀ£º");
-		while(!i.isFirst())
-		{
-			i.previous();
-			System.out.println(i.currentChannel().toString());
-		}
-	}
-	
-	public static void main(String a[])
-	{
-		Television tv;
-		tv=(Television)XMLUtil.getBean();
-		display(tv);
-		System.out.println("--------------------------");
-		reverseDisplay(tv);
-	}
+public class Client {
+    public static void display(Television tv) {
+        TVIterator i = tv.createIterator();
+        System.out.println("ï¿½ï¿½ï¿½Ó»ï¿½Æµï¿½ï¿½ï¿½ï¿½");
+        while (!i.isLast()) {
+            System.out.println(i.currentChannel().toString());
+            i.next();
+        }
+    }
+
+    public static void reverseDisplay(Television tv) {
+        TVIterator i = tv.createIterator();
+        i.setChannel(5);
+        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó»ï¿½Æµï¿½ï¿½ï¿½ï¿½");
+        while (!i.isFirst()) {
+            i.previous();
+            System.out.println(i.currentChannel().toString());
+        }
+    }
+
+    public static void main(String a[]) {
+        Television tv;
+        tv = (Television) XMLUtil.getBean();
+        display(tv);
+        System.out.println("--------------------------");
+        reverseDisplay(tv);
+    }
 }

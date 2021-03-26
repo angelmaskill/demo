@@ -53,15 +53,15 @@
  */
 package com.xml.jdom.samples.sax;
 
-import java.util.Stack;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
+import java.util.Stack;
+
 
 /**
- * Filter for removing formatting from data- or field-oriented XML. 
+ * Filter for removing formatting from data- or field-oriented XML.
  *
  * <i>Code and comments adapted from DataWriter-0.2, written
  * by David Megginson and released into the public domain,
@@ -74,11 +74,9 @@ import org.xml.sax.XMLReader;
  *
  * @see DataFormatFilter
  */
-public class DataUnformatFilter extends XMLFilterBase
-{
-    
-    
-    
+public class DataUnformatFilter extends XMLFilterBase {
+
+
     ////////////////////////////////////////////////////////////////////
     // Constructors.
     ////////////////////////////////////////////////////////////////////
@@ -87,8 +85,7 @@ public class DataUnformatFilter extends XMLFilterBase
     /**
      * Create a new filter.
      */
-    public DataUnformatFilter()
-    {
+    public DataUnformatFilter() {
     }
 
 
@@ -99,11 +96,9 @@ public class DataUnformatFilter extends XMLFilterBase
      *
      * @param xmlreader The parent in the filter chain.
      */
-    public DataUnformatFilter(XMLReader xmlreader)
-    {
+    public DataUnformatFilter(XMLReader xmlreader) {
         super(xmlreader);
     }
-
 
 
     ////////////////////////////////////////////////////////////////////
@@ -117,32 +112,29 @@ public class DataUnformatFilter extends XMLFilterBase
      * <p>This method is especially useful if the filter failed
      * with an exception the last time through.</p>
      */
-    public void reset ()
-    {
+    public void reset() {
         state = SEEN_NOTHING;
         stateStack = new Stack();
         whitespace = new StringBuffer();
     }
 
 
-
     ////////////////////////////////////////////////////////////////////
     // Methods from org.xml.sax.ContentHandler.
     ////////////////////////////////////////////////////////////////////
 
-    
+
     /**
-     * Filter a start document event. 
+     * Filter a start document event.
      *
      * <p>Reset state and pass the event on for further processing.</p>
      *
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startDocument
      */
-    public void startDocument ()
-    throws SAXException
-    {
+    public void startDocument()
+            throws SAXException {
         reset();
         super.startDocument();
     }
@@ -151,18 +143,17 @@ public class DataUnformatFilter extends XMLFilterBase
     /**
      * Filter a start element event.
      *
-     * @param uri The element's Namespace URI.
+     * @param uri       The element's Namespace URI.
      * @param localName The element's local name.
-     * @param qName The element's qualified (prefixed) name.
-     * @param atts The element's attribute list.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @param qName     The element's qualified (prefixed) name.
+     * @param atts      The element's attribute list.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      */
-    public void startElement (String uri, String localName,
-                              String qName, Attributes atts)
-    throws SAXException
-    {
+    public void startElement(String uri, String localName,
+                             String qName, Attributes atts)
+            throws SAXException {
         clearWhitespace();
         stateStack.push(SEEN_ELEMENT);
         state = SEEN_NOTHING;
@@ -173,16 +164,15 @@ public class DataUnformatFilter extends XMLFilterBase
     /**
      * Filter an end element event.
      *
-     * @param uri The element's Namespace URI.
+     * @param uri       The element's Namespace URI.
      * @param localName The element's local name.
-     * @param qName The element's qualified (prefixed) name.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @param qName     The element's qualified (prefixed) name.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#endElement
      */
-    public void endElement (String uri, String localName, String qName)
-    throws SAXException
-    {
+    public void endElement(String uri, String localName, String qName)
+            throws SAXException {
         if (state == SEEN_ELEMENT) {
             clearWhitespace();
         } else {
@@ -196,16 +186,15 @@ public class DataUnformatFilter extends XMLFilterBase
     /**
      * Filter a character data event.
      *
-     * @param ch The characters to write.
-     * @param start The starting position in the array.
+     * @param ch     The characters to write.
+     * @param start  The starting position in the array.
      * @param length The number of characters to use.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#characters
      */
-    public void characters (char ch[], int start, int length)
-    throws SAXException
-    {
+    public void characters(char ch[], int start, int length)
+            throws SAXException {
         if (state != SEEN_DATA) {
 
             /* Look for non-whitespace. */
@@ -231,47 +220,44 @@ public class DataUnformatFilter extends XMLFilterBase
         }
 
         /* Pass on everything inside a data field. */
-        
+
         if (state == SEEN_DATA) {
             super.characters(ch, start, length);
         }
     }
-    
-    
-     /**
-      * Filter an ignorable whitespace event.
-      *
-      * @param ch The array of characters to write.
-      * @param start The starting position in the array.
-      * @param length The number of characters to write.
-      * @exception org.xml.sax.SAXException If a filter
-      *            further down the chain raises an exception.
-      * @see org.xml.sax.ContentHandler#ignorableWhitespace
-      */
-    public void ignorableWhitespace (char ch[], int start, int length)
-    throws SAXException
-    {
+
+
+    /**
+     * Filter an ignorable whitespace event.
+     *
+     * @param ch     The array of characters to write.
+     * @param start  The starting position in the array.
+     * @param length The number of characters to write.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
+     * @see org.xml.sax.ContentHandler#ignorableWhitespace
+     */
+    public void ignorableWhitespace(char ch[], int start, int length)
+            throws SAXException {
         emitWhitespace();
         // ignore
     }
-    
+
 
     /**
      * Filter a processing instruction event.
      *
      * @param target The PI target.
-     * @param data The PI data.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @param data   The PI data.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#processingInstruction
      */
-    public void processingInstruction (String target, String data)
-    throws SAXException
-    {
+    public void processingInstruction(String target, String data)
+            throws SAXException {
         emitWhitespace();
         super.processingInstruction(target, data);
     }
-
 
 
     ////////////////////////////////////////////////////////////////////
@@ -282,7 +268,7 @@ public class DataUnformatFilter extends XMLFilterBase
     /**
      * Saves trailing whitespace.
      */
-    protected void saveWhitespace (char[] ch, int start, int length) {
+    protected void saveWhitespace(char[] ch, int start, int length) {
         whitespace.append(ch, start, length);
     }
 
@@ -290,9 +276,8 @@ public class DataUnformatFilter extends XMLFilterBase
     /**
      * Passes saved whitespace down the filter chain.
      */
-    protected void emitWhitespace ()
-    throws SAXException
-    {
+    protected void emitWhitespace()
+            throws SAXException {
         char[] data = new char[whitespace.length()];
         whitespace.getChars(0, data.length, data, 0);
         whitespace.setLength(0);
@@ -301,9 +286,9 @@ public class DataUnformatFilter extends XMLFilterBase
 
 
     /**
-     * Discards saved whitespace. 
+     * Discards saved whitespace.
      */
-    protected void clearWhitespace () {
+    protected void clearWhitespace() {
         whitespace.setLength(0);
     }
 
@@ -311,12 +296,9 @@ public class DataUnformatFilter extends XMLFilterBase
     /**
      * Returns <var>true</var> if character is XML whitespace.
      */
-    private boolean isXMLWhitespace (char c)
-    {
+    private boolean isXMLWhitespace(char c) {
         return c == ' ' || c == '\t' || c == '\r' || c == '\n';
     }
-
-
 
 
     ////////////////////////////////////////////////////////////////////

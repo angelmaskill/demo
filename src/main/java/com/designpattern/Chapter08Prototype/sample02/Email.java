@@ -1,37 +1,38 @@
 package com.designpattern.Chapter08Prototype.sample02;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OptionalDataException;
+import java.io.Serializable;
 
-public class Email implements Serializable 
-{
-	private Attachment attachment=null;
-	
-	public Email()
-	{
-		this.attachment=new Attachment();
-	}
-	
-	public Object deepClone() throws IOException, ClassNotFoundException, OptionalDataException
-	{
-		//½«¶ÔÏóÐ´ÈëÁ÷ÖÐ
-		ByteArrayOutputStream bao=new ByteArrayOutputStream();
-		ObjectOutputStream oos=new ObjectOutputStream(bao);
-		oos.writeObject(this);
-		
-		//½«¶ÔÏó´ÓÁ÷ÖÐÈ¡³ö
-		ByteArrayInputStream bis=new ByteArrayInputStream(bao.toByteArray());
-		ObjectInputStream ois=new ObjectInputStream(bis);
-		return(ois.readObject());
-	}
-	
-	public Attachment getAttachment()
-	{
-		return this.attachment;
-	}
-	
-	public void display()
-	{
-		System.out.println("²é¿´ÓÊ¼þ");	
-	}
-	
+public class Email implements Serializable {
+    private Attachment attachment = null;
+
+    public Email() {
+        this.attachment = new Attachment();
+    }
+
+    public Object deepClone() throws IOException, ClassNotFoundException, OptionalDataException {
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(bao);
+        oos.writeObject(this);
+
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½
+        ByteArrayInputStream bis = new ByteArrayInputStream(bao.toByteArray());
+        ObjectInputStream ois = new ObjectInputStream(bis);
+        return (ois.readObject());
+    }
+
+    public Attachment getAttachment() {
+        return this.attachment;
+    }
+
+    public void display() {
+        System.out.println("ï¿½é¿´ï¿½Ê¼ï¿½");
+    }
+
 }

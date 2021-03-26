@@ -1,14 +1,11 @@
 package com.designpattern.Chapter14Facade.sample01;
 
-public class Television
-{
-	public void on()
-	{
-		System.out.println("电视机打开！");
-	}
-	
-	public void off()
-	{
-		System.out.println("电视机关闭！");	
-	}
+public class Television {
+    public void on() {
+        System.out.println("锟斤拷锟接伙拷锟津开ｏ拷");
+    }
+
+    public void off() {
+        System.out.println("锟斤拷锟接伙拷锟截闭ｏ拷");
+    }
 }

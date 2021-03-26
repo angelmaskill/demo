@@ -1,8 +1,5 @@
 /**
- * @(#)Dom4jpri.java
- * 
- * Copyright Oristand.All rights reserved. This software is the XXX system.
- * 
+ * @(#)Dom4jpri.java Copyright Oristand.All rights reserved. This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -16,18 +13,18 @@
 
 package com.xml.dom4j.xpath;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.dom4j.Attribute;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * Class description goes here.
- * 
+ *
  * @author Administrator
  * @since 2015-10-10
  */
@@ -40,7 +37,7 @@ public class Dom4jpri {
         info = px.getElementText("/students/student[last()-2]/notes");
         System.out.println(info);
     }
-    
+
     @Test
     public void test2() throws Exception {
         ParseXml px = new ParseXml("errpar.xml");
@@ -83,5 +80,5 @@ public class Dom4jpri {
             System.out.println(key + ":" + sb.toString());
         }
     }
-    
+
 }

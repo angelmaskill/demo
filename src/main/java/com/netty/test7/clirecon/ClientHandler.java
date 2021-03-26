@@ -1,12 +1,12 @@
 package com.netty.test7.clirecon;
 
+import com.netty.test7.cli.CustomHeartbeatHandler;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 
-import com.netty.test7.cli.CustomHeartbeatHandler;
-
 public class ClientHandler extends CustomHeartbeatHandler {
     private Client client;
+
     public ClientHandler(Client client) {
         super("client");
         this.client = client;
@@ -33,9 +33,9 @@ public class ClientHandler extends CustomHeartbeatHandler {
         client.doConnect();
     }
 
-	@Override
-	protected void messageReceived(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    protected void messageReceived(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
+        // TODO Auto-generated method stub
+
+    }
 }

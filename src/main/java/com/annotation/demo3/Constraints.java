@@ -9,9 +9,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 //定义字段的约束
 public @interface Constraints {
-	boolean primaryKey() default false;
+    boolean primaryKey() default false;
 
-	boolean allowNull() default true;
+    boolean allowNull() default true;
 
-	boolean unique() default false;
+    boolean unique() default false;
 }

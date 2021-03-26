@@ -1,8 +1,12 @@
 package com.socket.demo8;
 
-import java.io.*;
-import java.net.*;
 import org.apache.log4j.Logger;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 /**
  * <pre>
@@ -13,35 +17,34 @@ import org.apache.log4j.Logger;
  * 对于客户进程，如果它发出的连接请求被加入到服务器的队列中，就意味着客户与服务器的连接建立成功，客户进程从Socket构造方法中正常返回。
  * 如果客户进程发出的连接请求被服务器拒绝，Socket构造方法就会抛出ConnectionException。
  * </pre>
- * 
- * @author mayanlu
  *
+ * @author mayanlu
  */
 public class Test_backlog {
-	private static Logger logger = Logger.getLogger(Test_backlog.class);
+    private static Logger logger = Logger.getLogger(Test_backlog.class);
 
-	public static void main(String[] args) throws Exception {
-		BufferedReader in = null;
-		PrintWriter out = null;
-		int backlog = 2;
+    public static void main(String[] args) throws Exception {
+        BufferedReader in = null;
+        PrintWriter out = null;
+        int backlog = 2;
 
-		ServerSocket serversocket = new ServerSocket(10000, backlog);
-		while (true) {
-			logger.debug("启动服务端......");
-			int i;
-			Socket socket = serversocket.accept();
-			logger.debug("有客户端连上服务端, 客户端信息如下：" + socket.getInetAddress() + " : " + socket.getPort() + ".");
-			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			out = new PrintWriter(socket.getOutputStream(), true);
-			do {
-				char[] c = new char[1024];
-				i = in.read(c);
-				logger.debug("服务端收到信息: " + new String(c, 0, i));
-			} while (i == -1);
-			out.close();
-			in.close();
-			socket.close();
-			logger.debug("关闭服务端......");
-		}
-	}
+        ServerSocket serversocket = new ServerSocket(10000, backlog);
+        while (true) {
+            logger.debug("启动服务端......");
+            int i;
+            Socket socket = serversocket.accept();
+            logger.debug("有客户端连上服务端, 客户端信息如下：" + socket.getInetAddress() + " : " + socket.getPort() + ".");
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
+            do {
+                char[] c = new char[1024];
+                i = in.read(c);
+                logger.debug("服务端收到信息: " + new String(c, 0, i));
+            } while (i == -1);
+            out.close();
+            in.close();
+            socket.close();
+            logger.debug("关闭服务端......");
+        }
+    }
 }

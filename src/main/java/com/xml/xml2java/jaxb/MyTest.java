@@ -1,22 +1,19 @@
 package com.xml.xml2java.jaxb;
 
 
- /*- 				History
+/*- 				History
  **********************************************
  *  ID      DATE           PERSON       REASON
  *  1     2015-5-27     Administrator    Created
  **********************************************
  */
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
+
+import junit.framework.TestCase;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-
-import junit.framework.TestCase;
+import java.io.StringReader;
 
 /**
  * Class description goes here.
@@ -38,8 +35,8 @@ import junit.framework.TestCase;
 */
 
 
-public class MyTest extends TestCase{
-    
+public class MyTest extends TestCase {
+
     /**
      * @此方法把java对象实例转成xml
      */
@@ -75,24 +72,28 @@ public class MyTest extends TestCase{
       }
       
     }*/
-    
- 
+
+
     /**
      * @此方法，把xml转成对象实例
      */
-    public void testjaxbToObject(){
-      try {
-        String xml="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><classRoom><classid>131123-1</classid><classname>bestClassRoom</classname><list><age>21</age><id>1</id><name>ggd1</name></list><list><age>21</age><id>2</id><name>ggd2</name></list><list><age>21</age><id>3</id><name>ggd3</name></list><list><age>21</age><id>4</id><name>ggd4</name></list><list><age>26</age><id>5</id><name>ggd5</name></list><list><age>21</age><id>6</id><name>ggd6</name></list><list><age>26</age><id>7</id><name>ggd7</name></list></classRoom>";
-        
-        JAXBContext jaxbContext=JAXBContext.newInstance(ClassRoom.class);
-        Unmarshaller unmarshaller=jaxbContext.createUnmarshaller();
-        ClassRoom classRoom= (ClassRoom) unmarshaller.unmarshal(new StringReader(xml));
-        
-        System.out.println(classRoom.toString());
-        
-      } catch (JAXBException e) {
-        e.printStackTrace();
-      }
+    public void testjaxbToObject() {
+        try {
+            String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><classRoom><classid>131123-1</classid><classname" +
+                    ">bestClassRoom</classname><list><age>21</age><id>1</id><name>ggd1</name></list><list><age>21</age><id>2</id><name>ggd2</name" +
+                    "></list><list><age>21</age><id>3</id><name>ggd3</name></list><list><age>21</age><id>4</id><name>ggd4</name></list><list><age" +
+                    ">26</age><id>5</id><name>ggd5</name></list><list><age>21</age><id>6</id><name>ggd6</name></list><list><age>26</age><id>7</id" +
+                    "><name>ggd7</name></list></classRoom>";
+
+            JAXBContext jaxbContext = JAXBContext.newInstance(ClassRoom.class);
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+            ClassRoom classRoom = (ClassRoom) unmarshaller.unmarshal(new StringReader(xml));
+
+            System.out.println(classRoom.toString());
+
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
     }
 
-  }
+}

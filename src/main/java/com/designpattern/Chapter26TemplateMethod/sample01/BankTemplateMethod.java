@@ -1,21 +1,17 @@
 package com.designpattern.Chapter26TemplateMethod.sample01;
 
-public abstract class BankTemplateMethod
-{
-    public void takeNumber()
-	{
-		System.out.println("È¡ºÅÅÅ¶Ó¡£");
-	}
-	
-	public abstract void transact();
-	
-	public void evaluate()
-	{
-		System.out.println("·´À¡ÆÀ·Ö¡£");
-	}
+public abstract class BankTemplateMethod {
+    public void takeNumber() {
+        System.out.println("È¡ï¿½ï¿½ï¿½Å¶Ó¡ï¿½");
+    }
 
-    public void process()
-    {
+    public abstract void transact();
+
+    public void evaluate() {
+        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½");
+    }
+
+    public void process() {
         this.takeNumber();
         this.transact();
         this.evaluate();

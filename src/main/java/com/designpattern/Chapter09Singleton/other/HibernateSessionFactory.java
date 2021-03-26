@@ -11,7 +11,7 @@ package com.designpattern.Chapter09Singleton.other;
  */
 public class HibernateSessionFactory {
 
-    /** 
+    /**
      * Location of hibernate.cfg.xml file.
      * Location should be on the classpath as Hibernate uses  
      * #resourceAsStream style lookup for its configuration file. 

@@ -16,14 +16,14 @@ public class TimeClient {
             }
         }
 
-        for (int i=1;i<=20;i++) {
+        for (int i = 1; i <= 20; i++) {
             AsyncTimeClientHandler tc = new AsyncTimeClientHandler("127.0.0.1", port);
-            Thread tt = new Thread(tc,"线程"+i);
+            Thread tt = new Thread(tc, "线程" + i);
             try {
-           //     tt.sleep(1000);
+                //     tt.sleep(1000);
                 tt.start();
+            } catch (Exception e) {
             }
-            catch (Exception e){}
         }
 
     }

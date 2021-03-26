@@ -4,38 +4,38 @@ import org.junit.Test;
 
 /**
  * 解密加载器测试
- * @author Administrator
  *
+ * @author Administrator
  */
 public class DecryptClassLoaderTest {
 
-	/**
-	 * 使用解密加载器加载加密后的类
-	 */
-	@Test
-	public void load(){
-		DecryptClassLoader loader = new DecryptClassLoader("D:/classes/encrypt/");
-		try {
-			Class<?> c = loader.loadClass("per.owisho.helloworld.HelloWorld");
-			System.out.println(c);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * 使用普通类加载器加载加密后的类
-	 */
-	@Test
-	public void loadNormal(){
-		FileSystemClassloader loader = new FileSystemClassloader("D:/classes/encrypt/");
-		try {
-			Class<?> c = loader.loadClass("per.owisho.helloworld.HelloWorld");
-			System.out.println(c);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
+    /**
+     * 使用解密加载器加载加密后的类
+     */
+    @Test
+    public void load() {
+        DecryptClassLoader loader = new DecryptClassLoader("D:/classes/encrypt/");
+        try {
+            Class<?> c = loader.loadClass("per.owisho.helloworld.HelloWorld");
+            System.out.println(c);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 使用普通类加载器加载加密后的类
+     */
+    @Test
+    public void loadNormal() {
+        FileSystemClassloader loader = new FileSystemClassloader("D:/classes/encrypt/");
+        try {
+            Class<?> c = loader.loadClass("per.owisho.helloworld.HelloWorld");
+            System.out.println(c);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 	/*
 	java.lang.ClassFormatError: Incompatible magic value 889275713 in class file per/owisho/helloworld/HelloWorld
 	at java.lang.ClassLoader.defineClass1(Native Method)

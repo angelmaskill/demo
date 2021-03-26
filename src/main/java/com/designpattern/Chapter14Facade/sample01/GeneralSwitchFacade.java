@@ -1,41 +1,38 @@
 package com.designpattern.Chapter14Facade.sample01;
 
 public class GeneralSwitchFacade {
-	private Light lights[]=new Light[4];
-	private Fan fan;
-	private AirConditioner ac;
-	private Television tv;
-	
-	public GeneralSwitchFacade()
-	{
-		lights[0]=new Light("×óÇ°");
-		lights[1]=new Light("ÓÒÇ°");
-		lights[2]=new Light("×óºó");
-		lights[3]=new Light("ÓÒºó");	
-		fan=new Fan();
-		ac=new AirConditioner();
-		tv=new Television();
-	}
-	
-	public void on()
-	{
-		lights[0].on();
-		lights[1].on();
-		lights[2].on();
-		lights[3].on();
-		fan.on();
-		ac.on();
-		tv.on();
-	} 
-		
-	public void off()
-	{
-		lights[0].off();
-		lights[1].off();
-		lights[2].off();
-		lights[3].off();
-		fan.off();
-		ac.off();
-		tv.off();		
-	}   
+    private Light lights[] = new Light[4];
+    private Fan fan;
+    private AirConditioner ac;
+    private Television tv;
+
+    public GeneralSwitchFacade() {
+        lights[0] = new Light("ï¿½ï¿½Ç°");
+        lights[1] = new Light("ï¿½ï¿½Ç°");
+        lights[2] = new Light("ï¿½ï¿½ï¿½");
+        lights[3] = new Light("ï¿½Òºï¿½");
+        fan = new Fan();
+        ac = new AirConditioner();
+        tv = new Television();
+    }
+
+    public void on() {
+        lights[0].on();
+        lights[1].on();
+        lights[2].on();
+        lights[3].on();
+        fan.on();
+        ac.on();
+        tv.on();
+    }
+
+    public void off() {
+        lights[0].off();
+        lights[1].off();
+        lights[2].off();
+        lights[3].off();
+        fan.off();
+        ac.off();
+        tv.off();
+    }
 }

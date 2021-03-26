@@ -1,14 +1,11 @@
 /**
- * @(#)Abstest.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)Abstest.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
- */ 
- /*- 				History
+ */
+/*- 				History
  **********************************************
  *  ID      DATE           PERSON       REASON
  *  1     2015-10-10     Administrator    Created
@@ -16,6 +13,7 @@
  */
 
 package com.BASETEST.abs;
+
 /**
  * Class description goes here.
  *
@@ -23,5 +21,5 @@ package com.BASETEST.abs;
  * @since 2015-10-10
  */
 public abstract class Abstest {
-    public String a ;
+    public String a;
 }

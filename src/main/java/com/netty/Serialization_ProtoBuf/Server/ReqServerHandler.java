@@ -2,7 +2,6 @@ package com.netty.Serialization_ProtoBuf.Server;
 
 
 import com.netty.Serialization_ProtoBuf.ProtoBuf.PersonProbuf;
-
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
@@ -13,18 +12,18 @@ import io.netty.channel.ChannelHandlerContext;
  * Time: 2015/12/28 0028.
  */
 @Sharable
-public class ReqServerHandler extends ChannelHandlerAdapter{
+public class ReqServerHandler extends ChannelHandlerAdapter {
     @Override
-    public void channelRead(ChannelHandlerContext ctx,Object msg)throws Exception{
-    	PersonProbuf.Person people  = (PersonProbuf.Person)msg;
-        if("Orange".equalsIgnoreCase(people.getName())){
-     //   if("Orange".equals(people.getName())){
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        PersonProbuf.Person people = (PersonProbuf.Person) msg;
+        if ("Orange".equalsIgnoreCase(people.getName())) {
+            //   if("Orange".equals(people.getName())){
             System.out.println("accept client people:[" + people.toString() + "]");
             ctx.writeAndFlush(resp(people.getId()));
         }
     }
 
-    private PersonProbuf.Person resp(long peopleID){
+    private PersonProbuf.Person resp(long peopleID) {
         PersonProbuf.Person.Builder builder = PersonProbuf.Person.newBuilder();
         builder.setId(peopleID);
         builder.setName("karl");
@@ -34,7 +33,7 @@ public class ReqServerHandler extends ChannelHandlerAdapter{
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause){
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();
         ctx.close();
     }

@@ -1,4 +1,4 @@
-﻿package com.thread.concurrent.chapter05;
+package com.thread.concurrent.chapter05;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,8 +13,8 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class FairAndUnfairTest {
 
-    private static Lock           fairLock   = new ReentrantLock2(true);
-    private static Lock           unfairLock = new ReentrantLock2(false);
+    private static Lock fairLock = new ReentrantLock2(true);
+    private static Lock unfairLock = new ReentrantLock2(false);
     private static CountDownLatch start;
 
     public void fair() {

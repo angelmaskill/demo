@@ -1,8 +1,5 @@
 /**
- * @(#)ServerDemoMul.java
- * 
- * Copyright Oristand.All rights reserved. This software is the XXX system.
- * 
+ * @(#)ServerDemoMul.java Copyright Oristand.All rights reserved. This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -17,7 +14,6 @@
 package com.socket.demo4MulThread;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -96,11 +92,11 @@ class Server extends Thread {
                 try {
                     System.out.println("服务器端进行业务处理开始...");
                     String str = in.readLine(); // 接收客户端发送的内容
-                    System.out.println("服务器收到信息："+str);
+                    System.out.println("服务器收到信息：" + str);
                     /*for (int i = 0; i < 10; i++) {
                         out.writeBytes(i+str + "\n");
                     }*/
-                    out.writeBytes("i love you!"+str);
+                    out.writeBytes("i love you!" + str);
                 } catch (Exception e) {
                     System.out.println("Exception:" + e.getMessage());
                 }

@@ -1,9 +1,7 @@
 package com.designpattern.Chapter23Observer.sample01;
 
-public class Pig implements MyObserver
-{
-	public void response()
-	{
-		System.out.println("ÖíÃ»ÓÐ·´Ó¦£¡");
-	}	
+public class Pig implements MyObserver {
+    public void response() {
+        System.out.println("ï¿½ï¿½Ã»ï¿½Ð·ï¿½Ó¦ï¿½ï¿½");
+    }
 }

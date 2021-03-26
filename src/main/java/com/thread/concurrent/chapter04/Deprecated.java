@@ -1,4 +1,4 @@
-﻿package com.thread.concurrent.chapter04;
+package com.thread.concurrent.chapter04;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

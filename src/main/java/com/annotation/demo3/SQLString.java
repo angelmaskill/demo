@@ -9,10 +9,10 @@ import java.lang.annotation.Target;
 // 类，接口或enum
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SQLString {
-	int value() default 0;
+    int value() default 0;
 
-	String name() default "";
+    String name() default "";
 
-	// 注解元素中引用别的注解，
-	Constraints constraints() default @Constraints;
+    // 注解元素中引用别的注解，
+    Constraints constraints() default @Constraints;
 }

@@ -1,9 +1,6 @@
 /**
- * @(#)TestFutureTask.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)TestFutureTask.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -28,8 +25,8 @@ import java.util.concurrent.FutureTask;
  * @since 2014-10-24
  */
 public class TestFutureTask {
-    /** 
-     * @param args 
+    /**
+     * @param args
      */
     public static void main(String[] args) {
         // TODO Auto-generated method stub 

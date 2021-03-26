@@ -1,19 +1,15 @@
 package com.designpattern.Chapter18Command.sample01;
 
-public class Television
-{
-	public void open()
-	{
-		System.out.println("´ò¿ªµçÊÓ»ú£¡");
-	}
-	
-	public void close()
-	{
-		System.out.println("¹Ø±ÕµçÊÓ»ú£¡");		
-	}
-	
-	public void changeChannel()
-	{
-		System.out.println("ÇÐ»»µçÊÓÆµµÀ£¡");
-	}
+public class Television {
+    public void open() {
+        System.out.println("ï¿½ò¿ªµï¿½ï¿½Ó»ï¿½ï¿½ï¿½");
+    }
+
+    public void close() {
+        System.out.println("ï¿½Ø±Õµï¿½ï¿½Ó»ï¿½ï¿½ï¿½");
+    }
+
+    public void changeChannel() {
+        System.out.println("ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½");
+    }
 }

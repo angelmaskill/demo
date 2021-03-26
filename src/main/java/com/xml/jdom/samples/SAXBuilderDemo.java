@@ -55,18 +55,18 @@ package com.xml.jdom.samples;
 
  */
 
-import java.io.*;
-
 import org.jdom.*;
 import org.jdom.input.*;
 import org.jdom.output.*;
 
+import java.io.IOException;
+
 /**
  * <p><code>SAXBuilderDemo</code> demonstrates how to
- *   build a JDOM <code>Document</code> using a SAX 2.0
- *   parser.
+ * build a JDOM <code>Document</code> using a SAX 2.0
+ * parser.
  * </p>
- * 
+ *
  * @author Brett McLaughlin
  * @author Jason Hunter
  * @version 1.0
@@ -76,24 +76,24 @@ public class SAXBuilderDemo {
     /**
      * <p>
      * This provides a static entry point for creating a JDOM
-     *   <code>{@link Document}</code> object using a SAX 2.0
-     *   parser (an <code>XMLReader</code> implementation).
+     * <code>{@link Document}</code> object using a SAX 2.0
+     * parser (an <code>XMLReader</code> implementation).
      * </p>
      *
      * @param args <code>String[]</code>
-     *        <ul>
-     *         <li>First argument: filename of XML document to parse</li>
-     *         <li>Second argument: optional boolean on whether to expand
-     *         entities</li>
-     *         <li>Third argument: optional String name of a SAX Driver class
-     *         to use</li>
-     *        </ul>
+     *             <ul>
+     *              <li>First argument: filename of XML document to parse</li>
+     *              <li>Second argument: optional boolean on whether to expand
+     *              entities</li>
+     *              <li>Third argument: optional String name of a SAX Driver class
+     *              to use</li>
+     *             </ul>
      */
     public static void main(String[] args) {
         if ((args.length < 1) || (args.length > 3)) {
             System.out.println(
-              "Usage: java SAXBuilderDemo " +
-              "[XML document filename] ([expandEntities] [SAX Driver Class])");
+                    "Usage: java SAXBuilderDemo " +
+                            "[XML document filename] ([expandEntities] [SAX Driver Class])");
             return;
         }
 
@@ -131,6 +131,6 @@ public class SAXBuilderDemo {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }    
+        }
     }
 }

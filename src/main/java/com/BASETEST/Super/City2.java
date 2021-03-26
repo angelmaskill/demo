@@ -1,8 +1,5 @@
 /**
- * @(#)City2.java
- * 
- * Copyright Oristand.All rights reserved. This software is the XXX system.
- * 
+ * @(#)City2.java Copyright Oristand.All rights reserved. This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -17,7 +14,7 @@
 package com.BASETEST.Super;
 
 /**
- *  
+ *
  * 此时，super.name返回的值是父类成员变量的值xianfan,而此时的super.value()方法是不起作用的。
  * @author Administrator
  * @since 2015-3-13

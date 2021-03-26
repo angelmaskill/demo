@@ -1,20 +1,18 @@
 package com.designpattern.Chapter09Singleton.sample01;
 
-public class Client
-{
-	public static void main(String a[])
-	{
-	   IdentityCardNo no1,no2;
-	   no1=IdentityCardNo.getInstance();
-       no2=IdentityCardNo.getInstance();
-       System.out.println("Éí·ÝÖ¤ºÅÂëÊÇ·ñÒ»ÖÂ£º" + (no1==no2));
-       
-       String str1,str2;
-       str1=no1.getIdentityCardNo();
-       str2=no1.getIdentityCardNo();
-       System.out.println("µÚÒ»´ÎºÅÂë£º" + str1);
-       System.out.println("µÚ¶þ´ÎºÅÂë£º" + str2);
-       System.out.println("ÄÚÈÝÊÇ·ñÏàµÈ£º" + str1.equalsIgnoreCase(str2));
-       System.out.println("ÊÇ·ñÊÇÏàÍ¬¶ÔÏó£º" + (str1==str2));
-	}
+public class Client {
+    public static void main(String a[]) {
+        IdentityCardNo no1, no2;
+        no1 = IdentityCardNo.getInstance();
+        no2 = IdentityCardNo.getInstance();
+        System.out.println("ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ò»ï¿½Â£ï¿½" + (no1 == no2));
+
+        String str1, str2;
+        str1 = no1.getIdentityCardNo();
+        str2 = no1.getIdentityCardNo();
+        System.out.println("ï¿½ï¿½Ò»ï¿½Îºï¿½ï¿½ë£º" + str1);
+        System.out.println("ï¿½Ú¶ï¿½ï¿½Îºï¿½ï¿½ë£º" + str2);
+        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½È£ï¿½" + str1.equalsIgnoreCase(str2));
+        System.out.println("ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½" + (str1 == str2));
+    }
 }

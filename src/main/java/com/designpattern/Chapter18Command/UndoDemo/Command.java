@@ -1,72 +1,61 @@
 package com.designpattern.Chapter18Command.UndoDemo;
 
-abstract class AbstractCommand
-{
-	public abstract int execute(int value);
-	public abstract int undo();
+abstract class AbstractCommand {
+    public abstract int execute(int value);
+
+    public abstract int undo();
 }
 
-class ConcreteCommand extends AbstractCommand
-{
-	private Adder adder = new Adder();
-	private int value;
-		
-	public int execute(int value)
-	{
-		this.value=value;
-		return adder.add(value);
-	}
-	
-	public int undo()
-	{
-		return adder.add(-value);
-	}
+class ConcreteCommand extends AbstractCommand {
+    private Adder adder = new Adder();
+    private int value;
+
+    public int execute(int value) {
+        this.value = value;
+        return adder.add(value);
+    }
+
+    public int undo() {
+        return adder.add(-value);
+    }
 }
 
-class CalculatorForm
-{
-	private AbstractCommand command;
-	
-	public void setCommand(AbstractCommand command)
-	{
-		this.command=command;
-	}
-	
-	public void compute(int value)
-	{
-		int i = command.execute(value);
-		System.out.println("Ö´ÐÐÔËËã£¬ÔËËã½á¹ûÎª£º" + i);
-	}
-	
-	public void undo()
-	{
-		int i = command.undo();
-		System.out.println("Ö´ÐÐ³·Ïú£¬ÔËËã½á¹ûÎª£º" + i);
-	}
+class CalculatorForm {
+    private AbstractCommand command;
+
+    public void setCommand(AbstractCommand command) {
+        this.command = command;
+    }
+
+    public void compute(int value) {
+        int i = command.execute(value);
+        System.out.println("Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ã£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + i);
+    }
+
+    public void undo() {
+        int i = command.undo();
+        System.out.println("Ö´ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + i);
+    }
 }
 
-class Adder
-{
-	private int num=0;
-	
-	public int add(int value)
-	{
-		num+=value;
-		return num;
-	}
+class Adder {
+    private int num = 0;
+
+    public int add(int value) {
+        num += value;
+        return num;
+    }
 }
 
-class Client
-{
-	public static void main(String args[])
-	{
-		CalculatorForm form = new CalculatorForm();
-		ConcreteCommand command = new ConcreteCommand();
-		form.setCommand(command);
-		
-		form.compute(10);
-		form.compute(5);
-		form.compute(10);
-		form.undo();
-	}
+class Client {
+    public static void main(String args[]) {
+        CalculatorForm form = new CalculatorForm();
+        ConcreteCommand command = new ConcreteCommand();
+        form.setCommand(command);
+
+        form.compute(10);
+        form.compute(5);
+        form.compute(10);
+        form.undo();
+    }
 }

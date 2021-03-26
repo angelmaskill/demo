@@ -1,16 +1,14 @@
 package com.designpattern.Chapter10Adapter.sample02;
 
-public class Client
-{
-	public static void main(String args[])
-	{
-		DataOperation dao=(DataOperation)XMLUtil.getBean();
-		dao.setPassword("sunnyLiu");
-		String ps=dao.getPassword();
-		String es=dao.doEncrypt(6,ps);
-		System.out.println("Ã÷ÎÄÎª£º" + ps);
-		System.out.println("ÃÜÎÄÎª£º" + es);
-	}
+public class Client {
+    public static void main(String args[]) {
+        DataOperation dao = (DataOperation) XMLUtil.getBean();
+        dao.setPassword("sunnyLiu");
+        String ps = dao.getPassword();
+        String es = dao.doEncrypt(6, ps);
+        System.out.println("ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + ps);
+        System.out.println("ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + es);
+    }
 }
 
 

@@ -23,9 +23,9 @@ public class ClientHandler extends CustomHeartbeatHandler {
         sendPingMsg(ctx);
     }
 
-	@Override
-	protected void messageReceived(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    protected void messageReceived(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
+        // TODO Auto-generated method stub
+
+    }
 }

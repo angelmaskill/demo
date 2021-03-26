@@ -5,14 +5,14 @@ import lombok.Setter;
 
 public class TestServiceImpl implements TestService {
 
-	@Getter
-	@Setter
-	private TestDao testDao;
+    @Getter
+    @Setter
+    private TestDao testDao;
 
-	@Override
-	public void SayHello() {
-		// TODO Auto-generated method stub
-		this.getTestDao().doSomething();
-	}
+    @Override
+    public void SayHello() {
+        // TODO Auto-generated method stub
+        this.getTestDao().doSomething();
+    }
 
 }

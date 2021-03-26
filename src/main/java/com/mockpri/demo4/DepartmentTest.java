@@ -7,13 +7,14 @@ package com.mockpri.demo4;
  * @Modified By:
  */
 
-import static org.junit.Assert.*;
+import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
-import org.powermock.reflect.Whitebox;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Whitebox.getInternalState(department, “employees”)类似堆栈，查看变量的值。

@@ -1,7 +1,10 @@
 package com.netty.Netty.Server;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -15,7 +18,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  * @Time: 15:54
  */
 public class TimeServer {
-    public void bind(int port)throws Exception{
+    public void bind(int port) throws Exception {
         /* 配置服务端的NIO线程组 */
         // NioEventLoopGroup类 是个线程组，包含一组NIO线程，用于网络事件的处理
         // （实际上它就是Reactor线程组）。
@@ -27,37 +30,37 @@ public class TimeServer {
         try {
             // ServerBootstrap 类，是启动NIO服务器的辅助启动类
             ServerBootstrap b = new ServerBootstrap();
-            b.group(bossGroup,WorkerGroup)
+            b.group(bossGroup, WorkerGroup)
                     .channel(NioServerSocketChannel.class)
-                    .option(ChannelOption.SO_BACKLOG,1024)
+                    .option(ChannelOption.SO_BACKLOG, 1024)
                     .childHandler(new ChildChannelHandler());
 
             // 绑定端口,同步等待成功
-            ChannelFuture f= b.bind(port).sync();
+            ChannelFuture f = b.bind(port).sync();
 
             // 等待服务端监听端口关闭
             f.channel().closeFuture().sync();
-        }finally {
+        } finally {
             // 释放线程池资源
             bossGroup.shutdownGracefully();
             WorkerGroup.shutdownGracefully();
         }
     }
 
-    private class ChildChannelHandler extends ChannelInitializer<SocketChannel>{
+    private class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
         @Override
-        protected  void initChannel(SocketChannel arg0)throws Exception{
+        protected void initChannel(SocketChannel arg0) throws Exception {
             arg0.pipeline().addLast(new TimeServerHandler());
         }
     }
 
-    public static void main(String[]args)throws Exception{
+    public static void main(String[] args) throws Exception {
         int port = 8080;
-        if(args!=null && args.length>0){
+        if (args != null && args.length > 0) {
             try {
                 port = Integer.valueOf(args[0]);
+            } catch (NumberFormatException ex) {
             }
-            catch (NumberFormatException ex){}
         }
         new TimeServer().bind(port);
     }

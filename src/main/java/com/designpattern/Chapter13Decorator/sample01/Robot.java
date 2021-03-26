@@ -1,15 +1,12 @@
 package com.designpattern.Chapter13Decorator.sample01;
 
-public class Robot extends Changer
-{
-	public Robot(Transform transform)
-	{
-		super(transform);
-		System.out.println("±ä³É»úÆ÷ÈË£¡");
-	}
-	
-	public void say()
-	{
-		System.out.println("Ëµ»°£¡");	
-	}
+public class Robot extends Changer {
+    public Robot(Transform transform) {
+        super(transform);
+        System.out.println("ï¿½ï¿½É»ï¿½ï¿½ï¿½ï¿½Ë£ï¿½");
+    }
+
+    public void say() {
+        System.out.println("Ëµï¿½ï¿½ï¿½ï¿½");
+    }
 }

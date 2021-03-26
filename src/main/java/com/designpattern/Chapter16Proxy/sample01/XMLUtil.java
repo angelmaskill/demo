@@ -1,36 +1,35 @@
 package com.designpattern.Chapter16Proxy.sample01;
 
-import javax.xml.parsers.*;
-import org.w3c.dom.*;
-import org.xml.sax.SAXException;
-import java.io.*;
-public class XMLUtil
-{
-//¸Ã·½·¨ÓÃÓÚ´ÓXMLÅäÖÃÎÄ¼þÖÐÌáÈ¡¾ßÌåÀàÀàÃû£¬²¢·µ»ØÒ»¸öÊµÀý¶ÔÏó
-	public static Object getBean()
-	{
-		try
-		{
-			//´´½¨ÎÄµµ¶ÔÏó
-			DocumentBuilderFactory dFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = dFactory.newDocumentBuilder();
-			Document doc;							
-			doc = builder.parse(new File("config.xml")); 
-		
-			//»ñÈ¡°üº¬ÀàÃûµÄÎÄ±¾½Úµã
-			NodeList nl = doc.getElementsByTagName("className");
-            Node classNode=nl.item(0).getFirstChild();
-            String cName=classNode.getNodeValue();
-            
-            //Í¨¹ýÀàÃûÉú³ÉÊµÀý¶ÔÏó²¢½«Æä·µ»Ø
-            Class c=Class.forName(cName);
-	  	    Object obj=c.newInstance();
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
+
+public class XMLUtil {
+    //ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½XMLï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public static Object getBean() {
+        try {
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½
+            DocumentBuilderFactory dFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = dFactory.newDocumentBuilder();
+            Document doc;
+            doc = builder.parse(new File("config.xml"));
+
+            //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½Úµï¿½
+            NodeList nl = doc.getElementsByTagName("className");
+            Node classNode = nl.item(0).getFirstChild();
+            String cName = classNode.getNodeValue();
+
+            //Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ó²¢½ï¿½ï¿½ä·µï¿½ï¿½
+            Class c = Class.forName(cName);
+            Object obj = c.newInstance();
             return obj;
-           }   
-           	catch(Exception e)
-           	{
-           		e.printStackTrace();
-           		return null;
-           	}
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -9,15 +9,15 @@ import java.io.Serializable;
  */
 public class AskParams implements Serializable {
 
-	private static final long serialVersionUID = -7693350028779287507L;
+    private static final long serialVersionUID = -7693350028779287507L;
 
-	private String auth;
+    private String auth;
 
-	public String getAuth() {
-		return auth;
-	}
+    public String getAuth() {
+        return auth;
+    }
 
-	public void setAuth(String auth) {
-		this.auth = auth;
-	}
+    public void setAuth(String auth) {
+        this.auth = auth;
+    }
 }

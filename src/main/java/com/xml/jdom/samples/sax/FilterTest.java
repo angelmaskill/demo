@@ -53,16 +53,16 @@
  */
 package com.xml.jdom.samples.sax;
 
-import java.io.InputStream;
-
 import org.jdom.Document;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 
+import java.io.InputStream;
+
 /**
  * Tests SAXBuilder's XMLFilter feature
- * 
- * @author  joe.bowbeer
+ *
+ * @author joe.bowbeer
  */
 public class FilterTest {
 
@@ -71,16 +71,16 @@ public class FilterTest {
     }
 
     /**
-    * @param args the command line arguments
-    */
-    public static void main (String args[]) throws Exception {
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) throws Exception {
 
         /* XMLWriter for viewing unfiltered input. */
-        
+
         XMLWriter echo = new XMLWriter();
-        
+
         /* Add pretty formatting to unformatted xml file. */
-        
+
         SAXBuilder builder = new SAXBuilder();
         DataFormatFilter format = new DataFormatFilter(echo);
         format.setIndentStep(4);
@@ -95,11 +95,11 @@ public class FilterTest {
         outputter.output(doc, System.out);
 
         System.out.println("\n");
-        
+
         /* Remove pretty formatting from formatted xml file. */
-        
+
         builder = new SAXBuilder();
-        builder.setXMLFilter( new DataUnformatFilter(echo) );
+        builder.setXMLFilter(new DataUnformatFilter(echo));
         in = FilterTest.class.getResourceAsStream("test2.xml");
 
         System.out.println(" -- test2.xml unfiltered --\n");

@@ -1,16 +1,13 @@
 package com.designpattern.Chapter10Adapter.sample01;
 
-public class DogAdapter extends Dog implements Robot
-{
-	public void cry()
-	{
-		System.out.print("»úÆ÷ÈËÄ£·Â£º");
-		super.wang();
-	}
-	
-	public void move()
-	{
-		System.out.print("»úÆ÷ÈËÄ£·Â£º");
-		super.run();
-	}
+public class DogAdapter extends Dog implements Robot {
+    public void cry() {
+        System.out.print("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½Â£ï¿½");
+        super.wang();
+    }
+
+    public void move() {
+        System.out.print("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½Â£ï¿½");
+        super.run();
+    }
 }

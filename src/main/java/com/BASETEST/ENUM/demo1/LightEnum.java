@@ -11,15 +11,14 @@ package com.BASETEST.ENUM.demo1;
  * (1)首先给Light枚举类型增加构造方法，
  * (2)然后每个枚举类型的值通过构造函数传入对应的参数，
  * (3)同时覆写toString方法，在该方法中返回从构造函数中传入的参数，
- * 
- * 改造后的代码见：LightEnumTest
- * 
- * </pre>
- * 
- * @author mayanlu
  *
+ * 改造后的代码见：LightEnumTest
+ *
+ * </pre>
+ *
+ * @author mayanlu
  */
 
 public enum LightEnum {
-	RED, GREEN, YELLOW;
+    RED, GREEN, YELLOW;
 }

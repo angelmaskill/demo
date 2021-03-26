@@ -9,8 +9,8 @@ import java.lang.annotation.Target;
 // 类，接口或enum
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SQLInteger {
-	String name() default "";
+    String name() default "";
 
-	// 嵌套注解的功能,将column类型的数据库约束信息嵌入其中
-	Constraints constraints() default @Constraints;
+    // 嵌套注解的功能,将column类型的数据库约束信息嵌入其中
+    Constraints constraints() default @Constraints;
 }

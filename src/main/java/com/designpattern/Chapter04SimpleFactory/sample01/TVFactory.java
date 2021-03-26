@@ -1,22 +1,15 @@
 package com.designpattern.Chapter04SimpleFactory.sample01;
 
-public class TVFactory
-{
-	public static TV produceTV(String brand) throws Exception
-	{
-		if(brand.equalsIgnoreCase("Haier"))
-		{
-			System.out.println("µçÊÓ»ú¹¤³§Éú²úº£¶ûµçÊÓ»ú£¡");
-			return new HaierTV();
-		}
-		else if(brand.equalsIgnoreCase("Hisense"))
-		{
-			System.out.println("µçÊÓ»ú¹¤³§Éú²úº£ÐÅµçÊÓ»ú£¡");
-			return new HisenseTV();
-		}
-		else
-		{
-			throw new Exception("¶Ô²»Æð£¬ÔÝ²»ÄÜÉú²ú¸ÃÆ·ÅÆµçÊÓ»ú£¡");
-		}
-	}
+public class TVFactory {
+    public static TV produceTV(String brand) throws Exception {
+        if (brand.equalsIgnoreCase("Haier")) {
+            System.out.println("ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½");
+            return new HaierTV();
+        } else if (brand.equalsIgnoreCase("Hisense")) {
+            System.out.println("ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½ï¿½Ó»ï¿½ï¿½ï¿½");
+            return new HisenseTV();
+        } else {
+            throw new Exception("ï¿½Ô²ï¿½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Æµï¿½ï¿½Ó»ï¿½ï¿½ï¿½");
+        }
+    }
 }

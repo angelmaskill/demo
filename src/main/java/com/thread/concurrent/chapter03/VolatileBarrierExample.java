@@ -1,7 +1,7 @@
-﻿package com.thread.concurrent.chapter03;
+package com.thread.concurrent.chapter03;
 
 class VolatileBarrierExample {
-    int          a;
+    int a;
     volatile int v1 = 1;
     volatile int v2 = 2;
 

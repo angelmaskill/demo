@@ -3,7 +3,7 @@ package com.mina.test7;
 import java.io.IOException;
 
 public class HeartbeatTest {
-	 
+
     public static void main(String[] args) {
         new Thread(new Runnable() {
             public void run() {

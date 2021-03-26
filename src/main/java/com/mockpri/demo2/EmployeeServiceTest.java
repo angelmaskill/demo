@@ -128,6 +128,7 @@ class Employee {
     public void create() {
         throw new UnsupportedOperationException();
     }
+
     public void setEmployeeId(int nextId) {
         throw new UnsupportedOperationException();
     }

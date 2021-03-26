@@ -1,23 +1,17 @@
 package com.designpattern.Chapter17CoR.sample01;
 
-public class Director extends Leader
-{
-	public Director(String name)
-	{
-		super(name);
-	}
-	public void handleRequest(LeaveRequest request)
-	{
-		if(request.getLeaveDays()<3)
-		{
-			System.out.println("Ö÷ÈÎ" + name + "ÉóÅúÔ±¹¤" + request.getLeaveName() + "µÄÇë¼ÙÌõ£¬Çë¼ÙÌìÊýÎª" + request.getLeaveDays() + "Ìì¡£");
-		}
-		else
-		{
-			if(this.successor!=null)
-			{
-				this.successor.handleRequest(request);
-			}
-		}
-	}
+public class Director extends Leader {
+    public Director(String name) {
+        super(name);
+    }
+
+    public void handleRequest(LeaveRequest request) {
+        if (request.getLeaveDays() < 3) {
+            System.out.println("ï¿½ï¿½ï¿½ï¿½" + name + "ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½" + request.getLeaveName() + "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª" + request.getLeaveDays() + "ï¿½ì¡£");
+        } else {
+            if (this.successor != null) {
+                this.successor.handleRequest(request);
+            }
+        }
+    }
 }

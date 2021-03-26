@@ -1,14 +1,11 @@
 /**
- * @(#)TrustAnyHostnameVerifier.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)TrustAnyHostnameVerifier.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
- */ 
- /*- 				History
+ */
+/*- 				History
  **********************************************
  *  ID      DATE           PERSON       REASON
  *  1     2014-5-20     Administrator    Created

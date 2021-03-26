@@ -8,11 +8,11 @@ package com.monitor.demo1;
 public class WebApp {
 
     @Override
-	public String toString() {
-		return "WebApp [name=" + name + ", status=" + status + "]";
-	}
+    public String toString() {
+        return "WebApp [name=" + name + ", status=" + status + "]";
+    }
 
-	/**
+    /**
      * 项目名称
      */
     private String name;
@@ -21,10 +21,6 @@ public class WebApp {
      * 运行状态 "成功" or "停止"
      */
     private String status;
-
-
-
-
 
 
     public String getName() {
@@ -42,6 +38,6 @@ public class WebApp {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-    
+
+
 }

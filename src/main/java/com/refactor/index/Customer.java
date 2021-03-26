@@ -1,8 +1,5 @@
 /**
- * @(#)Customer.java
- * 
- * Copyright Oristand.All rights reserved. This software is the XXX system.
- * 
+ * @(#)Customer.java Copyright Oristand.All rights reserved. This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -21,7 +18,7 @@ import java.util.Vector;
 
 /**
  * Class description goes here.
- * 
+ *
  * @author Administrator
  * @since 2014-10-22
  */
@@ -51,19 +48,19 @@ public class Customer {
             Rental each = (Rental) rentals.nextElement(); // 取得㆒笔租借记录
             // determine amounts for each line
             switch (each.getMovie().getPriceCode()) { // 取得影片出租价格
-            case Movie.REGULAR: // 普通片
-                thisAmount += 2;
-                if (each.getDaysRented() > 2)
-                    thisAmount += (each.getDaysRented() - 2) * 1.5;
-                break;
-            case Movie.NEW_RELEASE: // 新片
-                thisAmount += each.getDaysRented() * 3;
-                break;
-            case Movie.CHILDRENS: // 儿童片
-                thisAmount += 1.5;
-                if (each.getDaysRented() > 3)
-                    thisAmount += (each.getDaysRented() - 3) * 1.5;
-                break;
+                case Movie.REGULAR: // 普通片
+                    thisAmount += 2;
+                    if (each.getDaysRented() > 2)
+                        thisAmount += (each.getDaysRented() - 2) * 1.5;
+                    break;
+                case Movie.NEW_RELEASE: // 新片
+                    thisAmount += each.getDaysRented() * 3;
+                    break;
+                case Movie.CHILDRENS: // 儿童片
+                    thisAmount += 1.5;
+                    if (each.getDaysRented() > 3)
+                        thisAmount += (each.getDaysRented() - 3) * 1.5;
+                    break;
             }
             // add frequent renter points（累加常客积点）
             frequentRenterPoints++;

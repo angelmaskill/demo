@@ -4,8 +4,9 @@ import org.apache.log4j.Logger;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
-public class ClientHandler extends IoHandlerAdapter{
-    private final Logger LOG = Logger.getLogger(ClientHandler.class);  
+
+public class ClientHandler extends IoHandlerAdapter {
+    private final Logger LOG = Logger.getLogger(ClientHandler.class);
 
     @Override
     public void messageReceived(IoSession session, Object message) throws Exception {

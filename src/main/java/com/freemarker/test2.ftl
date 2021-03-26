@@ -8,8 +8,8 @@ ${-1.1?int}
 
 
 ---------- 字符串连接
- ${3+"5"}
- ${3+5}
+${3+"5"}
+${3+5}
 ---------- 测试金额
 <#setting number_format = "currency" />
 <#assign price = 42 />
@@ -17,7 +17,7 @@ ${price}
 ${price?string}
 ${price?string.number}
 ${price?string.currency}
-${price?string.percent} 
+${price?string.percent}
 
 ------------测试日期
 <#assign lastUpdated = "2009-01-07 15:05"?datetime("yyyy-MM-dd HH:mm") />
@@ -51,16 +51,16 @@ ${test1?string.full}
 
 ------------list集合
 <#list ["星期一","星期二","星期三","星期四","星期五"] as x>
-         ${x};
+    ${x};
 </#list>
 
 <#list ["Joe", "Fred"] + ["Julia", "Kate"] as user>
- ${user}
+    ${user}
 </#list>
 
 ---截取字符串 list连接
 <#list ["Joe", "Fred"] + ["Julia", "Kate"] as user>
- ${user[1..2]}
+    ${user[1..2]}
 </#list>
 
 <#list ["星期一","星期二","星期三","星期四","星期五"] as x>
@@ -68,7 +68,7 @@ ${test1?string.full}
     <#if x = "星期四"><#break></#if>
 </#list>
 
-------------Map 
+------------Map
 
 <#assign h = {"name":"mouse", "price":50}>
 <#assign w = h?keys>
@@ -76,17 +76,15 @@ ${test1?string.full}
 
 <#assign h = {"语文":78,"数学":83,"Java":89} >
 <#assign w = h?keys>
- <#list w as key >
-   ${key}--->${h[key]};
- </#list>
+<#list w as key >
+    ${key}--->${h[key]};
+</#list>
 
 
 ------------调用内建函数
 <#assign test="Tom & Jerry" />
 ${test?html}
 ${test?upper_case?html}
-
-
 
 
 补充说明：

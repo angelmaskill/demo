@@ -1,9 +1,6 @@
 /**
- * @(#)TestRef.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)TestRef.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -40,6 +37,9 @@ package com.reflect;
  * @author Administrator
  * @since 2015-8-17
  */
+
+import junit.framework.TestCase;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -47,59 +47,59 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-import junit.framework.TestCase;
-
-/** 
+/**
  * Created by IntelliJ IDEA. 
  * File: TestRef.java 
  * User: leizhimin 
  * Date: 2008-1-28 14:48:44 
  */
-public class TestRef extends TestCase{
+public class TestRef extends TestCase {
 
     public static void main(String args[]) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Foo foo = new Foo("这个一个Foo对象！");
         Class clazz = foo.getClass();
-        System.out.println("类名："+clazz.getName());
+        System.out.println("类名：" + clazz.getName());
         Method m1 = clazz.getDeclaredMethod("outInfo");
         Method m2 = clazz.getDeclaredMethod("setMsg", String.class);
         Method m3 = clazz.getDeclaredMethod("getMsg");
         m1.invoke(foo);
         m2.invoke(foo, "重新设置msg信息！");
         String msg = (String) m3.invoke(foo);
-        System.out.println("return:"+msg);
+        System.out.println("return:" + msg);
     }
-    
+
     /*
      * 三种获取类名的方法：
      */
     public void testForName() throws Exception {
-        Class<?> demo1 =null;
-        Class<?> demo2 =null;
-        Class<?> demo3 =null;
+        Class<?> demo1 = null;
+        Class<?> demo2 = null;
+        Class<?> demo3 = null;
         /**
          * @返回与带有给定字符串名的类或接口相关联的 Class 对象。
-         * @调用 forName("X") 将导致命名为 X 的类被初始化；不是对象被初始化。
+         * @调用 forName(" X ") 将导致命名为 X 的类被初始化；不是对象被初始化。
          */
         demo1 = Class.forName("com.reflect.Foo");
-        demo2=new Foo().getClass();//返回此 Object 的运行时类
-        demo3=Foo.class;
-        
-        System.out.println("类名称   "+demo1.getName());
-        System.out.println("类名称   "+demo2.getName());
-        System.out.println("类名称   "+demo3.getName());
+        demo2 = new Foo().getClass();//返回此 Object 的运行时类
+        demo3 = Foo.class;
+
+        System.out.println("类名称   " + demo1.getName());
+        System.out.println("类名称   " + demo2.getName());
+        System.out.println("类名称   " + demo3.getName());
     }
+
     /*
      * newInstance 创造对象
      * 通过类名，实例化出来一个类的对象
      */
     public void testNewInstance() throws Exception {
-        Class<?> demo1 =null;
+        Class<?> demo1 = null;
         demo1 = Class.forName("com.reflect.Foo");
-        Foo foo= (Foo)demo1.newInstance();
+        Foo foo = (Foo) demo1.newInstance();
         foo.setMsg("测试");
         System.out.println(foo);
     }
+
     /*
      * cons[0].newInstance()
      * 通过构造函数来初始化对象
@@ -120,21 +120,21 @@ public class TestRef extends TestCase{
             
         }*/
         for (int i = 0; i < cons.length; i++) {
-            Class<?> p[]=cons[i].getParameterTypes();
+            Class<?> p[] = cons[i].getParameterTypes();
             System.out.print("构造方法：  ");
-            int mo=cons[i].getModifiers();
-            System.out.print(Modifier.toString(mo)+" ");
+            int mo = cons[i].getModifiers();
+            System.out.print(Modifier.toString(mo) + " ");
             System.out.print(cons[i].getName());
             System.out.print("(");
-            for(int j=0;j<p.length;++j){
-                System.out.print(p[j].getName()+" arg"+i);
-                if(j<p.length-1){
+            for (int j = 0; j < p.length; ++j) {
+                System.out.print(p[j].getName() + " arg" + i);
+                if (j < p.length - 1) {
                     System.out.print(",");
                 }
             }
             System.out.println("){}");
         }
-            
+
         /*
          * 每次运行，构造函数的位置不一样
          */
@@ -143,7 +143,7 @@ public class TestRef extends TestCase{
         System.out.println(f1);
         System.out.println(f2.getMsg());
     }
-    
+
     /*
      * getInterfaces()
      * 获取接口相关信息
@@ -155,9 +155,10 @@ public class TestRef extends TestCase{
         // 取得全部的构造函数：
         Class<?> cla[] = demo1.getInterfaces();
         for (Class<?> class1 : cla) {
-            System.out.println("实现的接口"+class1);
+            System.out.println("实现的接口" + class1);
         }
     }
+
     /*
      * getSuperclass 获取父類
      */
@@ -166,9 +167,9 @@ public class TestRef extends TestCase{
         Class<?> demo1 = null;
         demo1 = Class.forName("com.reflect.Foo");
         Class<?> cla = demo1.getSuperclass();
-        System.out.println("继承的父类为"+cla);
+        System.out.println("继承的父类为" + cla);
     }
-    
+
     /*
      * 获取方法：
      */
@@ -176,37 +177,37 @@ public class TestRef extends TestCase{
         System.out.println("=========testGetMethod====begin");
         Class<?> demo1 = null;
         demo1 = Class.forName("com.reflect.Foo");
-        Method method[]=demo1.getMethods();
-        for(int i=0;i<method.length;++i){
-            Class<?> returnType=method[i].getReturnType();
-            Class<?> para[]=method[i].getParameterTypes();
-            int temp=method[i].getModifiers();
-            System.out.print(Modifier.toString(temp)+" ");
-            System.out.print(returnType.getName()+"  ");
-            System.out.print(method[i].getName()+" ");
+        Method method[] = demo1.getMethods();
+        for (int i = 0; i < method.length; ++i) {
+            Class<?> returnType = method[i].getReturnType();
+            Class<?> para[] = method[i].getParameterTypes();
+            int temp = method[i].getModifiers();
+            System.out.print(Modifier.toString(temp) + " ");
+            System.out.print(returnType.getName() + "  ");
+            System.out.print(method[i].getName() + " ");
             System.out.print("(");
-            for(int j=0;j<para.length;++j){
-                System.out.print(para[j].getName()+" "+"arg"+j);
-                if(j<para.length-1){
+            for (int j = 0; j < para.length; ++j) {
+                System.out.print(para[j].getName() + " " + "arg" + j);
+                if (j < para.length - 1) {
                     System.out.print(",");
                 }
             }
-            Class<?> exce[]=method[i].getExceptionTypes();
-            if(exce.length>0){
+            Class<?> exce[] = method[i].getExceptionTypes();
+            if (exce.length > 0) {
                 System.out.print(") throws ");
-                for(int k=0;k<exce.length;++k){
-                    System.out.print(exce[k].getName()+" ");
-                    if(k<exce.length-1){
+                for (int k = 0; k < exce.length; ++k) {
+                    System.out.print(exce[k].getName() + " ");
+                    if (k < exce.length - 1) {
                         System.out.print(",");
                     }
                 }
-            }else{
+            } else {
                 System.out.print(")");
             }
             System.out.println();
         }
     }
-    
+
     public void testGetAllInfo() throws Exception {
         System.out.println("=========testGetAllInfo====begin");
         Class<?> demo = null;
@@ -240,9 +241,8 @@ public class TestRef extends TestCase{
                     + filed1[j].getName() + ";");
         }
     }
-    
- 
-    
+
+
     public void testname() throws Exception {
         System.out.println("=====================");
         Class<?> demo = null;
@@ -251,89 +251,88 @@ public class TestRef extends TestCase{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        try{
+        try {
             //调用Person类中的sayChina方法
-            Method method=demo.getMethod("sayChina");
+            Method method = demo.getMethod("sayChina");
             method.invoke(demo.newInstance());
             //调用Person的sayHello方法
-            method=demo.getMethod("sayHello", String.class,int.class);
-            method.invoke(demo.newInstance(),"Rollen",20);
-             
-        }catch (Exception e) {
+            method = demo.getMethod("sayHello", String.class, int.class);
+            method.invoke(demo.newInstance(), "Rollen", 20);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     public void test11() throws Exception {
         System.out.println("=================test11===");
         Class<?> demo = null;
-        Object obj=null;
+        Object obj = null;
         try {
             demo = Class.forName("com.reflect.Person");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        try{
-         obj=demo.newInstance();
-        }catch (Exception e) {
+        try {
+            obj = demo.newInstance();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        setter(obj,"Sex","男",String.class);
-        getter(obj,"Sex");
+        setter(obj, "Sex", "男", String.class);
+        getter(obj, "Sex");
     }
-    
-    
+
+
     public void testGetAtt() throws Exception {
         System.out.println("===========testGetAtt");
         Class<?> demo = null;
         Object obj = null;
- 
+
         demo = Class.forName("com.reflect.Person");
         obj = demo.newInstance();
- 
+
         Field field = demo.getDeclaredField("sex");
         field.setAccessible(true);
         field.set(obj, "男");
         System.out.println(field.get(obj));
     }
-    
-    
+
+
     public void test12() throws Exception {
         System.out.println("===========12");
-        int[] temp={1,2,3,4,5};
-        Class<?>demo=temp.getClass().getComponentType();
-        System.out.println("数组类型： "+demo.getName());
-        System.out.println("数组长度  "+Array.getLength(temp));
-        System.out.println("数组的第一个元素: "+Array.get(temp, 0));
+        int[] temp = {1, 2, 3, 4, 5};
+        Class<?> demo = temp.getClass().getComponentType();
+        System.out.println("数组类型： " + demo.getName());
+        System.out.println("数组长度  " + Array.getLength(temp));
+        System.out.println("数组的第一个元素: " + Array.get(temp, 0));
         Array.set(temp, 0, 100);
-        System.out.println("修改之后数组第一个元素为： "+Array.get(temp, 0));
+        System.out.println("修改之后数组第一个元素为： " + Array.get(temp, 0));
     }
-    
+
     public void test13() throws Exception {
         System.out.println("===========13");
-        int[] temp={1,2,3,4,5,6,7,8,9};
-        int[] newTemp=(int[])arrayInc(temp,15);
+        int[] temp = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] newTemp = (int[]) arrayInc(temp, 15);
         print(newTemp);
         System.out.println("=====================");
-        String[] atr={"a","b","c"};
-        String[] str1=(String[])arrayInc(atr,8);
+        String[] atr = {"a", "b", "c"};
+        String[] str1 = (String[]) arrayInc(atr, 8);
         print(str1);
     }
-    
+
     /**其实在java中有三种类类加载器。
 
-    1）Bootstrap ClassLoader 此加载器采用c++编写，一般开发中很少见。
-    2）Extension ClassLoader 用来进行扩展类的加载，一般对应的是jre\lib\ext目录中的类
-    3）AppClassLoader 加载classpath指定的类，是最常用的加载器。同时也是java中默认的加载器。*/
-    
+     1）Bootstrap ClassLoader 此加载器采用c++编写，一般开发中很少见。
+     2）Extension ClassLoader 用来进行扩展类的加载，一般对应的是jre\lib\ext目录中的类
+     3）AppClassLoader 加载classpath指定的类，是最常用的加载器。同时也是java中默认的加载器。*/
+
     public void test14() throws Exception {
         System.out.println("========14");
-        Foo t=new Foo();
-        System.out.println("类加载器  "+t.getClass().getClassLoader().getClass().getName());
+        Foo t = new Foo();
+        System.out.println("类加载器  " + t.getClass().getClassLoader().getClass().getName());
     }
-    
-    
-    
+
+
     /**
      * @param obj
      *            操作的对象
@@ -348,7 +347,7 @@ public class TestRef extends TestCase{
             e.printStackTrace();
         }
     }
- 
+
     /**
      * @param obj
      *            操作的对象
@@ -360,7 +359,7 @@ public class TestRef extends TestCase{
      *            参数的属性
      * */
     public static void setter(Object obj, String att, Object value,
-            Class<?> type) {
+                              Class<?> type) {
         try {
             Method method = obj.getClass().getMethod("set" + att, type);
             method.invoke(obj, value);
@@ -368,50 +367,51 @@ public class TestRef extends TestCase{
             e.printStackTrace();
         }
     }
-    
-    
+
+
     /**
      * 修改数组大小
      * */
-    public static Object arrayInc(Object obj,int len){
-        Class<?>arr=obj.getClass().getComponentType();
-        Object newArr=Array.newInstance(arr, len);
-        int co=Array.getLength(obj);
+    public static Object arrayInc(Object obj, int len) {
+        Class<?> arr = obj.getClass().getComponentType();
+        Object newArr = Array.newInstance(arr, len);
+        int co = Array.getLength(obj);
         System.arraycopy(obj, 0, newArr, 0, co);
         return newArr;
     }
+
     /**
      * 打印
      * */
-    public static void print(Object obj){
-        Class<?>c=obj.getClass();
-        if(!c.isArray()){
+    public static void print(Object obj) {
+        Class<?> c = obj.getClass();
+        if (!c.isArray()) {
             return;
         }
-        System.out.println("数组长度为： "+Array.getLength(obj));
+        System.out.println("数组长度为： " + Array.getLength(obj));
         for (int i = 0; i < Array.getLength(obj); i++) {
-            System.out.print(Array.get(obj, i)+" ");
+            System.out.print(Array.get(obj, i) + " ");
         }
     }
 }
 
 
-
-class Foo implements Swim{
+class Foo implements Swim {
     private String msg;
 
-    static{
+    static {
         System.out.println("此时类中静态块被初始化！");
     }
-   
-  
-    private Foo(int a,String ...ms) {
+
+
+    private Foo(int a, String... ms) {
         super();
     }
 
     public Foo(String msg) {
         this.msg = msg;
     }
+
     public Foo() {
 
     }
@@ -430,10 +430,10 @@ class Foo implements Swim{
 
     @Override
     public void swimming() {
-        
+
     }
 }
 
-interface Swim{
+interface Swim {
     void swimming();
 }

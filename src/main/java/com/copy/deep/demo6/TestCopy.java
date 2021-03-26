@@ -1,11 +1,11 @@
 package com.copy.deep.demo6;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.sf.cglib.beans.BeanCopier;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: yanlu.myl
@@ -21,8 +21,8 @@ public class TestCopy {
         entity.setName("orderName");
 
         List<Address> addressList = new ArrayList<>();
-        Address address1 = new Address("BEIJING STREET",1);
-        Address address2 = new Address("HENAN STREET",2);
+        Address address1 = new Address("BEIJING STREET", 1);
+        Address address2 = new Address("HENAN STREET", 2);
         addressList.add(address1);
         addressList.add(address2);
         entity.setAddressList(addressList);
@@ -42,11 +42,11 @@ public class TestCopy {
         entity.setId(1);
         entity.setName("orderName");
         final BeanCopier copier = BeanCopier.create(OrderEntity.class, PropWithDiffType.class,
-            false);
+                false);
         PropWithDiffType dto = new PropWithDiffType();
         copier.copy(entity, dto, null);
         Assert.assertEquals(null,
-            dto.getId()); // OrderEntity的id为int类型，而PropWithDiffType的id为Integer类型，不拷贝
+                dto.getId()); // OrderEntity的id为int类型，而PropWithDiffType的id为Integer类型，不拷贝
         Assert.assertEquals("orderName", dto.getName());
     }
 }

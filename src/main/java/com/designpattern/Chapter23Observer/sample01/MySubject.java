@@ -1,22 +1,19 @@
 package com.designpattern.Chapter23Observer.sample01;
 
-import java.util.*;
+import java.util.ArrayList;
 
-public abstract class MySubject
-{
-	protected ArrayList observers = new ArrayList();
-	
-	//×¢²á·½·¨
-	public void attach(MyObserver observer)
-	{
-		observers.add(observer);
-	} 
-	
-	//×¢Ïú·½·¨
-	public void detach(MyObserver observer)
-	{
-		observers.remove(observer);
-	}
-	
-	public abstract void cry(); //³éÏóÍ¨Öª·½·¨
+public abstract class MySubject {
+    protected ArrayList observers = new ArrayList();
+
+    //×¢ï¿½á·½ï¿½ï¿½
+    public void attach(MyObserver observer) {
+        observers.add(observer);
+    }
+
+    //×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public void detach(MyObserver observer) {
+        observers.remove(observer);
+    }
+
+    public abstract void cry(); //ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½
 }

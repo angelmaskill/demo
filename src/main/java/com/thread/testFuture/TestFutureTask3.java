@@ -1,14 +1,11 @@
 /**
- * @(#)TestFutureTask3.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)TestFutureTask3.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
- */ 
- /*- 				History
+ */
+/*- 				History
  **********************************************
  *  ID      DATE           PERSON       REASON
  *  1     2014-10-24     Administrator    Created
@@ -24,7 +21,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 
-
 /**
  * Class description goes here.
  *
@@ -33,8 +29,8 @@ import java.util.concurrent.Future;
  */
 public class TestFutureTask3 {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        long begin= System.currentTimeMillis();
-        System.out.println(begin+"begin...");
+        long begin = System.currentTimeMillis();
+        System.out.println(begin + "begin...");
         TestFutureTask3 test = new TestFutureTask3();
 
         // 创建一个线程池
@@ -50,16 +46,16 @@ public class TestFutureTask3 {
         // 从Future对象上获取任务的返回值，并输出到控制台
         System.out.println(">>>" + f2.get().toString());
         System.out.println(">>>" + f1.get().toString());
-        
-        int  v1 = Integer.parseInt(f1.get().toString());
-        int  v2 = Integer.parseInt(f2.get().toString());
-        
-        System.out.println(v1+v2);
-        
+
+        int v1 = Integer.parseInt(f1.get().toString());
+        int v2 = Integer.parseInt(f2.get().toString());
+
+        System.out.println(v1 + v2);
+
         // 关闭线程池
         pool.shutdown();
-        long end= System.currentTimeMillis();
-        System.out.println("总共耗时："+(end-begin)/1000);
+        long end = System.currentTimeMillis();
+        System.out.println("总共耗时：" + (end - begin) / 1000);
     }
 
     class MyCallable implements Callable {
@@ -70,15 +66,16 @@ public class TestFutureTask3 {
         }
 
         public Object call() throws Exception {
-            int i=0;
+            int i = 0;
             for (i = 0; i < oid; i++) {
                 i++;
-                System.out.println("====================="+i);
+                System.out.println("=====================" + i);
                 Thread.currentThread().sleep(200);
             }
             return i;
         }
     }
+
     class MyCallable2 implements Callable {
         private int oid;
 
@@ -87,10 +84,10 @@ public class TestFutureTask3 {
         }
 
         public Object call() throws Exception {
-            int i=0;
+            int i = 0;
             for (i = 0; i < oid; i++) {
                 i++;
-                System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+i);
+                System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxx" + i);
                 Thread.currentThread().sleep(200);
             }
             return i;

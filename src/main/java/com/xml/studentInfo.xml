@@ -6,7 +6,7 @@
         <telephone>62354666</telephone>
         <notes>男,1982年生,硕士，现就读于北京邮电大学</notes>
     </student>
-      <student>
+    <student>
         <name>cwb</name>
         <college leader="学院领导">PC学院</college><!--如果没有leader属性，默认的为leader-->
         <telephone>62358888</telephone>

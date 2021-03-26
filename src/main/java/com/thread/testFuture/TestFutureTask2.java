@@ -1,9 +1,6 @@
 /**
- * @(#)TestFutureTask2.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)TestFutureTask2.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -64,6 +61,6 @@ public class TestFutureTask2 {
             return oid + "任务返回的内容";
         }
     }
-    
+
 
 }

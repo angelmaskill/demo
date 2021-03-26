@@ -1,8 +1,5 @@
 /**
- * @(#)Jdbc.java
- * 
- * Copyright Oristand.All rights reserved. This software is the XXX system.
- * 
+ * @(#)Jdbc.java Copyright Oristand.All rights reserved. This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -16,14 +13,14 @@
 
 package com.JDBC;
 
+import junit.framework.TestCase;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import junit.framework.TestCase;
-
 /**
  * Class description goes here.
- * 
+ *
  * @author Administrator
  * @since 2014-11-4
  */

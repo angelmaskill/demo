@@ -1,5 +1,12 @@
 package com.excel;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,15 +17,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.DateUtil;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 /**
  * 参考:http://blog.csdn.net/sunglee_1992/article/details/53033644
+ *
  * @Author: yanlu.myl
  * @Description:
  * @Date: Created on 2018/1/22 17:30
@@ -33,14 +34,13 @@ public class ExcelUtil {
     List<ArrayList<String>> strLists = new ArrayList<ArrayList<String>>();  //存放Excel中的数据
 
     /**
-     * @return List<ArrayList<String>>
-     * @throws FileNotFoundException,IOException,InvalidFormatException
-     * POI方式解析EXCEL表格(2007以上版本，xlsx)
+     * @return List<ArrayList < String>>
+     * @throws FileNotFoundException,IOException,InvalidFormatException POI方式解析EXCEL表格(2007以上版本，xlsx)
      * @author: LS
      * 2016-8-27 下午7:04:26
      */
     public List<ArrayList<String>> poiReadXExcel(String file) throws FileNotFoundException,
-        IOException, InvalidFormatException {
+            IOException, InvalidFormatException {
         FileInputStream input = new FileInputStream(new File(file)); //读取的文件路径
         XSSFWorkbook wb = new XSSFWorkbook(new BufferedInputStream(input));
         XSSFSheet sheet = wb.getSheetAt(0); //获取第一张表
@@ -59,7 +59,7 @@ public class ExcelUtil {
                 XSSFCell cell = row.getCell(j);
                 strList.add(getXCellVal(cell));
             }
-            strLists.add(i, (ArrayList<String>)strList); //存储该行
+            strLists.add(i, (ArrayList<String>) strList); //存储该行
         }
 
         //打印
@@ -110,7 +110,7 @@ public class ExcelUtil {
                 break;
             default:
                 val = cell.getRichStringCellValue() == null ? null
-                    : cell.getRichStringCellValue().toString();
+                        : cell.getRichStringCellValue().toString();
         }
         return val;
     }

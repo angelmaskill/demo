@@ -1,49 +1,46 @@
 package com.designpattern.Chapter24State.sample01;
 
-public abstract class AbstractState
-{
-	protected ForumAccount acc;
-	protected int point;
-	protected String stateName;
+public abstract class AbstractState {
+    protected ForumAccount acc;
+    protected int point;
+    protected String stateName;
+
     public abstract void checkState(int score);
-	
-    public void downloadFile(int score)
-    {
-    	System.out.println(acc.getName() + "ÏÂÔØÎÄ¼þ£¬¿Û³ý" + score + "»ý·Ö¡£");
-		this.point-=score;
-		checkState(score);
-		System.out.println("Ê£Óà»ý·ÖÎª£º" + this.point + "£¬µ±Ç°¼¶±ðÎª£º" + acc.getState().stateName + "¡£");
+
+    public void downloadFile(int score) {
+        System.out.println(acc.getName() + "ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Û³ï¿½" + score + "ï¿½ï¿½ï¿½Ö¡ï¿½");
+        this.point -= score;
+        checkState(score);
+        System.out.println("Ê£ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + this.point + "ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + acc.getState().stateName + "ï¿½ï¿½");
     }
-    
-	public void writeNote(int score)
-	{
-		System.out.println(acc.getName() + "·¢²¼ÁôÑÔ" + "£¬Ôö¼Ó" + score + "»ý·Ö¡£");
-		this.point+=score;
-		checkState(score);
-		System.out.println("Ê£Óà»ý·ÖÎª£º" + this.point + "£¬µ±Ç°¼¶±ðÎª£º" + acc.getState().stateName + "¡£");
-	}
-	
-	public void replyNote(int score)
-	{
-		System.out.println(acc.getName() + "»Ø¸´ÁôÑÔ£¬Ôö¼Ó" + score + "»ý·Ö¡£");
-		this.point+=score;
-		checkState(score);
-	    System.out.println("Ê£Óà»ý·ÖÎª£º" + this.point + "£¬µ±Ç°¼¶±ðÎª£º" + acc.getState().stateName + "¡£");
-	}
-	
-	public void setPoint(int point) {
-		this.point = point; 
-	}
 
-	public int getPoint() {
-		return (this.point); 
-	}
-	
-	public void setStateName(String stateName) {
-		this.stateName = stateName; 
-	}
+    public void writeNote(int score) {
+        System.out.println(acc.getName() + "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" + "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" + score + "ï¿½ï¿½ï¿½Ö¡ï¿½");
+        this.point += score;
+        checkState(score);
+        System.out.println("Ê£ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + this.point + "ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + acc.getState().stateName + "ï¿½ï¿½");
+    }
 
-	public String getStateName() {
-		return (this.stateName); 
-	}
+    public void replyNote(int score) {
+        System.out.println(acc.getName() + "ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½" + score + "ï¿½ï¿½ï¿½Ö¡ï¿½");
+        this.point += score;
+        checkState(score);
+        System.out.println("Ê£ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + this.point + "ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + acc.getState().stateName + "ï¿½ï¿½");
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
+    public int getPoint() {
+        return (this.point);
+    }
+
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
+    }
+
+    public String getStateName() {
+        return (this.stateName);
+    }
 }

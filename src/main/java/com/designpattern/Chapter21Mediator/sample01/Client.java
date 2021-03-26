@@ -1,32 +1,30 @@
 package com.designpattern.Chapter21Mediator.sample01;
 
-public class Client
-{
-	public static void main(String args[])
-	{
-		AbstractChatroom happyChat=new ChatGroup();
-		Member member1,member2,member3,member4,member5;
-		member1=new DiamondMember("ÕÅÈı");
-		member2=new DiamondMember("ÀîËÄ");
-		member3=new CommonMember("ÍõÎå");
-		member4=new CommonMember("Ğ¡·¼");
-		member5=new CommonMember("Ğ¡ºì");
-		
-		happyChat.register(member1);
-		happyChat.register(member2);
-		happyChat.register(member3);
-		happyChat.register(member4);
-		happyChat.register(member5);
-		
-		member1.sendText("ÀîËÄ","ÀîËÄ£¬ÄãºÃ£¡");
-		member2.sendText("ÕÅÈı","ÕÅÈı£¬ÄãºÃ£¡");
-		member1.sendText("ÀîËÄ","½ñÌìÌìÆø²»´í£¬ÓĞÈÕ£¡");
-		member2.sendImage("ÕÅÈı","Ò»¸öºÜ´óºÜ´óµÄÌ«Ñô");
-		member2.sendImage("ÕÅÈı","Ì«Ñô");
-		member3.sendText("Ğ¡·¼","»¹ÓĞÎÊÌâÂğ£¿");
-		member3.sendText("Ğ¡ºì","»¹ÓĞÎÊÌâÂğ£¿");
-		member4.sendText("ÍõÎå","Ã»ÓĞÁË£¬Ğ»Ğ»£¡");
-		member5.sendText("ÍõÎå","ÎÒÒ²Ã»ÓĞÁË£¡");
-		member5.sendImage("ÍõÎå","Ğ»Ğ»");
-	}
+public class Client {
+    public static void main(String args[]) {
+        AbstractChatroom happyChat = new ChatGroup();
+        Member member1, member2, member3, member4, member5;
+        member1 = new DiamondMember("ï¿½ï¿½ï¿½ï¿½");
+        member2 = new DiamondMember("ï¿½ï¿½ï¿½ï¿½");
+        member3 = new CommonMember("ï¿½ï¿½ï¿½ï¿½");
+        member4 = new CommonMember("Ğ¡ï¿½ï¿½");
+        member5 = new CommonMember("Ğ¡ï¿½ï¿½");
+
+        happyChat.register(member1);
+        happyChat.register(member2);
+        happyChat.register(member3);
+        happyChat.register(member4);
+        happyChat.register(member5);
+
+        member1.sendText("ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½Ã£ï¿½");
+        member2.sendText("ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½");
+        member1.sendText("ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ£ï¿½");
+        member2.sendImage("ï¿½ï¿½ï¿½ï¿½", "Ò»ï¿½ï¿½ï¿½Ü´ï¿½Ü´ï¿½ï¿½Ì«ï¿½ï¿½");
+        member2.sendImage("ï¿½ï¿½ï¿½ï¿½", "Ì«ï¿½ï¿½");
+        member3.sendText("Ğ¡ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+        member3.sendText("Ğ¡ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+        member4.sendText("ï¿½ï¿½ï¿½ï¿½", "Ã»ï¿½ï¿½ï¿½Ë£ï¿½Ğ»Ğ»ï¿½ï¿½");
+        member5.sendText("ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½Ò²Ã»ï¿½ï¿½ï¿½Ë£ï¿½");
+        member5.sendImage("ï¿½ï¿½ï¿½ï¿½", "Ğ»Ğ»");
+    }
 }

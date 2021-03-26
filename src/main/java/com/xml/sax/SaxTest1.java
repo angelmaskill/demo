@@ -1,20 +1,17 @@
 package com.xml.sax;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Stack;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.File;
+import java.util.Stack;
+
 /**
  * SAX解析XML
  * 查看事件调用
- *
  */
 public class SaxTest1 {
 

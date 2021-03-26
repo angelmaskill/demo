@@ -1,10 +1,9 @@
 package com.netty.test9.serverStart;
 
+import com.netty.test9.netty.ServerInitializer;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.netty.test9.netty.ServerInitializer;
 
 /**
  * @project: demo
@@ -17,26 +16,26 @@ import com.netty.test9.netty.ServerInitializer;
  * @version:
  */
 public class NettyServerStart {
-	private static int port;
-	public static ApplicationContext factory;
+    private static int port;
+    public static ApplicationContext factory;
 
-	public static void main(String[] args) throws Exception {
-		DOMConfigurator.configureAndWatch("config/log4j.xml");
-		if (args.length > 0)
-			port = Integer.parseInt(args[0]);
-		else {
-			port = 8080;
-		}
-		run();
-	}
+    public static void main(String[] args) throws Exception {
+        DOMConfigurator.configureAndWatch("config/log4j.xml");
+        if (args.length > 0)
+            port = Integer.parseInt(args[0]);
+        else {
+            port = 8080;
+        }
+        run();
+    }
 
-	private static void run() throws Exception {
-		factory = new ClassPathXmlApplicationContext("propholder.xml");
-		ServerInitializer initializer = (ServerInitializer) factory.getBean("serverInitializer");
+    private static void run() throws Exception {
+        factory = new ClassPathXmlApplicationContext("propholder.xml");
+        ServerInitializer initializer = (ServerInitializer) factory.getBean("serverInitializer");
 
-		NettyServer server = new NettyServer(port);
-		server.setInitializer(initializer);
-		server.run();
-		System.out.println("server is running……");
-	}
+        NettyServer server = new NettyServer(port);
+        server.setInitializer(initializer);
+        server.run();
+        System.out.println("server is running……");
+    }
 }

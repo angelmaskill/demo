@@ -3,11 +3,12 @@ package com.redispri.demo8.redislockframework;
 import com.alibaba.fastjson.JSON;
 
 public class Util {
-	public static  String beanToJson(Object o){
-		return JSON.toJSONString(o);
-	}
-	//parse an object from 
-	public static <T> T jsonToBean(String json,Class<T> cls){
-		return JSON.parseObject(json, cls);
-	} 
+    public static String beanToJson(Object o) {
+        return JSON.toJSONString(o);
+    }
+
+    //parse an object from
+    public static <T> T jsonToBean(String json, Class<T> cls) {
+        return JSON.parseObject(json, cls);
+    }
 }

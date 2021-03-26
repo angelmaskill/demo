@@ -1,13 +1,5 @@
 package com.xml.dom4j;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -17,11 +9,18 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 测试DOM4J创建，修改，遍历XML
- * 
+ *
  * @author jialin
- * 
  */
 public class XmlManager {
     public static void main(String[] args) {
@@ -61,6 +60,7 @@ public class XmlManager {
 
     /**
      * 获取XML文件
+     *
      * @param inputPath
      * @return
      */
@@ -79,7 +79,7 @@ public class XmlManager {
 
     /**
      * 通过Dom4j方法创建xml文档
-     * 
+     *
      * @return
      */
     public Document createXml() {
@@ -119,6 +119,7 @@ public class XmlManager {
 
     /**
      * 通过字符串创建xml文档
+     *
      * @param xmlStr
      * @return
      */
@@ -136,7 +137,7 @@ public class XmlManager {
 
     /**
      * 修改xml
-     * 
+     *
      * @param inputXmlPath
      */
     public void ModifyXml(String inputXmlPath) {
@@ -170,9 +171,7 @@ public class XmlManager {
             String outputPath = "xml/Students-Modified.xml";
             saveDocument(doc, outputPath);
 
-        }
-
-        catch (DocumentException e) {
+        } catch (DocumentException e) {
             System.out.println(e.getMessage());
         }
 
@@ -180,7 +179,7 @@ public class XmlManager {
 
     /**
      * 将文档输出到文件保存，可指定格式化输出,可指定字符编码。
-     * 
+     *
      * @param document
      * @param outputFile
      */
@@ -202,25 +201,25 @@ public class XmlManager {
 
     /**
      * 普通方法遍历xml
-     * 
+     *
      * @param doc
      */
     public void traversalDocumentByElementIterator(Document doc) {
         // 获取根节点
         Element root = doc.getRootElement();
         // 枚举根节点下所有子节点
-        for (Iterator ie = root.elementIterator(); ie.hasNext();) {
+        for (Iterator ie = root.elementIterator(); ie.hasNext(); ) {
             System.out.println("======");
             Element element = (Element) ie.next();
             System.out.println(element.getName());
 
             // 枚举属性
-            for (Iterator ia = element.attributeIterator(); ia.hasNext();) {
+            for (Iterator ia = element.attributeIterator(); ia.hasNext(); ) {
                 Attribute attribute = (Attribute) ia.next();
                 System.out.println(attribute.getName() + ":" + attribute.getData());
             }
             // 枚举当前节点下所有子节点
-            for (Iterator ieson = element.elementIterator(); ieson.hasNext();) {
+            for (Iterator ieson = element.elementIterator(); ieson.hasNext(); ) {
                 Element elementSon = (Element) ieson.next();
                 System.out.println(elementSon.getName() + ":" + elementSon.getText());
             }
@@ -229,7 +228,7 @@ public class XmlManager {
 
     /**
      * 使用elements方法进行xml的读取，相当于条件查询，可以根据不同的节点，利用for循环查询该节点下所有的数据。
-     * 
+     *
      * @throws DocumentException
      */
     public static void traversalDocumentByElements(Document doc) {
@@ -260,7 +259,7 @@ public class XmlManager {
 
     /**
      * 使用selectNodes读取xml文件
-     * 
+     *
      * @param args
      * @throws DocumentException
      */
@@ -269,7 +268,7 @@ public class XmlManager {
         List list = doc.selectNodes(elementpath);
 
         // 遍历节点，获取节点内数据。
-        for (Iterator ie = list.iterator(); ie.hasNext();) {
+        for (Iterator ie = list.iterator(); ie.hasNext(); ) {
             Element el = (Element) ie.next();
             System.out.println(el.getName() + ": " + el.getText());
 
@@ -279,7 +278,7 @@ public class XmlManager {
 
     /**
      * 基于访问者模式遍历
-     * 
+     *
      * @param doc
      */
     public void traversalDocumentByVisitor(Document doc) {

@@ -1,45 +1,38 @@
 package com.designpattern.Chapter21Mediator.sample01;
 
-public abstract class Member
-{
-	protected AbstractChatroom chatroom;
-	protected String name;
-	
-	public Member(String name)
-	{
-		this.name=name;
-	}
-	
-	public String getName()
-	{
-		return name;
-	}
-	
-	public void setName(String name)
-	{
-		this.name=name;
-	}
-	
-	public AbstractChatroom getChatroom()
-	{
-		return chatroom;
-	}
-	
-    public void setChatroom(AbstractChatroom chatroom)
-    {
-    	this.chatroom=chatroom;
-    }
-	
-	public abstract void sendText(String to,String message);
-	public abstract void sendImage(String to,String image);
+public abstract class Member {
+    protected AbstractChatroom chatroom;
+    protected String name;
 
-    public void receiveText(String from,String message)
-    {
-    	System.out.println(from + "·¢ËÍÎÄ±¾¸ø" + this.name + "£¬ÄÚÈÝÎª£º" + message);
+    public Member(String name) {
+        this.name = name;
     }
-    
-    public void receiveImage(String from,String image)
-    {
-    	System.out.println(from + "·¢ËÍÍ¼Æ¬¸ø" + this.name + "£¬ÄÚÈÝÎª£º" + image);
-    }	
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public AbstractChatroom getChatroom() {
+        return chatroom;
+    }
+
+    public void setChatroom(AbstractChatroom chatroom) {
+        this.chatroom = chatroom;
+    }
+
+    public abstract void sendText(String to, String message);
+
+    public abstract void sendImage(String to, String image);
+
+    public void receiveText(String from, String message) {
+        System.out.println(from + "ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½" + this.name + "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + message);
+    }
+
+    public void receiveImage(String from, String image) {
+        System.out.println(from + "ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½" + this.name + "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + image);
+    }
 }

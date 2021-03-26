@@ -8,13 +8,12 @@ import java.lang.annotation.Target;
 
 /**
  * 水果名称注解
- * 
- * @author peida
  *
+ * @author peida
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface FruitName {
-	String value() default "";
+    String value() default "";
 }

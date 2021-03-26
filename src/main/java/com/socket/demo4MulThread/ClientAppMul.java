@@ -1,9 +1,6 @@
 /**
- * @(#)ClientAppMul.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)ClientAppMul.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -34,8 +31,8 @@ public class ClientAppMul {
 
     /**
      * @param args
-     * @throws IOException 
-     * @throws UnknownHostException 
+     * @throws IOException
+     * @throws UnknownHostException
      */
     /*public static void main(String[] args) throws UnknownHostException, IOException {
         // TODO Auto-generated method stub
@@ -76,7 +73,6 @@ public class ClientAppMul {
             System.out.println("IOException when connecting Server!");
         }
     }*/
-    
     public static void main(String[] args) throws Exception {
         // TODO Auto-generated method stub
         Socket client;
@@ -105,6 +101,6 @@ public class ClientAppMul {
         }
         buf.close();
         client.close();
-       
+
     }
 }

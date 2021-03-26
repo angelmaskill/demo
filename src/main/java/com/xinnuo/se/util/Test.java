@@ -1,8 +1,5 @@
 /**
- * @(#)Test.java
- * 
- * Copyright Oristand.All rights reserved. This software is the XXX system.
- * 
+ * @(#)Test.java Copyright Oristand.All rights reserved. This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -16,29 +13,26 @@
 
 package com.xinnuo.se.util;
 
-import java.math.BigDecimal;
+import junit.framework.TestCase;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import javax.servlet.http.HttpServletRequest;
-
-import junit.framework.TestCase;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 /**
  * Class description goes here.
- * 
+ *
  * @author Administrator
  * @since 2013-11-28
  */
-public class Test  extends TestCase{
+public class Test extends TestCase {
 
     /**
      * @param args
      */
-    protected  Log logger = LogFactory.getLog(this.getClass());
-    
+    protected Log logger = LogFactory.getLog(this.getClass());
+
     public static void main(String[] args) {
         /*String frccode="401122";
         Calendar calendar = Calendar.getInstance();
@@ -75,12 +69,11 @@ public class Test  extends TestCase{
         /*//获取当前时间
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");//设置日期格式
         System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
-*/    
-        
-        
-    
+*/
+
+
     }
-    
+
     //jdbc批量插入：
     /*public void exec3(Connection conn) {
         try {
@@ -107,8 +100,8 @@ public class Test  extends TestCase{
             e.printStackTrace();
         }
     }*/
-    
-    
+
+
     //spring ibatis批量插入
     /*public void insertTreeCateBatch(final List<TreeCate> TreeCateList) throws DataAccessException {
         this.getSqlMapClientTemplate().execute(new SqlMapClientCallback() {
@@ -164,10 +157,10 @@ public class Test  extends TestCase{
      
         return oxml;
     }*/
-        
-        /*
-         * 如果端口号、ip写错，能识别；
-         */
+
+    /*
+     * 如果端口号、ip写错，能识别；
+     */
    /* public void testGetWebServiceAddress() 
         {   
             Boolean flag=true;
@@ -206,10 +199,10 @@ public class Test  extends TestCase{
             }
             
         }*/
-        
-        /*
-         * 项目名、端口号、ip写错了，都识别出来了。500、404
-         */
+
+    /*
+     * 项目名、端口号、ip写错了，都识别出来了。500、404
+     */
         /*public void testGetWSBySocket() {
             int connectionInt = 500;
             String urlString = "http://172.23.0.145:5001/nccminterface_haoyou_xinxiang/service/HospitalService?wsdl";
@@ -225,7 +218,7 @@ public class Test  extends TestCase{
             }
             System.out.println(connectionInt);
         }*/
-        
+
     /*
      * 验证https网站是否能否访问。
      */
@@ -418,22 +411,31 @@ public class Test  extends TestCase{
             System.out.println("等于！");
         }
     }*/
-    
-   public void testIBATISString(){
-        String sourceString="UPDATE N701  SET        FINHOSPID=?,     N701_01 = ?,     N701_02 = ?,     N701_03 = ?,     N701_04 = ?,     N701_05 = ?,     N701_06 = ?,     N701_07 = ?,     N701_08 = ?,     N701_09 = ?,     N701_10 = ?,     N701_11 = ?,     N701_12 = ?,     N701_13 = ?,     N701_14 = ?,     N701_15 = ?,     N701_16 = ?,     N701_17 = ?,     N701_18 = ?,     N701_19 = ?,     N701_20 = ?,     N701_21 = ?,     N701_22 = ?,     N701_23 = ?,     N701_24 = ?,     N701_25 = TO_DATE(?,'YYYY-MM-DD'),     N701_26 = TO_DATE(?,'YYYY-MM-DD'),     N701_27 = TO_DATE(?,'YYYY-MM-DD'),     N701_28 = ?,     N701_29 = ?,     N701_30 = ?,     N701_31 = ?,     N701_32 = ?,     N701_33 = ?,     N701_34 = ?,     N701_35 = ?,     N701_36 = ?,     N701_37 = ?,     N701_38 = ?,     N701_39 = ?,     N701_40 = ?,     N701_41 = ?,     N701_42 = ?,     N701_43 = ?,     N701_44 = ?,     N701_45 = ?,     N701_46 = ?,     N701_48 = ?,     N701_49 = ?   WHERE N701_01 = ? and N701_02 = ?  ";
-        String paraString="[19, 000, 485000307, 安徽省立医院, 1, 省, 000004, 赵单, 郑首, 1, 男, 410104198910202003, 59, 明珠花园, 410000, 河南省, 411500, 向阳县, 411525, 向阳县, linkman, 18999999999, 3, 体格检查, 赵晓, 2015-01-12, 2015-02-18, 2015-02-18, 001, 620104198910202003, NOO234, 终末期肾病, NOO222, , NOO235, 动静脉内瘘手术, 已出院, , , 02, 全科医疗科, 1, 危, 3, 一般, NOO234, 心肌梗塞, , 3557.0, 000, 485000307]";
-        
-        String [] sourceArr= sourceString.trim().split("\\?");
-        String [] paraArr=paraString.replace("[", "").replace("]", "").split(",");
-        StringBuffer sb =new StringBuffer();
+
+    public void testIBATISString() {
+        String sourceString = "UPDATE N701  SET        FINHOSPID=?,     N701_01 = ?,     N701_02 = ?,     N701_03 = ?,     N701_04 = ?,     N701_05" +
+                " = ?,     N701_06 = ?,     N701_07 = ?,     N701_08 = ?,     N701_09 = ?,     N701_10 = ?,     N701_11 = ?,     N701_12 = ?,     " +
+                "N701_13 = ?,     N701_14 = ?,     N701_15 = ?,     N701_16 = ?,     N701_17 = ?,     N701_18 = ?,     N701_19 = ?,     N701_20 = " +
+                "?,     N701_21 = ?,     N701_22 = ?,     N701_23 = ?,     N701_24 = ?,     N701_25 = TO_DATE(?,'YYYY-MM-DD'),     N701_26 = " +
+                "TO_DATE(?,'YYYY-MM-DD'),     N701_27 = TO_DATE(?,'YYYY-MM-DD'),     N701_28 = ?,     N701_29 = ?,     N701_30 = ?,     N701_31 = " +
+                "?,     N701_32 = ?,     N701_33 = ?,     N701_34 = ?,     N701_35 = ?,     N701_36 = ?,     N701_37 = ?,     N701_38 = ?,     " +
+                "N701_39 = ?,     N701_40 = ?,     N701_41 = ?,     N701_42 = ?,     N701_43 = ?,     N701_44 = ?,     N701_45 = ?,     N701_46 = " +
+                "?,     N701_48 = ?,     N701_49 = ?   WHERE N701_01 = ? and N701_02 = ?  ";
+        String paraString = "[19, 000, 485000307, 安徽省立医院, 1, 省, 000004, 赵单, 郑首, 1, 男, 410104198910202003, 59, 明珠花园, 410000, 河南省, 411500, 向阳县, " +
+                "411525, 向阳县, linkman, 18999999999, 3, 体格检查, 赵晓, 2015-01-12, 2015-02-18, 2015-02-18, 001, 620104198910202003, NOO234, 终末期肾病, " +
+                "NOO222, , NOO235, 动静脉内瘘手术, 已出院, , , 02, 全科医疗科, 1, 危, 3, 一般, NOO234, 心肌梗塞, , 3557.0, 000, 485000307]";
+
+        String[] sourceArr = sourceString.trim().split("\\?");
+        String[] paraArr = paraString.replace("[", "").replace("]", "").split(",");
+        StringBuffer sb = new StringBuffer();
         int sourceArrL = sourceArr.length;
         int paraArrL = paraArr.length;
         for (int i = 0; i < paraArrL; i++) {
             paraArr[i] = paraArr[i].trim();
-            paraArr[i]= (paraArr[i].equals("null")?"":paraArr[i]);
-            sb.append(sourceArr[i]+"\'"+paraArr[i]+"\'");
+            paraArr[i] = (paraArr[i].equals("null") ? "" : paraArr[i]);
+            sb.append(sourceArr[i] + "\'" + paraArr[i] + "\'");
         }
-        if(sourceArrL>paraArrL){
+        if (sourceArrL > paraArrL) {
             sb.append(");");
         }
         System.out.println(sb.toString());
@@ -509,7 +511,7 @@ public class Test  extends TestCase{
         System.out.println(source.replace("good", "bad"));
         
     }*/
-    
+
     /*
      * 多对齐，左补0
      */
@@ -538,13 +540,13 @@ public class Test  extends TestCase{
 
 
 
-        
-       /* 左对齐，右补空格
-        *  c 要填充的字符   
-        *  length 填充后字符串的总长度   
-        *  content 要格式化的字符串  
-        *  格式化字符串，左对齐
-        * */
+
+    /* 左对齐，右补空格
+     *  c 要填充的字符
+     *  length 填充后字符串的总长度
+     *  content 要格式化的字符串
+     *  格式化字符串，左对齐
+     * */
      /*public void testFlushLeft() {
         char c = ' ';
         long length = 10;
@@ -680,13 +682,15 @@ public class Test  extends TestCase{
     }*/
     
    /* public void testStringLengthCN() throws UnsupportedEncodingException{
-        String str ="02报文头与报文体内容不符                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              00                                        ";
+        String str ="02报文头与报文体内容不符
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     00                                        ";
         System.out.println(str.length());
         str = new String(str.getBytes("GBK"),"ISO8859_1");
         System.out.println(str.length());
     }*/
     /*public void testSubStringCN() throws UnsupportedEncodingException{
-        String str ="02报文头与报文体内容不符                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              00                                        ";
+        String str ="02报文头与报文体内容不符
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     00                                        ";
         str = new String(str.getBytes("GBK"),"ISO8859_1");
         str =str.substring(0, 3);
         System.out.println(str);
@@ -723,7 +727,31 @@ public class Test  extends TestCase{
    }*/
    
    /*public void testBase641(){
-       String target="PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nR0JLJz8+PGdldFVuQXBwbHlSZWRlZW1EYXRhPg==PHJlc3VsdD4=PGZsYWc+MDwvZmxhZz4=PHRvdGFsUGVyc29uPjY8L3RvdGFsUGVyc29uPg==PG1lc3NhZ2U+stnX97PJuaY8L21lc3NhZ2U+PC9yZXN1bHQ+PHBlcnNvbmJhc2VpbmZvPg==PGJvb2tubz4zNDEyODEwNzA4MDMwNzg4PC9ib29rbm8+PG1lbWJlck5vPjAyNzAwODYxMzAzPC9tZW1iZXJObz4=PG5hbWU+wO7Kv7rPPC9uYW1lPg==PHNleE5hbWU+xNA8L3NleE5hbWU+PGJpcnRoZGF5PjE5NDYtMTEtMDU8L2JpcnRoZGF5Pg==PG1hc3Rlck5hbWU+wO7Kv7rPPC9tYXN0ZXJOYW1lPg==PHJlbGF0aW9uTmFtZT4wPC9yZWxhdGlvbk5hbWU+PGlkZW50aXR5TmFtZT5udWxsPC9pZGVudGl0eU5hbWU+PGlkQ2FyZD4zNDEyODExOTQ2MTEwNTYwNzg8L2lkQ2FyZD4=PGFkZHJlc3M+bnVsbDwvYWRkcmVzcz4=PGRvb3JQcm9wTmFtZT61zbGju6c8L2Rvb3JQcm9wTmFtZT4=PC9wZXJzb25iYXNlaW5mbz4=PHJlZGVlbURhdGFzPg==PHJlZGVlbURhdGE+PGlucGF0aWVudFNuPjYyMTg2MDwvaW5wYXRpZW50U24+PGhvc09yZ25vPjM0MTYwMjQ4NTg5MTA3LTQ8L2hvc09yZ25vPg==PGhvc09yZ05hbWU+2fHW3crQu6rZotbQ0r3UujwvaG9zT3JnTmFtZT4=PHRvdGFsQ29zdHM+MTcyMi41MTwvdG90YWxDb3N0cz4=PEVuYWJsZU1vbmV5PjE1NjUuMDE8L0VuYWJsZU1vbmV5Pg==PHN0YXJ0TW9uZXk+NTIwLjAwPC9zdGFydE1vbmV5Pg==PHJlZGVlbU1vbmV5Pjk0My45MDwvcmVkZWVtTW9uZXk+PHBlcnNvbmFsUGF5TW9uZXk+Nzc4LjYxPC9wZXJzb25hbFBheU1vbmV5Pg==PGljZG5hbWU+SzM3IDAxPC9pY2RuYW1lPg==PG9mZmljZURhdGU+MjAxNC0wNi0xMCAwMDowMDowMDwvb2ZmaWNlRGF0ZT4=PGxlYXZlRGF0ZT4yMDE0LTA2LTEyIDAwOjAwOjAwPC9sZWF2ZURhdGU+PFJlZGVlbVR5cGVDb2RlPjI8L1JlZGVlbVR5cGVDb2RlPgE0LTA5LTIxIDAwOjAwOjAwPC9sZWF2ZURhdGU+PFJlZGVlbVR5cGVDb2RlPjMyPC9SZWRlZW1UeXBlQ29kZT4=PHJlZGVlbURhdGU+MjAxNC0wOS0yMSAxMTo0NToyNzwvcmVkZWVtRGF0ZT4=PC9yZWRlZW1EYXRhPg==PHJlZGVlbURhdGE+PGlucGF0aWVudFNuPjcwMjIzMzwvaW5wYXRpZW50U24+PGhvc09yZ25vPjM0MTYwMjQ4NTAwMDk5LTk8L2hvc09yZ25vPg==PGhvc09yZ05hbWU+sLK71cqh1tfB9tK91LqjqMqhwaLSvdS6zvfH+KOpPC9ob3NPcmdOYW1lPg==PHRvdGFsQ29zdHM+NTc1OS40MTwvdG90YWxDb3N0cz4=PEVuYWJsZU1vbmV5PjcwMy44NTwvRW5hYmxlTW9uZXk+PHN0YXJ0TW9uZXk+MC4wMDwvc3RhcnRNb25leT4=PHJlZGVlbU1vbmV5PjIzMDMuODA8L3JlZGVlbU1vbmV5Pg==PHBlcnNvbmFsUGF5TW9uZXk+MzQ1NS42MTwvcGVyc29uYWxQYXlNb25leT4=PGljZG5hbWU+Wjk4LjgwMTwvaWNkbmFtZT4=PG9mZmljZURhdGU+MjAxNC0xMC0zMCAwMDowMDowMDwvb2ZmaWNlRGF0ZT4=PGxlYXZlRGF0ZT4yMDE0LTExLTAzIDAwOjAwOjAwPC9sZWF2ZURhdGU+PFJlZGVlbVR5cGVDb2RlPjMyPC9SZWRlZW1UeXBlQ29kZT4=PHJlZGVlbURhdGU+MjAxNC0xMS0wMyAxMDo1OTowMjwvcmVkZWVtRGF0ZT4=PC9yZWRlZW1EYXRhPg==PHJlZGVlbURhdGE+PGlucGF0aWVudFNuPjcxNzM3NzwvaW5wYXRpZW50U24+PGhvc09yZ25vPjM0MTYwMjQ4NTAwMDk5LTk8L2hvc09yZ25vPg==PGhvc09yZ05hbWU+sLK71cqh1tfB9tK91LqjqMqhwaLSvdS6zvfH+KOpPC9ob3NPcmdOYW1lPg==PHRvdGFsQ29zdHM+NTk0NS44MDwvdG90YWxDb3N0cz4=PEVuYWJsZU1vbmV5PjczOS40ODwvRW5hYmxlTW9uZXk+PHN0YXJ0TW9uZXk+MC4wMDwvc3RhcnRNb25leT4=PHJlZGVlbU1vbmV5PjIzNzguMzA8L3JlZGVlbU1vbmV5Pg==PHBlcnNvbmFsUGF5TW9uZXk+MzU2Ny41MDwvcGVyc29uYWxQYXlNb25leT4=PGljZG5hbWU+Wjk4LjgwMTwvaWNkbmFtZT4=PG9mZmljZURhdGU+MjAxNC0xMS0yNCAwMDowMDowMDwvb2ZmaWNlRGF0ZT4=PGxlYXZlRGF0ZT4yMDE0LTExLTI3IDAwOjAwOjAwPC9sZWF2ZURhdGU+PFJlZGVlbVR5cGVDb2RlPjMyPC9SZWRlZW1UeXBlQ29kZT4=PHJlZGVlbURhdGU+MjAxNC0xMS0yNyAxMTo1NjowOTwvcmVkZWVtRGF0ZT4=PC9yZWRlZW1EYXRhPg==PC9yZWRlZW1EYXRhcz4=PC9nZXRVbkFwcGx5UmVkZWVtRGF0YT4=";
+       String target="PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nR0JLJz8+PGdldFVuQXBwbHlSZWRlZW1EYXRhPg==PHJlc3VsdD4=PGZsYWc+MDwvZmxhZz4
+       =PHRvdGFsUGVyc29uPjY8L3RvdGFsUGVyc29uPg==PG1lc3NhZ2U+stnX97PJuaY8L21lc3NhZ2U+PC9yZXN1bHQ+PHBlcnNvbmJhc2VpbmZvPg
+       ==PGJvb2tubz4zNDEyODEwNzA4MDMwNzg4PC9ib29rbm8+PG1lbWJlck5vPjAyNzAwODYxMzAzPC9tZW1iZXJObz4=PG5hbWU+wO7Kv7rPPC9uYW1lPg==PHNleE5hbWU
+       +xNA8L3NleE5hbWU+PGJpcnRoZGF5PjE5NDYtMTEtMDU8L2JpcnRoZGF5Pg==PG1hc3Rlck5hbWU+wO7Kv7rPPC9tYXN0ZXJOYW1lPg
+       ==PHJlbGF0aW9uTmFtZT4wPC9yZWxhdGlvbk5hbWU+PGlkZW50aXR5TmFtZT5udWxsPC9pZGVudGl0eU5hbWU+PGlkQ2FyZD4zNDEyODExOTQ2MTEwNTYwNzg8L2lkQ2FyZD4
+       =PGFkZHJlc3M+bnVsbDwvYWRkcmVzcz4=PGRvb3JQcm9wTmFtZT61zbGju6c8L2Rvb3JQcm9wTmFtZT4=PC9wZXJzb25iYXNlaW5mbz4=PHJlZGVlbURhdGFzPg==PHJlZGVlbURhdGE
+       +PGlucGF0aWVudFNuPjYyMTg2MDwvaW5wYXRpZW50U24+PGhvc09yZ25vPjM0MTYwMjQ4NTg5MTA3LTQ8L2hvc09yZ25vPg==PGhvc09yZ05hbWU
+       +2fHW3crQu6rZotbQ0r3UujwvaG9zT3JnTmFtZT4=PHRvdGFsQ29zdHM+MTcyMi41MTwvdG90YWxDb3N0cz4=PEVuYWJsZU1vbmV5PjE1NjUuMDE8L0VuYWJsZU1vbmV5Pg
+       ==PHN0YXJ0TW9uZXk+NTIwLjAwPC9zdGFydE1vbmV5Pg==PHJlZGVlbU1vbmV5Pjk0My45MDwvcmVkZWVtTW9uZXk+PHBlcnNvbmFsUGF5TW9uZXk
+       +Nzc4LjYxPC9wZXJzb25hbFBheU1vbmV5Pg==PGljZG5hbWU+SzM3IDAxPC9pY2RuYW1lPg==PG9mZmljZURhdGU+MjAxNC0wNi0xMCAwMDowMDowMDwvb2ZmaWNlRGF0ZT4
+       =PGxlYXZlRGF0ZT4yMDE0LTA2LTEyIDAwOjAwOjAwPC9sZWF2ZURhdGU+PFJlZGVlbVR5cGVDb2RlPjI8L1JlZGVlbVR5cGVDb2RlPgE0LTA5LTIxIDAwOjAwOjAwPC9sZWF2ZURhdGU
+       +PFJlZGVlbVR5cGVDb2RlPjMyPC9SZWRlZW1UeXBlQ29kZT4=PHJlZGVlbURhdGU+MjAxNC0wOS0yMSAxMTo0NToyNzwvcmVkZWVtRGF0ZT4=PC9yZWRlZW1EYXRhPg
+       ==PHJlZGVlbURhdGE+PGlucGF0aWVudFNuPjcwMjIzMzwvaW5wYXRpZW50U24+PGhvc09yZ25vPjM0MTYwMjQ4NTAwMDk5LTk8L2hvc09yZ25vPg==PGhvc09yZ05hbWU
+       +sLK71cqh1tfB9tK91LqjqMqhwaLSvdS6zvfH+KOpPC9ob3NPcmdOYW1lPg==PHRvdGFsQ29zdHM+NTc1OS40MTwvdG90YWxDb3N0cz4
+       =PEVuYWJsZU1vbmV5PjcwMy44NTwvRW5hYmxlTW9uZXk+PHN0YXJ0TW9uZXk+MC4wMDwvc3RhcnRNb25leT4=PHJlZGVlbU1vbmV5PjIzMDMuODA8L3JlZGVlbU1vbmV5Pg
+       ==PHBlcnNvbmFsUGF5TW9uZXk+MzQ1NS42MTwvcGVyc29uYWxQYXlNb25leT4=PGljZG5hbWU+Wjk4LjgwMTwvaWNkbmFtZT4=PG9mZmljZURhdGU
+       +MjAxNC0xMC0zMCAwMDowMDowMDwvb2ZmaWNlRGF0ZT4=PGxlYXZlRGF0ZT4yMDE0LTExLTAzIDAwOjAwOjAwPC9sZWF2ZURhdGU
+       +PFJlZGVlbVR5cGVDb2RlPjMyPC9SZWRlZW1UeXBlQ29kZT4=PHJlZGVlbURhdGU+MjAxNC0xMS0wMyAxMDo1OTowMjwvcmVkZWVtRGF0ZT4=PC9yZWRlZW1EYXRhPg
+       ==PHJlZGVlbURhdGE+PGlucGF0aWVudFNuPjcxNzM3NzwvaW5wYXRpZW50U24+PGhvc09yZ25vPjM0MTYwMjQ4NTAwMDk5LTk8L2hvc09yZ25vPg==PGhvc09yZ05hbWU
+       +sLK71cqh1tfB9tK91LqjqMqhwaLSvdS6zvfH+KOpPC9ob3NPcmdOYW1lPg==PHRvdGFsQ29zdHM+NTk0NS44MDwvdG90YWxDb3N0cz4
+       =PEVuYWJsZU1vbmV5PjczOS40ODwvRW5hYmxlTW9uZXk+PHN0YXJ0TW9uZXk+MC4wMDwvc3RhcnRNb25leT4=PHJlZGVlbU1vbmV5PjIzNzguMzA8L3JlZGVlbU1vbmV5Pg
+       ==PHBlcnNvbmFsUGF5TW9uZXk+MzU2Ny41MDwvcGVyc29uYWxQYXlNb25leT4=PGljZG5hbWU+Wjk4LjgwMTwvaWNkbmFtZT4=PG9mZmljZURhdGU
+       +MjAxNC0xMS0yNCAwMDowMDowMDwvb2ZmaWNlRGF0ZT4=PGxlYXZlRGF0ZT4yMDE0LTExLTI3IDAwOjAwOjAwPC9sZWF2ZURhdGU
+       +PFJlZGVlbVR5cGVDb2RlPjMyPC9SZWRlZW1UeXBlQ29kZT4=PHJlZGVlbURhdGU+MjAxNC0xMS0yNyAxMTo1NjowOTwvcmVkZWVtRGF0ZT4=PC9yZWRlZW1EYXRhPg
+       ==PC9yZWRlZW1EYXRhcz4=PC9nZXRVbkFwcGx5UmVkZWVtRGF0YT4=";
        String nextStr="";
        String lastStr="";
        String firstStr="";
@@ -824,47 +852,47 @@ public class Test  extends TestCase{
        System.out.println(c.replace("$", "&"));
        System.out.println(c);
    } */
-   
-   public void testGetWebServiceAddress() {
-       Boolean flag = true;
-       System.out.println("-------");
-       String  urlStr="http://172.23.0.145:6001/nccminterface_haoyou_xinxiang/service/HospitalService?wsdl";
-       URL url;
-       HttpURLConnection url_con = null;
-       String response_content;
-       long begin = 0;
-       long end = 0;
-       int connectionInt = 500;
-       try {
-           begin = System.currentTimeMillis();
-           // 打开远程连接
-           url = new URL(urlStr);
-           url_con = (HttpURLConnection) url.openConnection();
-           /*
-            * 如果不设置以下两个时间，可能会导致程序僵死而不继续往下执行
-            */
-           url_con.setConnectTimeout(8000);
-           url_con.setReadTimeout(8000);
-           // url_con.connect();//此方法不好用。
-           int size = url_con.getHeaderFields().size();
-           if (size > 0) {
-               connectionInt = url_con.getResponseCode();
-           }else{
-               throw new RuntimeException("新农合专网连接超时，请核查接口设置或网络设置！");
-           }
-           if(connectionInt == 500){
-               throw new RuntimeException("无法建立新农合专网连接，请核查接口设置或网络设置！"+connectionInt);
-           }
-           url_con.disconnect();
-       } catch (Exception e) {
-           e.printStackTrace();
-           throw new RuntimeException(e);
-       } finally {
-           if (url_con != null) {
-               url_con.disconnect();
-           }
-           end = System.currentTimeMillis();
-       }
-   }
+
+    public void testGetWebServiceAddress() {
+        Boolean flag = true;
+        System.out.println("-------");
+        String urlStr = "http://172.23.0.145:6001/nccminterface_haoyou_xinxiang/service/HospitalService?wsdl";
+        URL url;
+        HttpURLConnection url_con = null;
+        String response_content;
+        long begin = 0;
+        long end = 0;
+        int connectionInt = 500;
+        try {
+            begin = System.currentTimeMillis();
+            // 打开远程连接
+            url = new URL(urlStr);
+            url_con = (HttpURLConnection) url.openConnection();
+            /*
+             * 如果不设置以下两个时间，可能会导致程序僵死而不继续往下执行
+             */
+            url_con.setConnectTimeout(8000);
+            url_con.setReadTimeout(8000);
+            // url_con.connect();//此方法不好用。
+            int size = url_con.getHeaderFields().size();
+            if (size > 0) {
+                connectionInt = url_con.getResponseCode();
+            } else {
+                throw new RuntimeException("新农合专网连接超时，请核查接口设置或网络设置！");
+            }
+            if (connectionInt == 500) {
+                throw new RuntimeException("无法建立新农合专网连接，请核查接口设置或网络设置！" + connectionInt);
+            }
+            url_con.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            if (url_con != null) {
+                url_con.disconnect();
+            }
+            end = System.currentTimeMillis();
+        }
+    }
 }
     

@@ -1,7 +1,7 @@
-﻿package com.thread.concurrent.chapter03;
+package com.thread.concurrent.chapter03;
 
 class SynchronizedExample {
-    int     a    = 0;
+    int a = 0;
     boolean flag = false;
 
     public synchronized void writer() { //获取锁

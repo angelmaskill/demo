@@ -2,7 +2,6 @@ package com.netty.Serialization_ProtoBuf.Client;
 
 import com.netty.Serialization_ProtoBuf.ProtoBuf.PersonProbuf;
 import com.netty.Serialization_ProtoBuf.ProtoBuf.PersonProbuf.Person;
-
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -24,7 +23,7 @@ public class ReqClientHandler extends ChannelHandlerAdapter {
     }
 
     private PersonProbuf.Person PReq(int id) {
-    	com.netty.Serialization_ProtoBuf.ProtoBuf.PersonProbuf.Person.Builder builder = PersonProbuf.Person.newBuilder();
+        com.netty.Serialization_ProtoBuf.ProtoBuf.PersonProbuf.Person.Builder builder = PersonProbuf.Person.newBuilder();
         builder.setId(id);
         builder.setName("orange");
         builder.setSex("man");

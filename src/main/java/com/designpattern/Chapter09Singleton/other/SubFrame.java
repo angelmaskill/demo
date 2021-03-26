@@ -1,44 +1,39 @@
 package com.designpattern.Chapter09Singleton.other;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 
-public class SubFrame extends JInternalFrame
-{
-	private static SubFrame frame;//¾²Ì¬ÊµÀý
-	
-	/*
-	 *Ë½ÓÐ¹¹Ôìº¯Êý
-	 */
-    private SubFrame()
-    {
-    	super("×Ó´°Ìå", true, true, true, false);
-    	this.setLocation(20,20);  //ÉèÖÃÄÚ²¿´°ÌåÎ»ÖÃ  
-    	this.setSize(200,200);  //ÉèÖÃÄÚ²¿´°Ìå´óÐ¡ 
-    	this.addInternalFrameListener(new MyIFListener());//¼àÌý´°ÌåÊÂ¼þ
-    	this.setVisible(true);
+public class SubFrame extends JInternalFrame {
+    private static SubFrame frame;//ï¿½ï¿½Ì¬Êµï¿½ï¿½
+
+    /*
+     *Ë½ï¿½Ð¹ï¿½ï¿½ìº¯ï¿½ï¿½
+     */
+    private SubFrame() {
+        super("ï¿½Ó´ï¿½ï¿½ï¿½", true, true, true, false);
+        this.setLocation(20, 20);  //ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+        this.setSize(200, 200);  //ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
+        this.addInternalFrameListener(new MyIFListener());//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
+        this.setVisible(true);
     }
-    
-    public static SubFrame getFrame()//·µ»Ø´°ÌåÊµÀý
+
+    public static SubFrame getFrame()//ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½Êµï¿½ï¿½
     {
-    	if(frame==null)//Èç¹û´°Ìå¶ÔÏóÎª¿Õ
-    	{
-    		frame=new SubFrame();//´´½¨¸Ã´°Ìå£¬·ñÔòÖ±½Ó·µ»Ø´°Ìå
-    	}
-    	return frame;//·µ»Ø´°Ìå		
-    }  
-    
-    class MyIFListener extends InternalFrameAdapter//ÊÂ¼þ¼àÌýÆ÷
+        if (frame == null)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
+        {
+            frame = new SubFrame();//ï¿½ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½å£¬ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó·ï¿½ï¿½Ø´ï¿½ï¿½ï¿½
+        }
+        return frame;//ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½
+    }
+
+    class MyIFListener extends InternalFrameAdapter//ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
-    	//×Ó´°Ìå¹Ø±ÕÊ±£¬½«´°Ìå¶ÔÏóÉèÎªnull
-    	public void internalFrameClosing(InternalFrameEvent e) 
-    	{
-    		if(frame!=null)
-    		{
-    			frame=null;
-    		}
-    	}
-    }  
+        //ï¿½Ó´ï¿½ï¿½ï¿½Ø±ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªnull
+        public void internalFrameClosing(InternalFrameEvent e) {
+            if (frame != null) {
+                frame = null;
+            }
+        }
+    }
 }

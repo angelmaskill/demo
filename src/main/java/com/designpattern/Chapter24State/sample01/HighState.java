@@ -1,43 +1,34 @@
 package com.designpattern.Chapter24State.sample01;
 
-public class HighState extends AbstractState
-{
-	public HighState(AbstractState state)
-	{
-		this.acc=state.acc;
-		this.point=state.getPoint();
-		this.stateName="×¨¼Ò";
-	}
-	
-	public void writeNote(int score)
-	{
-		System.out.println(acc.getName() + "·¢²¼ÁôÑÔ" + "£¬Ôö¼Ó" + score + "*2¸ö»ı·Ö¡£");
-		this.point+=score*2;
-		checkState(score);
-		System.out.println("Ê£Óà»ı·ÖÎª£º" + this.point + "£¬µ±Ç°¼¶±ğÎª£º" + acc.getState().stateName + "¡£");
-	}
-	
-    public void downloadFile(int score)
-    {
-    	System.out.println(acc.getName() + "ÏÂÔØÎÄ¼ş£¬¿Û³ı" + score + "/2»ı·Ö¡£");
-		this.point-=score/2;
-		checkState(score);
-		System.out.println("Ê£Óà»ı·ÖÎª£º" + this.point + "£¬µ±Ç°¼¶±ğÎª£º" + acc.getState().stateName + "¡£");    }
-			
-	public void checkState(int score)
-	{
-		if(point<0)
-		{
-			System.out.println("Óà¶î²»×ã£¬ÎÄ¼şÏÂÔØÊ§°Ü£¡");
-			this.point+=score;
-		}
-		else if(point<=100)
-		{
-			acc.setState(new PrimaryState(this));
-		}
-		else if(point<=1000)
-		{
-			acc.setState(new MiddleState(this));
-		}
-	}
+public class HighState extends AbstractState {
+    public HighState(AbstractState state) {
+        this.acc = state.acc;
+        this.point = state.getPoint();
+        this.stateName = "×¨ï¿½ï¿½";
+    }
+
+    public void writeNote(int score) {
+        System.out.println(acc.getName() + "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" + "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" + score + "*2ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½");
+        this.point += score * 2;
+        checkState(score);
+        System.out.println("Ê£ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + this.point + "ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + acc.getState().stateName + "ï¿½ï¿½");
+    }
+
+    public void downloadFile(int score) {
+        System.out.println(acc.getName() + "ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Û³ï¿½" + score + "/2ï¿½ï¿½ï¿½Ö¡ï¿½");
+        this.point -= score / 2;
+        checkState(score);
+        System.out.println("Ê£ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + this.point + "ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + acc.getState().stateName + "ï¿½ï¿½");
+    }
+
+    public void checkState(int score) {
+        if (point < 0) {
+            System.out.println("ï¿½ï¿½î²»ï¿½ã£¬ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½");
+            this.point += score;
+        } else if (point <= 100) {
+            acc.setState(new PrimaryState(this));
+        } else if (point <= 1000) {
+            acc.setState(new MiddleState(this));
+        }
+    }
 }

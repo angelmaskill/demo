@@ -1,8 +1,5 @@
 /**
- * @(#)PropertyEditor.java
- * 
- * Copyright Oristand.All rights reserved. This software is the XXX system.
- * 
+ * @(#)PropertyEditor.java Copyright Oristand.All rights reserved. This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -16,18 +13,17 @@
 
 package com.property;
 
+import com.xinnuo.se.util.PathUtil;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Properties;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import com.xinnuo.se.util.PathUtil;
-
 /**
  * Class description goes here.
- * 
+ *
  * @author Administrator
  * @since 2015-10-21
  */
@@ -35,7 +31,6 @@ public class PropertyEditor {
     private static String path = "";
     private static Properties prop = new Properties();// 属性集合对象
 
-   
 
     @BeforeClass
     public static void testGetPath() throws Exception {
@@ -65,6 +60,7 @@ public class PropertyEditor {
         fis.close();// 关闭流
 
     }
+
     @Test
     public void testGet() throws Exception {
         // 获取属性值，sitename已在文件中定义
@@ -72,7 +68,7 @@ public class PropertyEditor {
         // 获取属性值，country未在文件中定义，将在此程序中返回一个默认值，但并不修改属性文件
         System.out.println("获取属性值：log_oracle_url=" + prop.getProperty("log_oracle_url", "中国"));
     }
-    
+
     @Test
     public void testSetPro() throws Exception {
         try {
@@ -85,9 +81,9 @@ public class PropertyEditor {
             // 将Properties集合保存到流中
             prop.store(fos, "Copyright (c) Boxcode Studio");
             fos.close();// 关闭流
-            
-            System.out.println("修改之后："+prop.get("base_oracle_url"));
-            System.out.println("修改之后："+prop.get("log_oracle_url"));
+
+            System.out.println("修改之后：" + prop.get("base_oracle_url"));
+            System.out.println("修改之后：" + prop.get("log_oracle_url"));
         } catch (Exception e) {
             e.printStackTrace();
         }

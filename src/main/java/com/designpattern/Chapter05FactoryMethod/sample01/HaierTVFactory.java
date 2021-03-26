@@ -1,10 +1,8 @@
 package com.designpattern.Chapter05FactoryMethod.sample01;
 
-public class HaierTVFactory implements TVFactory
-{
-    public TV produceTV()
-    {
-    	System.out.println("º£¶ûµçÊÓ»ú¹¤³§Éú²úº£¶ûµçÊÓ»ú¡£");
-    	return new HaierTV();
+public class HaierTVFactory implements TVFactory {
+    public TV produceTV() {
+        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½");
+        return new HaierTV();
     }
 }

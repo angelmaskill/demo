@@ -1,8 +1,5 @@
 /**
- * @(#)ThreadTestJoin2.java
- * 
- * Copyright Oristand.All rights reserved. This software is the XXX system.
- * 
+ * @(#)ThreadTestJoin2.java Copyright Oristand.All rights reserved. This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -18,14 +15,13 @@
 package com.thread.testJoin;
 
 /**
- * 
- *     
+ *
+ *
  *      线程的合并的含义就是将几个并行线程的线程合并为一个单线程执行，应用场景是当一个线程必须等待另一个线程执行完毕才能执行时可以使用join方法。
-        join为非静态方法，定义如下：
-        void join(): 等待该线程终止。 
-        void join(long millis): 等待该线程终止的时间最长为 millis 毫秒。 
-        void join(long millis, int nanos): 等待该线程终止的时间最长为 millis 毫秒 + nanos 纳秒。
-        
+ join为非静态方法，定义如下：
+ void join(): 等待该线程终止。
+ void join(long millis): 等待该线程终止的时间最长为 millis 毫秒。
+ void join(long millis, int nanos): 等待该线程终止的时间最长为 millis 毫秒 + nanos 纳秒。
  * @author Administrator
  * @since 2014-10-24
  */

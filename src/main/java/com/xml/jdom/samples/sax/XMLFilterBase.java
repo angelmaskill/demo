@@ -53,8 +53,6 @@
  */
 package com.xml.jdom.samples.sax;
 
-import java.io.IOException;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -64,6 +62,8 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.helpers.AttributesImpl;
 import org.xml.sax.helpers.XMLFilterImpl;
+
+import java.io.IOException;
 
 /**
  * Adds convenience methods and lexical event filtering to base
@@ -108,8 +108,7 @@ import org.xml.sax.helpers.XMLFilterImpl;
  *
  * @see org.xml.sax.helpers.XMLFilterImpl
  */
-public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
-{
+public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler {
 
 
     ////////////////////////////////////////////////////////////////////
@@ -127,8 +126,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * @see org.xml.sax.XMLReader#setFeature
      * @see org.xml.sax.XMLReader#setProperty
      */
-    public XMLFilterBase()
-    {
+    public XMLFilterBase() {
     }
 
 
@@ -139,11 +137,9 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      *
      * @param xmlreader The parent in the filter chain.
      */
-    public XMLFilterBase(XMLReader parent)
-    {
+    public XMLFilterBase(XMLReader parent) {
         super(parent);
     }
-
 
 
     ////////////////////////////////////////////////////////////////////
@@ -159,15 +155,14 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * {@link #startElement(String, String, String, Attributes)}
      * directly.</p>
      *
-     * @param uri The element's Namespace URI.
+     * @param uri       The element's Namespace URI.
      * @param localName The element's local name.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      */
-    public void startElement (String uri, String localName)
-    throws SAXException
-    {
+    public void startElement(String uri, String localName)
+            throws SAXException {
         startElement(uri, localName, "", EMPTY_ATTS);
     }
 
@@ -182,14 +177,13 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * directly.</p>
      *
      * @param localName The element's local name.
-     * @param atts The element's attribute list.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @param atts      The element's attribute list.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      */
-    public void startElement (String localName, Attributes atts)
-    throws SAXException
-    {
+    public void startElement(String localName, Attributes atts)
+            throws SAXException {
         startElement("", localName, "", atts);
     }
 
@@ -204,13 +198,12 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * directly.</p>
      *
      * @param localName The element's local name.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      */
-    public void startElement (String localName)
-    throws SAXException
-    {
+    public void startElement(String localName)
+            throws SAXException {
         startElement("", localName, "", EMPTY_ATTS);
     }
 
@@ -222,15 +215,14 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * It invokes {@link #endElement(String, String, String)}
      * directly.</p>
      *
-     * @param uri The element's Namespace URI.
+     * @param uri       The element's Namespace URI.
      * @param localName The element's local name.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#endElement
      */
-    public void endElement (String uri, String localName)
-    throws SAXException
-    {
+    public void endElement(String uri, String localName)
+            throws SAXException {
         endElement(uri, localName, "");
     }
 
@@ -244,69 +236,66 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * directly.</p>
      *
      * @param localName The element's local name.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#endElement
      */
-    public void endElement (String localName)
-    throws SAXException
-    {
+    public void endElement(String localName)
+            throws SAXException {
         endElement("", localName, "");
     }
 
 
     /**
      * Add an empty element.
-     *
+     * <p>
      * Both a {@link #startElement startElement} and an
      * {@link #endElement endElement} event will be passed on down
      * the filter chain.
      *
-     * @param uri The element's Namespace URI, or the empty string
-     *        if the element has no Namespace or if Namespace
-     *        processing is not being performed.
+     * @param uri       The element's Namespace URI, or the empty string
+     *                  if the element has no Namespace or if Namespace
+     *                  processing is not being performed.
      * @param localName The element's local name (without prefix).  This
-     *        parameter must be provided.
-     * @param qName The element's qualified name (with prefix), or
-     *        the empty string if none is available.  This parameter
-     *        is strictly advisory: the writer may or may not use
-     *        the prefix attached.
-     * @param atts The element's attribute list.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     *                  parameter must be provided.
+     * @param qName     The element's qualified name (with prefix), or
+     *                  the empty string if none is available.  This parameter
+     *                  is strictly advisory: the writer may or may not use
+     *                  the prefix attached.
+     * @param atts      The element's attribute list.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      * @see org.xml.sax.ContentHandler#endElement
      */
-    public void emptyElement (String uri, String localName,
-    String qName, Attributes atts)
-    throws SAXException
-    {
+    public void emptyElement(String uri, String localName,
+                             String qName, Attributes atts)
+            throws SAXException {
         startElement(uri, localName, qName, atts);
         endElement(uri, localName, qName);
     }
 
 
-     /**
-      * Add an empty element without a qname or attributes.
-      *
-      * <p>This method will supply an empty string for the qname
-      * and an empty attribute list.  It invokes
-      * {@link #emptyElement(String, String, String, Attributes)}
-      * directly.</p>
-      *
-      * @param uri The element's Namespace URI.
-      * @param localName The element's local name.
-      * @exception org.xml.sax.SAXException If a filter
-      *            further down the chain raises an exception.
-      * @see #emptyElement(String, String, String, Attributes)
-      */
-    public void emptyElement (String uri, String localName)
-    throws SAXException
-    {
+    /**
+     * Add an empty element without a qname or attributes.
+     *
+     * <p>This method will supply an empty string for the qname
+     * and an empty attribute list.  It invokes
+     * {@link #emptyElement(String, String, String, Attributes)}
+     * directly.</p>
+     *
+     * @param uri       The element's Namespace URI.
+     * @param localName The element's local name.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
+     * @see #emptyElement(String, String, String, Attributes)
+     */
+    public void emptyElement(String uri, String localName)
+            throws SAXException {
         emptyElement(uri, localName, "", EMPTY_ATTS);
     }
-    
-    
+
+
     /**
      * Add an empty element without a Namespace URI or qname.
      *
@@ -317,14 +306,13 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * directly.</p>
      *
      * @param localName The element's local name.
-     * @param atts The element's attribute list.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @param atts      The element's attribute list.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      */
-    public void emptyElement (String localName, Attributes atts)
-    throws SAXException
-    {
+    public void emptyElement(String localName, Attributes atts)
+            throws SAXException {
         emptyElement("", localName, "", atts);
     }
 
@@ -339,13 +327,12 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * directly.</p>
      *
      * @param localName The element's local name.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
-      * @see #emptyElement(String, String, String, Attributes)
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
+     * @see #emptyElement(String, String, String, Attributes)
      */
-    public void emptyElement (String localName)
-    throws SAXException
-    {
+    public void emptyElement(String localName)
+            throws SAXException {
         emptyElement("", localName, "", EMPTY_ATTS);
     }
 
@@ -363,22 +350,21 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * {@link #characters(String)}, followed by
      * {@link @see org.xml.sax.ContentHandler#endElement}.</p>
      *
-     * @param uri The element's Namespace URI.
+     * @param uri       The element's Namespace URI.
      * @param localName The element's local name.
-     * @param qName The element's default qualified name.
-     * @param atts The element's attributes.
-     * @param content The character data content.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @param qName     The element's default qualified name.
+     * @param atts      The element's attributes.
+     * @param content   The character data content.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      * @see #characters(String)
      * @see org.xml.sax.ContentHandler#endElement
      */
-    public void dataElement (String uri, String localName,
-                             String qName, Attributes atts,
-                             String content)
-    throws SAXException
-    {
+    public void dataElement(String uri, String localName,
+                            String qName, Attributes atts,
+                            String content)
+            throws SAXException {
         startElement(uri, localName, qName, atts);
         characters(content);
         endElement(uri, localName, qName);
@@ -395,18 +381,17 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * {@link #dataElement(String, String, String, Attributes, String)}}
      * directly.</p>
      *
-     * @param uri The element's Namespace URI.
+     * @param uri       The element's Namespace URI.
      * @param localName The element's local name.
-     * @param content The character data content.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @param content   The character data content.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      * @see #characters(String)
      * @see org.xml.sax.ContentHandler#endElement
      */
-    public void dataElement (String uri, String localName, String content)
-    throws SAXException
-    {
+    public void dataElement(String uri, String localName, String content)
+            throws SAXException {
         dataElement(uri, localName, "", EMPTY_ATTS, content);
     }
 
@@ -422,17 +407,16 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * directly.</p>
      *
      * @param localName The element's local name.
-     * @param atts The element's attributes.
-     * @param content The character data content.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @param atts      The element's attributes.
+     * @param content   The character data content.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      * @see #characters(String)
      * @see org.xml.sax.ContentHandler#endElement
      */
-    public void dataElement (String localName, Attributes atts, String content)
-    throws SAXException
-    {
+    public void dataElement(String localName, Attributes atts, String content)
+            throws SAXException {
         dataElement("", localName, "", atts, content);
     }
 
@@ -450,16 +434,15 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * directly.</p>
      *
      * @param localName The element's local name.
-     * @param content The character data content.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @param content   The character data content.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      * @see #characters(String)
      * @see org.xml.sax.ContentHandler#endElement
      */
-    public void dataElement (String localName, String content)
-    throws SAXException
-    {
+    public void dataElement(String localName, String content)
+            throws SAXException {
         dataElement("", localName, "", EMPTY_ATTS, content);
     }
 
@@ -472,17 +455,15 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * {@link @see org.xml.sax.ContentHandler#characters}.</p>
      *
      * @param data The character data.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see @see org.xml.sax.ContentHandler#characters
      */
-    public void characters (String data)
-    throws SAXException
-    {
+    public void characters(String data)
+            throws SAXException {
         char ch[] = data.toCharArray();
         characters(ch, 0, ch.length);
     }
-
 
 
     ////////////////////////////////////////////////////////////////////
@@ -495,18 +476,17 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      *
      * <p>This will always fail if the parent is null.</p>
      *
-     * @param name The property name.
+     * @param name  The property name.
      * @param state The requested property value.
-     * @exception org.xml.sax.SAXNotRecognizedException When the
-     *            XMLReader does not recognize the property name.
-     * @exception org.xml.sax.SAXNotSupportedException When the
-     *            XMLReader recognizes the property name but
-     *            cannot set the requested value.
+     * @throws org.xml.sax.SAXNotRecognizedException When the
+     *                                               XMLReader does not recognize the property name.
+     * @throws org.xml.sax.SAXNotSupportedException  When the
+     *                                               XMLReader recognizes the property name but
+     *                                               cannot set the requested value.
      * @see org.xml.sax.XMLReader#setProperty
      */
-    public void setProperty (String name, Object value)
-    throws SAXNotRecognizedException, SAXNotSupportedException
-    {
+    public void setProperty(String name, Object value)
+            throws SAXNotRecognizedException, SAXNotSupportedException {
         for (int i = 0; i < LEXICAL_HANDLER_NAMES.length; i++) {
             if (LEXICAL_HANDLER_NAMES[i].equals(name)) {
                 setLexicalHandler((LexicalHandler) value);
@@ -515,23 +495,22 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
         }
         super.setProperty(name, value);
     }
-    
-    
+
+
     /**
      * Look up the value of a property.
      *
      * @param name The property name.
      * @return The current value of the property.
-     * @exception org.xml.sax.SAXNotRecognizedException When the
-     *            XMLReader does not recognize the feature name.
-     * @exception org.xml.sax.SAXNotSupportedException When the
-     *            XMLReader recognizes the property name but
-     *            cannot determine its value at this time.
+     * @throws org.xml.sax.SAXNotRecognizedException When the
+     *                                               XMLReader does not recognize the feature name.
+     * @throws org.xml.sax.SAXNotSupportedException  When the
+     *                                               XMLReader recognizes the property name but
+     *                                               cannot determine its value at this time.
      * @see org.xml.sax.XMLReader#setFeature
      */
-    public Object getProperty (String name)
-    throws SAXNotRecognizedException, SAXNotSupportedException
-    {
+    public Object getProperty(String name)
+            throws SAXNotRecognizedException, SAXNotSupportedException {
         for (int i = 0; i < LEXICAL_HANDLER_NAMES.length; i++) {
             if (LEXICAL_HANDLER_NAMES[i].equals(name)) {
                 return getLexicalHandler();
@@ -545,20 +524,18 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * Parse a document.
      *
      * @param input The input source for the document entity.
-     * @exception org.xml.sax.SAXException Any SAX exception, possibly
-     *            wrapping another exception.
-     * @exception java.io.IOException An IO exception from the parser,
-     *            possibly from a byte stream or character stream
-     *            supplied by the application.
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly
+     *                                  wrapping another exception.
+     * @throws java.io.IOException      An IO exception from the parser,
+     *                                  possibly from a byte stream or character stream
+     *                                  supplied by the application.
      * @see org.xml.sax.XMLReader#parse(org.xml.sax.InputSource)
      */
-    public void parse (InputSource input)
-    throws SAXException, IOException
-    {
+    public void parse(InputSource input)
+            throws SAXException, IOException {
         installLexicalHandler();
         super.parse(input);
     }
-
 
 
     ////////////////////////////////////////////////////////////////////
@@ -570,29 +547,26 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * Set the lexical handler.
      *
      * @param handler The new lexical handler.
-     * @exception java.lang.NullPointerException If the handler
-     *            is null.
+     * @throws java.lang.NullPointerException If the handler
+     *                                        is null.
      */
-    public void setLexicalHandler (LexicalHandler handler)
-    {
+    public void setLexicalHandler(LexicalHandler handler) {
         if (handler == null) {
             throw new NullPointerException("Null lexical handler");
         } else {
             lexicalHandler = handler;
         }
     }
-    
-    
+
+
     /**
      * Get the current lexical handler.
      *
      * @return The current lexical handler, or null if none was set.
      */
-    public LexicalHandler getLexicalHandler ()
-    {
+    public LexicalHandler getLexicalHandler() {
         return lexicalHandler;
     }
-
 
 
     ////////////////////////////////////////////////////////////////////
@@ -603,17 +577,17 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
     /**
      * Filter a start DTD event.
      *
-     * @param name The document type name.
+     * @param name     The document type name.
      * @param publicId The declared public identifier for the
-     *        external DTD subset, or null if none was declared.
+     *                 external DTD subset, or null if none was declared.
      * @param systemId The declared system identifier for the
-     *        external DTD subset, or null if none was declared.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     *                 external DTD subset, or null if none was declared.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ext.LexicalHandler#startDTD
      */
     public void startDTD(String name, String publicId, String systemId)
-    throws SAXException {
+            throws SAXException {
         if (lexicalHandler != null) {
             lexicalHandler.startDTD(name, publicId, systemId);
         }
@@ -623,16 +597,16 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
     /**
      * Filter a end DTD event.
      *
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ext.LexicalHandler#endDTD
      */
     public void endDTD()
-    throws SAXException {
+            throws SAXException {
         if (lexicalHandler != null) {
             lexicalHandler.endDTD();
         }
-    }    
+    }
 
 
     /*
@@ -646,7 +620,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * @see org.xml.sax.ext.LexicalHandler#startEntity
      */
     public void startEntity(String name)
-    throws SAXException {
+            throws SAXException {
         if (lexicalHandler != null) {
             lexicalHandler.startEntity(name);
         }
@@ -662,7 +636,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * @see org.xml.sax.ext.LexicalHandler#endEntity
      */
     public void endEntity(String name)
-    throws SAXException {
+            throws SAXException {
         if (lexicalHandler != null) {
             lexicalHandler.endEntity(name);
         }
@@ -677,11 +651,11 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * @see org.xml.sax.ext.LexicalHandler#startCDATA
      */
     public void startCDATA()
-    throws SAXException {
+            throws SAXException {
         if (lexicalHandler != null) {
             lexicalHandler.startCDATA();
         }
-    }    
+    }
 
 
     /*
@@ -692,7 +666,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * @see org.xml.sax.ext.LexicalHandler#endCDATA
      */
     public void endCDATA()
-    throws SAXException {
+            throws SAXException {
         if (lexicalHandler != null) {
             lexicalHandler.endCDATA();
         }
@@ -710,12 +684,11 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * @see org.xml.sax.ext.LexicalHandler#comment
      */
     public void comment(char[] ch, int start, int length)
-    throws SAXException {
+            throws SAXException {
         if (lexicalHandler != null) {
             lexicalHandler.comment(ch, start, length);
         }
     }
-
 
 
     ////////////////////////////////////////////////////////////////////
@@ -730,8 +703,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * non-null, and re-register the filter for the lexical
      * events.</p>
      */
-    private void installLexicalHandler ()
-    {
+    private void installLexicalHandler() {
         XMLReader parent = getParent();
         if (parent == null) {
             throw new NullPointerException("No parent for filter");
@@ -741,16 +713,13 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
             try {
                 parent.setProperty(LEXICAL_HANDLER_NAMES[i], this);
                 break;
-            }
-            catch (SAXNotRecognizedException ex) {
+            } catch (SAXNotRecognizedException ex) {
                 // ignore
-            }
-            catch (SAXNotSupportedException ex) {
+            } catch (SAXNotSupportedException ex) {
                 // ignore
             }
         }
     }
-
 
 
     ////////////////////////////////////////////////////////////////////
@@ -761,7 +730,6 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
     private LexicalHandler lexicalHandler = null;
 
 
-
     ////////////////////////////////////////////////////////////////////
     // Constants.
     ////////////////////////////////////////////////////////////////////
@@ -770,8 +738,8 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
     protected static final Attributes EMPTY_ATTS = new AttributesImpl();
 
     protected static final String[] LEXICAL_HANDLER_NAMES = {
-        "http://xml.org/sax/properties/lexical-handler",
-        "http://xml.org/sax/handlers/LexicalHandler"
+            "http://xml.org/sax/properties/lexical-handler",
+            "http://xml.org/sax/handlers/LexicalHandler"
     };
 
 

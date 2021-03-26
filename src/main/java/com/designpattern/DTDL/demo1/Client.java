@@ -1,9 +1,6 @@
 /**
- * @(#)Client.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)Client.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -41,8 +38,8 @@ public class Client {
         InvocationHandler handler = new DynamicProxy(realSubject);
 
         /**
-        Class<?> proxyClass = Proxy.getProxyClass(Subject.class.getClassLoader()  , new Class[]{Subject.class});  
-        Subject subject = (Subject)proxyClass.getConstructor(new Class[]{InvocationHandler.class})  .newInstance(new Object[]{handler});  
+         Class<?> proxyClass = Proxy.getProxyClass(Subject.class.getClassLoader()  , new Class[]{Subject.class});
+         Subject subject = (Subject)proxyClass.getConstructor(new Class[]{InvocationHandler.class})  .newInstance(new Object[]{handler});
          */
         /**
          * 返回代理对象，相当于上面两句

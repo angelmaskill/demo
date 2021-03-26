@@ -53,11 +53,11 @@
  */
 package com.xml.jdom.samples.sax;
 
-import java.util.Stack;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
+
+import java.util.Stack;
 
 
 /**
@@ -111,24 +111,21 @@ import org.xml.sax.XMLReader;
  *   &lt;citizenship>US&lt;/citizenship>
  * &lt;/Person>
  * </pre>
- * 
+ *
  * @see DataUnformatFilter
  */
-public class DataFormatFilter extends XMLFilterBase
-{
-    
-    
-    
+public class DataFormatFilter extends XMLFilterBase {
+
+
     ////////////////////////////////////////////////////////////////////
     // Constructors.
     ////////////////////////////////////////////////////////////////////
-    
-    
+
+
     /**
      * Create a new filter.
      */
-    public DataFormatFilter()
-    {
+    public DataFormatFilter() {
     }
 
 
@@ -139,8 +136,7 @@ public class DataFormatFilter extends XMLFilterBase
      *
      * @param xmlreader The parent in the filter chain.
      */
-    public DataFormatFilter(XMLReader xmlreader)
-    {
+    public DataFormatFilter(XMLReader xmlreader) {
         super(xmlreader);
     }
 
@@ -158,11 +154,10 @@ public class DataFormatFilter extends XMLFilterBase
      * ancestors that the element has.</p>
      *
      * @return The number of spaces in each indentation step,
-     *         or 0 or less for no indentation.
+     * or 0 or less for no indentation.
      * @see #setIndentStep
      */
-    public int getIndentStep ()
-    {
+    public int getIndentStep() {
         return indentStep;
     }
 
@@ -171,16 +166,14 @@ public class DataFormatFilter extends XMLFilterBase
      * Set the current indent step.
      *
      * @param indentStep The new indent step (0 or less for no
-     *        indentation).
+     *                   indentation).
      * @see #getIndentStep
      */
-    public void setIndentStep (int indentStep)
-    {
+    public void setIndentStep(int indentStep) {
         this.indentStep = indentStep;
     }
-    
-    
-    
+
+
     ////////////////////////////////////////////////////////////////////
     // Public methods.
     ////////////////////////////////////////////////////////////////////
@@ -192,31 +185,28 @@ public class DataFormatFilter extends XMLFilterBase
      * <p>This method is especially useful if the filter failed
      * with an exception the last time through.</p>
      */
-    public void reset ()
-    {
+    public void reset() {
         state = SEEN_NOTHING;
         stateStack = new Stack();
     }
-
 
 
     ////////////////////////////////////////////////////////////////////
     // Methods from org.xml.sax.ContentHandler.
     ////////////////////////////////////////////////////////////////////
 
-    
+
     /**
-     * Filter a start document event. 
+     * Filter a start document event.
      *
      * <p>Reset state and pass the event on for further processing.</p>
      *
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startDocument
      */
-    public void startDocument ()
-    throws SAXException
-    {
+    public void startDocument()
+            throws SAXException {
         reset();
         super.startDocument();
     }
@@ -232,18 +222,17 @@ public class DataFormatFilter extends XMLFilterBase
      * <p>The newline and indentation will be passed on down
      * the filter chain through regular characters events.</p>
      *
-     * @param uri The element's Namespace URI.
+     * @param uri       The element's Namespace URI.
      * @param localName The element's local name.
-     * @param qName The element's qualified (prefixed) name.
-     * @param atts The element's attribute list.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @param qName     The element's qualified (prefixed) name.
+     * @param atts      The element's attribute list.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      */
-    public void startElement (String uri, String localName,
-                              String qName, Attributes atts)
-    throws SAXException
-    {
+    public void startElement(String uri, String localName,
+                             String qName, Attributes atts)
+            throws SAXException {
         if (!stateStack.empty()) {
             doNewline();
             doIndent();
@@ -264,16 +253,15 @@ public class DataFormatFilter extends XMLFilterBase
      * <p>The newline and indentation will be passed on down
      * the filter chain through regular characters events.</p>
      *
-     * @param uri The element's Namespace URI.
+     * @param uri       The element's Namespace URI.
      * @param localName The element's local name.
-     * @param qName The element's qualified (prefixed) name.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @param qName     The element's qualified (prefixed) name.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#endElement
      */
-    public void endElement (String uri, String localName, String qName)
-    throws SAXException
-    {
+    public void endElement(String uri, String localName, String qName)
+            throws SAXException {
         boolean seenElement = (state == SEEN_ELEMENT);
         state = stateStack.pop();
         if (seenElement) {
@@ -287,20 +275,18 @@ public class DataFormatFilter extends XMLFilterBase
     /**
      * Filter a character data event.
      *
-     * @param ch The characters to write.
-     * @param start The starting position in the array.
+     * @param ch     The characters to write.
+     * @param start  The starting position in the array.
      * @param length The number of characters to use.
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#characters
      */
-    public void characters (char ch[], int start, int length)
-    throws SAXException
-    {
+    public void characters(char ch[], int start, int length)
+            throws SAXException {
         state = SEEN_DATA;
         super.characters(ch, start, length);
     }
-    
 
 
     ////////////////////////////////////////////////////////////////////
@@ -311,12 +297,11 @@ public class DataFormatFilter extends XMLFilterBase
     /**
      * Add newline.
      *
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      */
-    private void doNewline ()
-    throws SAXException
-    {
+    private void doNewline()
+            throws SAXException {
         super.characters(NEWLINE, 0, NEWLINE.length);
     }
 
@@ -324,12 +309,11 @@ public class DataFormatFilter extends XMLFilterBase
     /**
      * Add indentation for the current level.
      *
-     * @exception org.xml.sax.SAXException If a filter
-     *            further down the chain raises an exception.
+     * @throws org.xml.sax.SAXException If a filter
+     *                                  further down the chain raises an exception.
      */
-    private void doIndent ()
-    throws SAXException
-    {
+    private void doIndent()
+            throws SAXException {
         int n = indentStep * stateStack.size();
         if (n > 0) {
             char ch[] = new char[n];
@@ -341,8 +325,6 @@ public class DataFormatFilter extends XMLFilterBase
     }
 
 
-
-
     ////////////////////////////////////////////////////////////////////
     // Constants.
     ////////////////////////////////////////////////////////////////////
@@ -351,10 +333,10 @@ public class DataFormatFilter extends XMLFilterBase
     private static final Object SEEN_ELEMENT = new Object();
     private static final Object SEEN_DATA = new Object();
 
-    private static final char[] NEWLINE = new char[] {'\n'};
+    private static final char[] NEWLINE = new char[]{'\n'};
     private static final char INDENT_CHAR = ' ';
-    
-    
+
+
     ////////////////////////////////////////////////////////////////////
     // Internal state.
     ////////////////////////////////////////////////////////////////////

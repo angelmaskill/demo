@@ -10,38 +10,39 @@ import java.io.IOException;
  */
 public class DameonThread extends Thread {
 
-	public DameonThread() {
-	}
+    public DameonThread() {
+    }
 
-	/**
-	 * 线程的run方法，它将和其他线程同时运行
-	 */
-	public void run() {
-		while(true){
-			
-			try {
-				System.out.println("一直监控...");
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+    /**
+     * 线程的run方法，它将和其他线程同时运行
+     */
+    public void run() {
+        while (true) {
 
-	/**
-	 * thread.setDaemon(true)必须在thread.start()之前设置，否则会跑出一个IllegalThreadStateException异常。
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		DameonThread test = new DameonThread();
-		test.setDaemon(true);
-		test.start();
-		System.out.println("isDaemon = " + test.isDaemon());
-		try {
-			System.in.read(); // 接受输入，使程序在此停顿，一旦接收到用户输入，main线程结束，守护线程自动结束
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-	}
+            try {
+                System.out.println("一直监控...");
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * thread.setDaemon(true)必须在thread.start()之前设置，否则会跑出一个IllegalThreadStateException异常。
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        DameonThread test = new DameonThread();
+        test.setDaemon(true);
+        test.start();
+        System.out.println("isDaemon = " + test.isDaemon());
+        try {
+            System.in.read(); // 接受输入，使程序在此停顿，一旦接收到用户输入，main线程结束，守护线程自动结束
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
 }

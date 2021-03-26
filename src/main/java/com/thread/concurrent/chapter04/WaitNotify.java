@@ -1,5 +1,5 @@
-﻿/**
- * 
+/**
+ *
  */
 package com.thread.concurrent.chapter04;
 
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class WaitNotify {
     static boolean flag = true;
-    static Object  lock = new Object();
+    static Object lock = new Object();
 
     public static void main(String[] args) throws Exception {
         Thread waitThread = new Thread(new Wait(), "WaitThread");
@@ -31,14 +31,14 @@ public class WaitNotify {
                 while (flag) {
                     try {
                         System.out.println(Thread.currentThread() + " flag is true. wait @ "
-                                           + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+                                + new SimpleDateFormat("HH:mm:ss").format(new Date()));
                         lock.wait();
                     } catch (InterruptedException e) {
                     }
                 }
                 // 条件满足时，完成工作
                 System.out.println(Thread.currentThread() + " flag is false. running @ "
-                                   + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+                        + new SimpleDateFormat("HH:mm:ss").format(new Date()));
             }
         }
     }
@@ -57,7 +57,7 @@ public class WaitNotify {
             // 再次加锁
             synchronized (lock) {
                 System.out.println(Thread.currentThread() + " hold lock again. sleep @ "
-                                   + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+                        + new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 SleepUtils.second(5);
             }
         }

@@ -1,10 +1,9 @@
 package com.netty.test9.handler;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.netty.test9.domain.GameRequest;
 import com.netty.test9.domain.GameResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -18,10 +17,10 @@ import com.netty.test9.domain.GameResponse;
  * @version:
  */
 public class InitHandler implements GameHandler {
-	protected Logger logger = LoggerFactory.getLogger(getClass());
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
-	public void execute(GameRequest request, GameResponse response) {
-		this.logger.error(request.readString());
-		response.write("I am ok haha!");
-	}
+    public void execute(GameRequest request, GameResponse response) {
+        this.logger.error(request.readString());
+        response.write("I am ok haha!");
+    }
 }

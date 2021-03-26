@@ -1,18 +1,16 @@
 package com.kafkapri.demo1;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
 import kafka.javaapi.producer.Producer;
 import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
 /**
  * @Date Nov 3, 2016
- *
  * @Author dengjie
- *
  * @Note 按照先 Hash 再取模的规则，进行分区入库
  */
 public class PartitionerProducer {
@@ -29,8 +27,8 @@ public class PartitionerProducer {
         String topic = "ke_test";
         List<String> list = new ArrayList();
         for (int i = 0; i < 200; i++) {
-			list.add(i+"");
-		}
+            list.add(i + "");
+        }
         for (int i = 0; i < list.size(); i++) {
             String k = "key" + i;
             String v = new String(list.get(i));

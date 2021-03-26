@@ -15,28 +15,26 @@ public class UdpServer {
 
     // 相比于TCP而言，UDP不存在客户端和服务端的实际链接，因此
     // 不需要为连接(ChannelPipeline)设置handler
-    public void run(int port)throws Exception{
+    public void run(int port) throws Exception {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             Bootstrap b = new Bootstrap();
             b.group(group).channel(NioDatagramChannel.class)
-                    .option(ChannelOption.SO_BROADCAST,true)
+                    .option(ChannelOption.SO_BROADCAST, true)
                     .handler(new UdpServerHandler());
 
             b.bind(port).sync().channel().closeFuture().await();
-        }
-        finally {
+        } finally {
             group.shutdownGracefully();
         }
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         int port = 8080;
-        if(args.length>0){
-            try{
+        if (args.length > 0) {
+            try {
                 port = Integer.parseInt(args[0]);
-            }
-            catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
         }

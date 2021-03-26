@@ -1,39 +1,9 @@
 package com.lucene;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import jxl.Cell;
-import jxl.Sheet;
-import jxl.Workbook;
-
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.TextField;
-import org.apache.lucene.document.Field.Store;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
-import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.util.Version;
-import org.apache.poi.hwpf.HWPFDocument;
-import org.apache.poi.hwpf.usermodel.Range;
-
 /**
  * @author xinghl
- *
  */
+/*
 public class IndexManager {
     private static IndexManager indexManager;
     private static String content = "";
@@ -44,10 +14,13 @@ public class IndexManager {
     private static Directory directory = null;
     private static IndexWriter indexWriter = null;
 
-    /**
+    */
+/**
      * 创建索引管理器
+     *
      * @return 返回索引管理器对象
-     */
+     *//*
+
     public IndexManager getManager() {
         if (indexManager == null) {
             this.indexManager = new IndexManager();
@@ -55,11 +28,14 @@ public class IndexManager {
         return indexManager;
     }
 
-    /**
+    */
+/**
      * 创建当前文件目录的索引
+     *
      * @param path 当前文件目录
      * @return 是否成功
-     */
+     *//*
+
     public static boolean createIndex(String path) {
         Date date1 = new Date();
         List<File> fileList = getFileList(path);
@@ -115,11 +91,14 @@ public class IndexManager {
         return true;
     }
 
-    /**
+    */
+/**
      * 读取txt文件的内容
+     *
      * @param file 想要读取的文件对象
      * @return 返回文件内容
-     */
+     *//*
+
     public static String txt2String(File file) {
         String result = "";
         try {
@@ -135,11 +114,14 @@ public class IndexManager {
         return result;
     }
 
-    /**
+    */
+/**
      * 读取doc文件内容
+     *
      * @param file 想要读取的文件对象
      * @return 返回文件内容
-     */
+     *//*
+
     public static String doc2String(File file) {
         String result = "";
         try {
@@ -154,11 +136,14 @@ public class IndexManager {
         return result;
     }
 
-    /**
+    */
+/**
      * 读取xls文件内容
+     *
      * @param file 想要读取的文件对象
      * @return 返回文件内容
-     */
+     *//*
+
     public static String xls2String(File file) {
         String result = "";
         try {
@@ -182,11 +167,14 @@ public class IndexManager {
         return result;
     }
 
-    /**
+    */
+/**
      * 查找索引，返回符合条件的文件
+     *
      * @param text 查找的字符串
      * @return 符合条件的文件List
-     */
+     *//*
+
     public static void searchIndex(String text) {
         Date date1 = new Date();
         try {
@@ -217,11 +205,14 @@ public class IndexManager {
         System.out.println("查看索引-----耗时：" + (date2.getTime() - date1.getTime()) + "ms\n");
     }
 
-    /**
+    */
+/**
      * 过滤目录下的文件
+     *
      * @param dirPath 想要获取文件的目录
      * @return 返回文件list
-     */
+     *//*
+
     public static List<File> getFileList(String dirPath) {
         File[] files = new File(dirPath).listFiles();
         List<File> fileList = new ArrayList<File>();
@@ -233,11 +224,14 @@ public class IndexManager {
         return fileList;
     }
 
-    /**
+    */
+/**
      * 判断是否为目标文件，目前支持txt xls doc格式
+     *
      * @param fileName 文件名称
      * @return 如果是文件类型满足过滤条件，返回true；否则返回false
-     */
+     *//*
+
     public static boolean isTxtFile(String fileName) {
         if (fileName.lastIndexOf(".txt") > 0) {
             return true;
@@ -255,11 +249,14 @@ public class IndexManager {
         }
     }
 
-    /**
+    */
+/**
      * 删除文件目录下的所有文件
+     *
      * @param file 要删除的文件目录
      * @return 如果成功，返回true.
-     */
+     *//*
+
     public static boolean deleteDir(File file) {
         if (file.isDirectory()) {
             File[] files = file.listFiles();
@@ -282,4 +279,4 @@ public class IndexManager {
         createIndex(DATA_DIR);
         searchIndex("中国");
     }
-}
+}*/

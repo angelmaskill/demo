@@ -1,14 +1,11 @@
 /**
- * @(#)XMLCommon.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)XMLCommon.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
- */ 
- /*- 				History
+ */
+/*- 				History
  **********************************************
  *  ID      DATE           PERSON       REASON
  *  1     2014-11-4     Administrator    Created
@@ -16,13 +13,6 @@
  */
 
 package com.xml;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import junit.framework.TestCase;
 

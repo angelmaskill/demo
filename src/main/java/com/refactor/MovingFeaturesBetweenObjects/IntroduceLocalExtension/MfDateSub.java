@@ -1,9 +1,6 @@
 /**
- * @(#)MfDateSub.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)MfDateSub.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -28,7 +25,9 @@ import java.util.Date;
 public class MfDateSub extends Date {
     public MfDateSub(String dateString) {
         super(dateString);
-    };
+    }
+
+    ;
 
     public MfDateSub(Date arg) {
         super(arg.getTime());

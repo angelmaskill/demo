@@ -1,35 +1,27 @@
 package com.designpattern.Chapter24State.sample01;
 
-public class PrimaryState extends AbstractState
-{
-	public PrimaryState(AbstractState state)
-	{
-		this.acc=state.acc;
-		this.point=state.getPoint();
-		this.stateName="ÐÂÊÖ";
-	}
-	
-	public PrimaryState(ForumAccount acc)
-	{
-		this.point=0;
-		this.acc=acc;
-		this.stateName="ÐÂÊÖ";
-	}
-	
-	public void downloadFile(int score)
-    {
-    	System.out.println("¶Ô²»Æð£¬" + acc.getName() + "£¬ÄúÃ»ÓÐÏÂÔØÎÄ¼þµÄÈ¨ÏÞ£¡");
+public class PrimaryState extends AbstractState {
+    public PrimaryState(AbstractState state) {
+        this.acc = state.acc;
+        this.point = state.getPoint();
+        this.stateName = "ï¿½ï¿½ï¿½ï¿½";
     }
-		
-	public void checkState(int score)
-	{
-		if(point>=1000)
-		{
-			acc.setState(new HighState(this));
-		}
-		else if(point>=100)
-		{
-			acc.setState(new MiddleState(this));
-		}
-	}
+
+    public PrimaryState(ForumAccount acc) {
+        this.point = 0;
+        this.acc = acc;
+        this.stateName = "ï¿½ï¿½ï¿½ï¿½";
+    }
+
+    public void downloadFile(int score) {
+        System.out.println("ï¿½Ô²ï¿½ï¿½ï¿½" + acc.getName() + "ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½È¨ï¿½Þ£ï¿½");
+    }
+
+    public void checkState(int score) {
+        if (point >= 1000) {
+            acc.setState(new HighState(this));
+        } else if (point >= 100) {
+            acc.setState(new MiddleState(this));
+        }
+    }
 }

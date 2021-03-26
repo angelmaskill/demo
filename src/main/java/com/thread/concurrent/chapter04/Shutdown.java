@@ -1,4 +1,4 @@
-﻿package com.thread.concurrent.chapter04;
+package com.thread.concurrent.chapter04;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +22,7 @@ public class Shutdown {
     }
 
     private static class Runner implements Runnable {
-        private long             i;
+        private long i;
 
         private volatile boolean on = true;
 

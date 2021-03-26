@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Alipay.com Inc.
  * Copyright (c) 2004-2015 All Rights Reserved.
  */
@@ -9,7 +9,7 @@ import java.util.UUID;
 
 /**
  * 并发put
- * 
+ *
  * @author tengfei.fangtf
  * @version $Id: Snippet.java, v 0.1 2015-7-31 下午11:53:55 tengfei.fangtf Exp $
  */

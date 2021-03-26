@@ -4,18 +4,20 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+
 /**
- *@function：java的简单socket连接，长连接，尝试连续从服务器获取消息
- *@parameter:
- *@return：
- *@date：2016-6-22 下午03:43:18
- *@author:he
- *@notice:
+ * @function：java的简单socket连接，长连接，尝试连续从服务器获取消息
+ * @parameter:
+ * @return：
+ * @date：2016-6-22 下午03:43:18
+ * @author:he
+ * @notice:
  */
 public class SocketTestTwo {
     public static final String IP_ADDR = "127.0.0.1";// 服务器地址
     public static final int PORT = 8888;// 服务器端口号
     static String text = null;
+
     public static void main(String[] args) throws IOException {
         System.out.println("客户端启动...");
         Socket socket = null;

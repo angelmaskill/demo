@@ -1,14 +1,11 @@
 /**
- * @(#)ThreadTestJoin3.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)ThreadTestJoin3.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
- */ 
- /*- 				History
+ */
+/*- 				History
  **********************************************
  *  ID      DATE           PERSON       REASON
  *  1     2014-10-24     Administrator    Created
@@ -16,13 +13,14 @@
  */
 
 package com.thread.testJoin;
+
 /**
-/** 这是一个来自《java编程思想上的示例》
+ /** 这是一个来自《java编程思想上的示例》
  *sleep()是静态方法，是属于类的，作用是让当前线程阻塞  
  *join()是使线程同步，如在某个线程里调用t.join()表示t线程执行完再执行当前线程 
  *interrupt()给线程设定一个标志表示该线程已被中断，但在异常捕获时将清理这个标志 
  *所以在catch子句中，该标志为false  
- */  
+ */
 
 public class ThreadTestJoin3 {
     public static void main(String[] args) {

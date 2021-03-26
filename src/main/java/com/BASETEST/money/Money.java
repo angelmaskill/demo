@@ -1,4 +1,5 @@
 package com.BASETEST.money;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Currency;
@@ -34,8 +35,8 @@ import java.util.Currency;
  *   <li>Money类实现了Serializable接口，支持作为远程调用的参数和返回值。
  *   <li>Money类实现了equals和hashCode方法。
  * </ul>
- *
  */
+
 /**
  * @Author: yanlu.myl
  * @Description:

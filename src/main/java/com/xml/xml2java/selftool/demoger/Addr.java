@@ -1,5 +1,4 @@
 package com.xml.xml2java.selftool.demoger;
-import java.util.List;
 
 public class Addr {
     private String city;

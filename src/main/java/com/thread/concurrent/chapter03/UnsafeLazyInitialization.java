@@ -1,4 +1,4 @@
-﻿package com.thread.concurrent.chapter03;
+package com.thread.concurrent.chapter03;
 
 public class UnsafeLazyInitialization {
     private static Instance instance;

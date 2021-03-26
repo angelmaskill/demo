@@ -1,20 +1,15 @@
 package com.designpattern.Chapter04SimpleFactory.sample01;
 
 
-public class Client
-{
-	public static void main(String args[])
-	{
-         try
-         {
-         	TV tv;
-         	String brandName=XMLUtilTV.getBrandName();
-         	tv=TVFactory.produceTV(brandName);
-         	tv.play();
-         }
-         catch(Exception e)
-         {
-         	System.out.println(e.getMessage());
-         }
-	}
+public class Client {
+    public static void main(String args[]) {
+        try {
+            TV tv;
+            String brandName = XMLUtilTV.getBrandName();
+            tv = TVFactory.produceTV(brandName);
+            tv.play();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

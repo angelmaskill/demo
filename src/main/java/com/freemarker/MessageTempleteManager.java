@@ -1,8 +1,5 @@
 /**
- * @(#)MessageTempleteManager.java
- * 
- * Copyright Oristand.All rights reserved. This software is the XXX system.
- * 
+ * @(#)MessageTempleteManager.java Copyright Oristand.All rights reserved. This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -16,6 +13,10 @@
 
 package com.freemarker;
 
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
@@ -23,13 +24,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-
 /**
  * Class description goes here.
- * 
+ *
  * @author Administrator
  * @since 2015-7-23
  */

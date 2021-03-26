@@ -1,7 +1,7 @@
-﻿package com.thread.concurrent.chapter03;
+package com.thread.concurrent.chapter03;
 
 public class FinalReferenceExample {
-    final int[]                  intArray; //final是引用类型
+    final int[] intArray; //final是引用类型
     static FinalReferenceExample obj;
 
     public FinalReferenceExample() { //构造函数

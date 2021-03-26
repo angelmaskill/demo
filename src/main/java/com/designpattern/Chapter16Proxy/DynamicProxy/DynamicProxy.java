@@ -1,34 +1,31 @@
 package com.designpattern.Chapter16Proxy.DynamicProxy;
 
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class DynamicProxy implements InvocationHandler
-{
-	private Object obj;
-	
-	public DynamicProxy(){}
-	
-	public DynamicProxy(Object obj)
-	{
-   		this.obj=obj;
-   	}
-   	
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable
-    {
-		preRequest();
+public class DynamicProxy implements InvocationHandler {
+    private Object obj;
+
+    public DynamicProxy() {
+    }
+
+    public DynamicProxy(Object obj) {
+        this.obj = obj;
+    }
+
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        preRequest();
         method.invoke(obj, args);
         postRequest();
         return null;
     }
 
-    public void preRequest(){
-    System.out.println("µ÷ÓÃÖ®Ç°£¡");
+    public void preRequest() {
+        System.out.println("ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½");
     }
 
-    public void postRequest(){
-    System.out.println("µ÷ÓÃÖ®ºó£¡");
+    public void postRequest() {
+        System.out.println("ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½");
     }
 
 }

@@ -7,35 +7,35 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
-public class NettyServer  {
+public class NettyServer {
 
-	public void run() {
-		
-		System.err.println("---------- 服务端开启等待连接 ----------");
+    public void run() {
 
-		EventLoopGroup bossGroup = new NioEventLoopGroup();
-		EventLoopGroup workerGroup = new NioEventLoopGroup();
+        System.err.println("---------- 服务端开启等待连接 ----------");
 
-		try {
+        EventLoopGroup bossGroup = new NioEventLoopGroup();
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
 
-			ServerBootstrap b = new ServerBootstrap();
-			b.group(bossGroup, workerGroup);
-			b.channel(NioServerSocketChannel.class);
-			b.option(ChannelOption.SO_BACKLOG, 1024);
-			b.childHandler(new ChildChannelHandler());
+        try {
 
-			// 绑定端口
-			ChannelFuture f = b.bind(7397).sync();
+            ServerBootstrap b = new ServerBootstrap();
+            b.group(bossGroup, workerGroup);
+            b.channel(NioServerSocketChannel.class);
+            b.option(ChannelOption.SO_BACKLOG, 1024);
+            b.childHandler(new ChildChannelHandler());
 
-			// 等待服务端监听端口关闭
-			f.channel().closeFuture().sync();
+            // 绑定端口
+            ChannelFuture f = b.bind(7397).sync();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			bossGroup.shutdownGracefully();
-			workerGroup.shutdownGracefully();
-		}
+            // 等待服务端监听端口关闭
+            f.channel().closeFuture().sync();
 
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            bossGroup.shutdownGracefully();
+            workerGroup.shutdownGracefully();
+        }
+
+    }
 }

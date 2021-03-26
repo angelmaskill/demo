@@ -1,8 +1,5 @@
 /**
- * @(#)Customer.java
- * 
- * Copyright Oristand.All rights reserved. This software is the XXX system.
- * 
+ * @(#)Customer.java Copyright Oristand.All rights reserved. This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -21,7 +18,7 @@ import java.util.Vector;
 
 /**
  * Class description goes here.
- * 
+ *
  * @author Administrator
  * @since 2014-10-22
  */
@@ -112,17 +109,17 @@ public class CustomerRefactor {
         }
         return result;
     }*/
-    
+
     /*
      * 第三次重构：把amountFor函数搬家：此函数跟customer无关。应当作为租赁对象的行为。
      * 重命名为getCharge()
      * 为了这么做，我要运用Move Method（142）
      */
-    
+
     private double amountFor(Rental aRental) { // 计算㆒笔租片费用
-       return aRental.getCharge();
+        return aRental.getCharge();
     }
-    
+
     /*
      * 第四次重构：statement thisAmount 如今变成多余了，去除局部变量
      * Replace Temp with Query（120）把thisAmount 除去。

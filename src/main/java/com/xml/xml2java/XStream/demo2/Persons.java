@@ -1,9 +1,6 @@
 /**
- * @(#)Persons.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)Persons.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -53,7 +50,7 @@ public class Persons {
 
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        for (Iterator it = listPerson.iterator(); it.hasNext();) {
+        for (Iterator it = listPerson.iterator(); it.hasNext(); ) {
             Person p = (Person) it.next();
             sb.append(it.toString());
         }

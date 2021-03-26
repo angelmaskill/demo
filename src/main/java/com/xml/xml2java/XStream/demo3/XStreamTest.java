@@ -1,9 +1,6 @@
 /**
- * @(#)XStreamTest.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)XStreamTest.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -17,17 +14,17 @@
 
 package com.xml.xml2java.XStream.demo3;
 
+import com.thoughtworks.xstream.XStream;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.thoughtworks.xstream.XStream;
 
 /**
  * Class description goes here.
  * @其中，实例化时需要xstream-[version].jar and xpp3-[version].jar在classpath中。
  * @XPP3是一个非常快的XML拉式转换器工具。如果你不想包含这个依赖，你可以使用标准的JAXP DOM转换器来代替。
- * 
+ *
  * @author Administrator
  * @since 2015-5-27
  */

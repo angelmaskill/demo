@@ -1,9 +1,6 @@
 /**
- * @(#)Chinese.java
- * 
- * Copyright Oristand.All rights reserved.
- * This software is the XXX system. 
- *
+ * @(#)Chinese.java Copyright Oristand.All rights reserved.
+ * This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -18,7 +15,7 @@
 package com.BASETEST.Super;
 
 /**
- * 
+ *
  * super后加参数的是用来调用父类中具有相同形式的构造函数，如1和2处。
  * this后加参数则调用的是当前具有相同参数的构造函数
  * @author Administrator

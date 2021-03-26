@@ -1,4 +1,4 @@
-﻿package com.thread.concurrent.chapter03;
+package com.thread.concurrent.chapter03;
 
 class VolatileFeaturesExample1 {
     long vl = 0L; // 64位的long型普通变量

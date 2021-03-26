@@ -1,14 +1,11 @@
 package com.designpattern.Chapter14Facade.sample01;
 
-public class AirConditioner
-{
-	public void on()
-	{
-		System.out.println("¿Õµ÷´ò¿ª£¡");
-	}
-	
-	public void off()
-	{
-		System.out.println("¿Õµ÷¹Ø±Õ£¡");
-	}
+public class AirConditioner {
+    public void on() {
+        System.out.println("ï¿½Õµï¿½ï¿½ò¿ª£ï¿½");
+    }
+
+    public void off() {
+        System.out.println("ï¿½Õµï¿½ï¿½Ø±Õ£ï¿½");
+    }
 }

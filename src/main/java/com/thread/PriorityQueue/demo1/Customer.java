@@ -1,19 +1,19 @@
 package com.thread.PriorityQueue.demo1;
 
 public class Customer {
-	private int id;
-	private String name;
+    private int id;
+    private String name;
 
-	public Customer(int i, String n) {
-		this.id = i;
-		this.name = n;
-	}
+    public Customer(int i, String n) {
+        this.id = i;
+        this.name = n;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 }

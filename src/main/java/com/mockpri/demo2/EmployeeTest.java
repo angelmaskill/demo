@@ -7,10 +7,10 @@ package com.mockpri.demo2;
  * @Modified By:
  */
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.powermock.api.mockito.PowerMockito;
+
+import static org.junit.Assert.fail;
 
 public class EmployeeTest {
 

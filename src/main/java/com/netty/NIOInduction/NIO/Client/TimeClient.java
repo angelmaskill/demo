@@ -6,31 +6,31 @@ package com.netty.NIOInduction.NIO.Client;
  * Time: 2015/11/25 0025.
  */
 public class TimeClient {
-    public static void main(String[]agrs){
+    public static void main(String[] agrs) {
         int port = 8080;
         String hostAddr = "127.0.0.1";
 
-        if(agrs!=null && agrs.length==1){
+        if (agrs != null && agrs.length == 1) {
             try {
                 port = Integer.valueOf(agrs[0]);
+            } catch (NumberFormatException ex) {
             }
-            catch (NumberFormatException ex){}
-        }else if(agrs!=null && agrs.length==2){
+        } else if (agrs != null && agrs.length == 2) {
             try {
-                hostAddr=agrs[0];
+                hostAddr = agrs[0];
                 port = Integer.valueOf(agrs[1]);
+            } catch (NumberFormatException ex) {
             }
-            catch (NumberFormatException ex){}
         }
 
-        for (int i=1;i<=1000;i++) {
+        for (int i = 1; i <= 1000; i++) {
             TimeClientHandle tc = new TimeClientHandle(hostAddr, port);
-            Thread tt = new Thread(tc,"线程"+i);
+            Thread tt = new Thread(tc, "线程" + i);
             try {
-             //   tt.sleep(1000);
+                //   tt.sleep(1000);
                 tt.start();
+            } catch (Exception e) {
             }
-            catch (Exception e){}
         }
     }
 }

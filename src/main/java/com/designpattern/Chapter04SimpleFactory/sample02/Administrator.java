@@ -1,14 +1,11 @@
 package com.designpattern.Chapter04SimpleFactory.sample02;
 
-public class Administrator extends User
-{
-	public Administrator()
-	{
-		System.out.println("´´½¨¹ÜÀíÔ±¶ÔÏó£¡");
-	}
-	
-	public void diffOperation()
-	{
-		System.out.println("¹ÜÀíÔ±ÓµÓĞ´´½¨ºÍ¹ÜÀí¼ÙÌõÈ¨ÏŞ£¡");
-	}
+public class Administrator extends User {
+    public Administrator() {
+        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½");
+    }
+
+    public void diffOperation() {
+        System.out.println("ï¿½ï¿½ï¿½ï¿½Ô±Óµï¿½Ğ´ï¿½ï¿½ï¿½ï¿½Í¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½Ş£ï¿½");
+    }
 }

@@ -1,8 +1,5 @@
 /**
- * @(#)TrustAnyTrustManager.java
- * 
- * Copyright Oristand.All rights reserved. This software is the XXX system.
- * 
+ * @(#)TrustAnyTrustManager.java Copyright Oristand.All rights reserved. This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -16,14 +13,13 @@
 
 package com.xinnuo.se.util;
 
+import javax.net.ssl.X509TrustManager;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
-import javax.net.ssl.X509TrustManager;
-
 /**
  * Class description goes here.
- * 
+ *
  * @author Administrator
  * @since 2014-5-20
  */
@@ -36,7 +32,7 @@ public class TrustAnyTrustManager implements X509TrustManager {
     }
 
     public X509Certificate[] getAcceptedIssuers() {
-        return new X509Certificate[] {};
+        return new X509Certificate[]{};
     }
 
 }

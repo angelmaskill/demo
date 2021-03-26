@@ -1,21 +1,15 @@
 package com.designpattern.Chapter17CoR.sample01;
 
-public class GeneralManager extends Leader
-{
-	public GeneralManager(String name)
-	{
-		super(name);
-	}
-	
-	public void handleRequest(LeaveRequest request)
-	{
-		if(request.getLeaveDays()<30)
-		{
-			System.out.println("×Ü¾­Àí" + name + "ÉóÅúÔ±¹¤" + request.getLeaveName() + "µÄÇë¼ÙÌõ£¬Çë¼ÙÌìÊýÎª" + request.getLeaveDays() + "Ìì¡£");
-		}
-		else
-		{
-			System.out.println("Äª·Ç" + request.getLeaveName() + "Ïë´ÇÖ°£¬¾ÓÈ»Çë¼Ù" + request.getLeaveDays() + "Ìì¡£");
-		}
-	}
+public class GeneralManager extends Leader {
+    public GeneralManager(String name) {
+        super(name);
+    }
+
+    public void handleRequest(LeaveRequest request) {
+        if (request.getLeaveDays() < 30) {
+            System.out.println("ï¿½Ü¾ï¿½ï¿½ï¿½" + name + "ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½" + request.getLeaveName() + "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª" + request.getLeaveDays() + "ï¿½ì¡£");
+        } else {
+            System.out.println("Äªï¿½ï¿½" + request.getLeaveName() + "ï¿½ï¿½ï¿½Ö°ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½" + request.getLeaveDays() + "ï¿½ì¡£");
+        }
+    }
 }

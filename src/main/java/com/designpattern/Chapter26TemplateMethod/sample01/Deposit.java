@@ -1,9 +1,7 @@
 package com.designpattern.Chapter26TemplateMethod.sample01;
 
-public class Deposit extends BankTemplateMethod
-{
-	public void transact()
-	{
-		System.out.println("´æ¿î");		
-	}
+public class Deposit extends BankTemplateMethod {
+    public void transact() {
+        System.out.println("ï¿½ï¿½ï¿½");
+    }
 }

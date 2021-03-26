@@ -1,20 +1,16 @@
 package com.designpattern.Chapter21Mediator.sample01;
 
-public class CommonMember extends Member
-{
-	public CommonMember(String name)
-	{
-		super(name);
-	}
-	
-	public void sendText(String to,String message)
-	{
-	    System.out.println("ÆÕÍ¨»áÔ±·¢ËÍÐÅÏ¢£º");
-	    chatroom.sendText(name,to,message);  //·¢ËÍ
-	}
-	
-	public void sendImage(String to,String image)
-	{
-		System.out.println("ÆÕÍ¨»áÔ±²»ÄÜ·¢ËÍÍ¼Æ¬£¡");
-	}
+public class CommonMember extends Member {
+    public CommonMember(String name) {
+        super(name);
+    }
+
+    public void sendText(String to, String message) {
+        System.out.println("ï¿½ï¿½Í¨ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½");
+        chatroom.sendText(name, to, message);  //ï¿½ï¿½ï¿½ï¿½
+    }
+
+    public void sendImage(String to, String image) {
+        System.out.println("ï¿½ï¿½Í¨ï¿½ï¿½Ô±ï¿½ï¿½ï¿½Ü·ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½");
+    }
 }

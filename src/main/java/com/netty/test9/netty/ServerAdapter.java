@@ -1,5 +1,9 @@
 package com.netty.test9.netty;
 
+import com.netty.test9.dispatcher.HandlerDispatcher;
+import com.netty.test9.domain.ERequestType;
+import com.netty.test9.domain.GameRequest;
+import com.netty.test9.utils.HttpUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -19,30 +23,25 @@ import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
 
-import com.netty.test9.dispatcher.HandlerDispatcher;
-import com.netty.test9.domain.ERequestType;
-import com.netty.test9.domain.GameRequest;
-import com.netty.test9.utils.HttpUtils;
-
 public class ServerAdapter extends SimpleChannelInboundHandler<Object> {
-	private static final String WEBSOCKET_PATH = "/websocket";
-	private WebSocketServerHandshaker handshaker;
-	private HandlerDispatcher handlerDispatcher;
+    private static final String WEBSOCKET_PATH = "/websocket";
+    private WebSocketServerHandshaker handshaker;
+    private HandlerDispatcher handlerDispatcher;
 
-	public void setHandshaker(WebSocketServerHandshaker handshaker) {
-		this.handshaker = handshaker;
-	}
+    public void setHandshaker(WebSocketServerHandshaker handshaker) {
+        this.handshaker = handshaker;
+    }
 
-	public void setHandlerDispatcher(HandlerDispatcher handlerDispatcher) {
-		this.handlerDispatcher = handlerDispatcher;
-	}
+    public void setHandlerDispatcher(HandlerDispatcher handlerDispatcher) {
+        this.handlerDispatcher = handlerDispatcher;
+    }
 
-	public ServerAdapter(HandlerDispatcher handlerDispatcher) {
-		this.handlerDispatcher = handlerDispatcher;
-	}
+    public ServerAdapter(HandlerDispatcher handlerDispatcher) {
+        this.handlerDispatcher = handlerDispatcher;
+    }
 
-	public ServerAdapter() {
-	}
+    public ServerAdapter() {
+    }
 
 //	protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
 //		if ((msg instanceof ByteBuf))
@@ -54,105 +53,105 @@ public class ServerAdapter extends SimpleChannelInboundHandler<Object> {
 //
 //	}
 
-	// public void channelRead(ChannelHandlerContext ctx, Object msg) throws
-	// Exception {
-	// if ((msg instanceof ByteBuf))
-	// socketRequest(ctx, msg);
-	// else if ((msg instanceof FullHttpRequest))
-	// httpFullRequest(ctx, msg);
-	// else if ((msg instanceof WebSocketFrame))
-	// handleWebSocketFrame(ctx, msg);
-	// }
+    // public void channelRead(ChannelHandlerContext ctx, Object msg) throws
+    // Exception {
+    // if ((msg instanceof ByteBuf))
+    // socketRequest(ctx, msg);
+    // else if ((msg instanceof FullHttpRequest))
+    // httpFullRequest(ctx, msg);
+    // else if ((msg instanceof WebSocketFrame))
+    // handleWebSocketFrame(ctx, msg);
+    // }
 
-	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-		ctx.flush();
-	}
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        ctx.flush();
+    }
 
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		ctx.close();
-	}
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        ctx.close();
+    }
 
-	private void socketRequest(ChannelHandlerContext ctx, Object msg) throws Exception {
-		this.handlerDispatcher.addMessage(new GameRequest(ctx, ERequestType.SOCKET, msg));
-	}
+    private void socketRequest(ChannelHandlerContext ctx, Object msg) throws Exception {
+        this.handlerDispatcher.addMessage(new GameRequest(ctx, ERequestType.SOCKET, msg));
+    }
 
-	private void httpFullRequest(ChannelHandlerContext ctx, Object msg) throws Exception {
-		FullHttpRequest req = (FullHttpRequest) msg;
-		if (!req.getDecoderResult().isSuccess()) {
-			HttpUtils.sendHttpResponse(ctx, req, new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,
-					HttpResponseStatus.BAD_REQUEST));
+    private void httpFullRequest(ChannelHandlerContext ctx, Object msg) throws Exception {
+        FullHttpRequest req = (FullHttpRequest) msg;
+        if (!req.getDecoderResult().isSuccess()) {
+            HttpUtils.sendHttpResponse(ctx, req, new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,
+                    HttpResponseStatus.BAD_REQUEST));
 
-			return;
-		}
-		if (req.getMethod() == HttpMethod.POST) {
-			this.handlerDispatcher.addMessage(new GameRequest(ctx, ERequestType.HTTP, msg));
-		} else if (req.getMethod() == HttpMethod.GET) {
-			if ("/websocket".equals(req.getUri())) {
-				WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory(
-						getWebSocketLocation(req), null, false);
+            return;
+        }
+        if (req.getMethod() == HttpMethod.POST) {
+            this.handlerDispatcher.addMessage(new GameRequest(ctx, ERequestType.HTTP, msg));
+        } else if (req.getMethod() == HttpMethod.GET) {
+            if ("/websocket".equals(req.getUri())) {
+                WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory(
+                        getWebSocketLocation(req), null, false);
 
-				this.handshaker = wsFactory.newHandshaker(req);
-				if (this.handshaker == null) {
-					WebSocketServerHandshakerFactory.sendUnsupportedWebSocketVersionResponse(ctx.channel());
-				} else {
-					this.handshaker.handshake(ctx.channel(), req);
-				}
-			} else if ("/".equals(req.getUri())) {
-				ByteBuf content = WebSocketServerIndexPage.getContent(getWebSocketLocation(req));
+                this.handshaker = wsFactory.newHandshaker(req);
+                if (this.handshaker == null) {
+                    WebSocketServerHandshakerFactory.sendUnsupportedWebSocketVersionResponse(ctx.channel());
+                } else {
+                    this.handshaker.handshake(ctx.channel(), req);
+                }
+            } else if ("/".equals(req.getUri())) {
+                ByteBuf content = WebSocketServerIndexPage.getContent(getWebSocketLocation(req));
 
-				FullHttpResponse res = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, content);
+                FullHttpResponse res = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, content);
 
-				res.headers().set("Content-Type", "text/html; charset=UTF-8");
-				HttpHeaders.setContentLength(res, content.readableBytes());
+                res.headers().set("Content-Type", "text/html; charset=UTF-8");
+                HttpHeaders.setContentLength(res, content.readableBytes());
 
-				HttpUtils.sendHttpResponse(ctx, req, res);
-			}
-		} else {
-			HttpUtils.sendHttpResponse(ctx, req, new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,
-					HttpResponseStatus.FORBIDDEN));
+                HttpUtils.sendHttpResponse(ctx, req, res);
+            }
+        } else {
+            HttpUtils.sendHttpResponse(ctx, req, new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,
+                    HttpResponseStatus.FORBIDDEN));
 
-			return;
-		}
-	}
+            return;
+        }
+    }
 
-	private void handleWebSocketFrame(ChannelHandlerContext ctx, Object msg) {
-		WebSocketFrame frame = (WebSocketFrame) msg;
-		if ((frame instanceof CloseWebSocketFrame)) {
-			this.handshaker.close(ctx.channel(), (CloseWebSocketFrame) frame.retain());
+    private void handleWebSocketFrame(ChannelHandlerContext ctx, Object msg) {
+        WebSocketFrame frame = (WebSocketFrame) msg;
+        if ((frame instanceof CloseWebSocketFrame)) {
+            this.handshaker.close(ctx.channel(), (CloseWebSocketFrame) frame.retain());
 
-			return;
-		}
-		if ((frame instanceof PingWebSocketFrame)) {
-			ctx.channel().write(new PongWebSocketFrame(frame.content().retain()));
+            return;
+        }
+        if ((frame instanceof PingWebSocketFrame)) {
+            ctx.channel().write(new PongWebSocketFrame(frame.content().retain()));
 
-			return;
-		}
-		if ((!(frame instanceof TextWebSocketFrame)) || ((frame instanceof BinaryWebSocketFrame))) {
-			throw new UnsupportedOperationException(String.format("%s frame types not supported", new Object[] { frame
-					.getClass().getName() }));
-		}
+            return;
+        }
+        if ((!(frame instanceof TextWebSocketFrame)) || ((frame instanceof BinaryWebSocketFrame))) {
+            throw new UnsupportedOperationException(String.format("%s frame types not supported", new Object[]{frame
+                    .getClass().getName()}));
+        }
 
-		try {
-			if ((frame instanceof TextWebSocketFrame)) {
-				this.handlerDispatcher.addMessage(new GameRequest(ctx, ERequestType.WEBSOCKET_TEXT, msg));
-			} else
-				this.handlerDispatcher.addMessage(new GameRequest(ctx, ERequestType.WEBSOCKET_BINARY, msg));
-		} catch (Exception e) {
-		}
-	}
+        try {
+            if ((frame instanceof TextWebSocketFrame)) {
+                this.handlerDispatcher.addMessage(new GameRequest(ctx, ERequestType.WEBSOCKET_TEXT, msg));
+            } else
+                this.handlerDispatcher.addMessage(new GameRequest(ctx, ERequestType.WEBSOCKET_BINARY, msg));
+        } catch (Exception e) {
+        }
+    }
 
-	private static String getWebSocketLocation(FullHttpRequest req) {
-		return "ws://" + req.headers().get("Host") + WEBSOCKET_PATH;
-	}
+    private static String getWebSocketLocation(FullHttpRequest req) {
+        return "ws://" + req.headers().get("Host") + WEBSOCKET_PATH;
+    }
 
-	@Override
-	protected void messageReceived(ChannelHandlerContext ctx, Object msg) throws Exception {
-		if ((msg instanceof ByteBuf))
-			socketRequest(ctx, msg);
-		else if ((msg instanceof FullHttpRequest))
-			httpFullRequest(ctx, msg);
-		else if ((msg instanceof WebSocketFrame))
-			handleWebSocketFrame(ctx, msg);
-	}
+    @Override
+    protected void messageReceived(ChannelHandlerContext ctx, Object msg) throws Exception {
+        if ((msg instanceof ByteBuf))
+            socketRequest(ctx, msg);
+        else if ((msg instanceof FullHttpRequest))
+            httpFullRequest(ctx, msg);
+        else if ((msg instanceof WebSocketFrame))
+            handleWebSocketFrame(ctx, msg);
+    }
 
 }

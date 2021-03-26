@@ -1,8 +1,5 @@
 /**
- * @(#)Student.java
- * 
- * Copyright Oristand.All rights reserved. This software is the XXX system.
- * 
+ * @(#)Student.java Copyright Oristand.All rights reserved. This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -18,7 +15,7 @@ package com.grammar;
 
 /**
  * Class description goes here.
- * 
+ *
  * @author Administrator
  * @since 2014-12-3
  */
@@ -32,16 +29,16 @@ package com.grammar;
  * 将会输出类似Test.Student@e2cb55 speak Chinese的一个字符串（假设前面所提到的错误已改正）,这个字符串的信息不是很有用，应该在子类中加以覆盖，使它返回一个代表该对象的易懂的字符串。
  * 覆盖定义的toString()方法既可以写在People类里，也可以写在Student类里，如果两个类中都重写了，最后调用的将是Student类中的toString().
  */
- class Student extends People {
+class Student extends People {
     private String sex;
 
-//    private void speak() {
+    //    private void speak() {
     public void speak() {
         System.out.println(" speak Chinese");
     }
 
     public String toString() { // we can override this function both in class
-                                // People and class Student
+        // People and class Student
         return "I";
     }
 }

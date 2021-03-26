@@ -1,4 +1,4 @@
-﻿package com.thread.concurrent.chapter03;
+package com.thread.concurrent.chapter03;
 
 public class DoubleCheckedLocking { //1
     private static Instance instance; //2

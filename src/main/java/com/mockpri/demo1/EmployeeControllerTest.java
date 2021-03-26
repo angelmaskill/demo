@@ -1,13 +1,13 @@
 package com.mockpri.demo1;
 
-import java.io.File;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.powermock.api.mockito.PowerMockito;
+
+import java.io.File;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -149,7 +149,7 @@ class EmployeeController {
     public int getProjectedEmployeeCount() {
 
         final int actualEmployeeCount = employeeService.getEmployeeCount();
-        return (int)Math.ceil(actualEmployeeCount * 1.2);
+        return (int) Math.ceil(actualEmployeeCount * 1.2);
     }
 
     public void saveEmployee(Employee employee) {

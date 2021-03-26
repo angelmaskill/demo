@@ -1,10 +1,8 @@
 package com.designpattern.Chapter05FactoryMethod.sample01;
 
-public class HisenseTVFactory implements TVFactory
-{
-    public TV produceTV()
-    {
-    	System.out.println("º£ÐÅµçÊÓ»ú¹¤³§Éú²úº£ÐÅµçÊÓ»ú¡£");
-    	return new HisenseTV();
+public class HisenseTVFactory implements TVFactory {
+    public TV produceTV() {
+        System.out.println("ï¿½ï¿½ï¿½Åµï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½ï¿½Ó»ï¿½ï¿½ï¿½");
+        return new HisenseTV();
     }
 }

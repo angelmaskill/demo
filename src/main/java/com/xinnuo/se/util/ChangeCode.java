@@ -1,8 +1,8 @@
 package com.xinnuo.se.util;
 
-import java.io.UnsupportedEncodingException;
-
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+
+import java.io.UnsupportedEncodingException;
 
 public class ChangeCode {
     public static String utf8ToBase64(String str) throws UnsupportedEncodingException {
@@ -39,17 +39,15 @@ public class ChangeCode {
         String st = new String(Base64.decode(str), "GBK");
         return st;
     }
-    public static void main(String[] args)
-    {
-        try 
-        {
+
+    public static void main(String[] args) {
+        try {
             System.out.println(utf8ToBase64("4548500041741"));
             System.out.println(base64ToUtf8("NDU0ODUwMDA0MTc0MQ=="));
             System.out.println(utf8ToBase64("王玉玥"));
             System.out.println(base64ToGBK("zfXT8ato"));
-         
-        } catch (UnsupportedEncodingException e) 
-        {
+
+        } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

@@ -1,4 +1,4 @@
-﻿package com.thread.concurrent.chapter04;
+package com.thread.concurrent.chapter04;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,19 +11,19 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class DefaultThreadPool<Job extends Runnable> implements ThreadPool<Job> {
     // 线程池最大限制数
-    private static final int      MAX_WORKER_NUMBERS     = 10;
+    private static final int MAX_WORKER_NUMBERS = 10;
     // 线程池默认的数量
-    private static final int      DEFAULT_WORKER_NUMBERS = 5;
+    private static final int DEFAULT_WORKER_NUMBERS = 5;
     // 线程池最小的数量
-    private static final int      MIN_WORKER_NUMBERS     = 1;
+    private static final int MIN_WORKER_NUMBERS = 1;
     // 这是一个工作列表，将会向里面插入工作
-    private final LinkedList<Job> jobs                   = new LinkedList<Job>();
+    private final LinkedList<Job> jobs = new LinkedList<Job>();
     // 工作者列表
-    private final List<Worker>    workers                = Collections.synchronizedList(new ArrayList<Worker>());
+    private final List<Worker> workers = Collections.synchronizedList(new ArrayList<Worker>());
     // 工作者线程的数量
-    private int                   workerNum              = DEFAULT_WORKER_NUMBERS;
+    private int workerNum = DEFAULT_WORKER_NUMBERS;
     // 线程编号生成
-    private AtomicLong            threadNum              = new AtomicLong();
+    private AtomicLong threadNum = new AtomicLong();
 
     public DefaultThreadPool() {
         initializeWokers(DEFAULT_WORKER_NUMBERS);

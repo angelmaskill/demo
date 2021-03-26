@@ -14,6 +14,7 @@ import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
+
 /**
  * Created by IntelliJ IDEA 14.
  * User: karl.zhao
@@ -21,7 +22,7 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
  */
 public class ReqClient {
 
-    public void connect(String host,int port)throws Exception{
+    public void connect(String host, int port) throws Exception {
         // 配置服务端的NIO线程组
         EventLoopGroup group = new NioEventLoopGroup();
 
@@ -29,11 +30,11 @@ public class ReqClient {
             // Bootstrap 类，是启动NIO服务器的辅助启动类
             Bootstrap b = new Bootstrap();
             b.group(group).channel(NioSocketChannel.class)
-                    .option(ChannelOption.TCP_NODELAY,true)
+                    .option(ChannelOption.TCP_NODELAY, true)
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch)
-                                throws Exception{
+                                throws Exception {
                             //
                             ch.pipeline().addLast(new ProtobufVarint32FrameDecoder());
 
@@ -46,23 +47,23 @@ public class ReqClient {
                     });
 
             // 发起异步连接操作
-            ChannelFuture f= b.connect(host,port).sync();
+            ChannelFuture f = b.connect(host, port).sync();
 
             // 等待客服端链路关闭
             f.channel().closeFuture().sync();
-        }finally {
+        } finally {
             group.shutdownGracefully();
         }
     }
 
-    public static void main(String[]args)throws Exception{
+    public static void main(String[] args) throws Exception {
         int port = 8080;
-        if(args!=null && args.length>0){
+        if (args != null && args.length > 0) {
             try {
                 port = Integer.valueOf(args[0]);
+            } catch (NumberFormatException ex) {
             }
-            catch (NumberFormatException ex){}
         }
-        new ReqClient().connect("127.0.0.1",port);
+        new ReqClient().connect("127.0.0.1", port);
     }
 }

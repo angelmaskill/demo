@@ -1,57 +1,46 @@
 package com.designpattern.Chapter26TemplateMethod.HookMethodDemo;
 
-public abstract class HookDemo
-{
-	public abstract void getData();
-	
-    public void convertData()
-	{
-		System.out.println("Í¨ÓÃµÄÊý¾Ý×ª»»²Ù×÷¡£");
-	}
-	
-	public abstract void displayData();
+public abstract class HookDemo {
+    public abstract void getData();
 
-    public void process()
-    {
+    public void convertData() {
+        System.out.println("Í¨ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+    }
+
+    public abstract void displayData();
+
+    public void process() {
         getData();
-        if(isValid())
-        {
-            convertData();	
+        if (isValid()) {
+            convertData();
         }
-   	    displayData();
+        displayData();
     }
-    
-    public boolean isValid()
-    {
-    	return true;
-    }
-} 
 
-class SubHookDemo extends HookDemo
-{
-	public void getData()
-	{
-		System.out.println("´ÓXMLÅäÖÃÎÄ¼þÖÐ»ñÈ¡Êý¾Ý¡£");
-	}
-	
-	public void displayData()
-	{
-		System.out.println("ÒÔÖù×´Í¼ÏÔÊ¾Êý¾Ý¡£");
-	}
-	
-	public boolean isValid()
-    {
-    	return false;
-    }	
+    public boolean isValid() {
+        return true;
+    }
 }
 
-class Client
-{
-	public static void main(String a[])
-	{
-		HookDemo hd;
-		
-		hd=new SubHookDemo();
-		hd.process();
-	}
+class SubHookDemo extends HookDemo {
+    public void getData() {
+        System.out.println("ï¿½ï¿½XMLï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ð»ï¿½È¡ï¿½ï¿½ï¿½Ý¡ï¿½");
+    }
+
+    public void displayData() {
+        System.out.println("ï¿½ï¿½ï¿½ï¿½×´Í¼ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ý¡ï¿½");
+    }
+
+    public boolean isValid() {
+        return false;
+    }
+}
+
+class Client {
+    public static void main(String a[]) {
+        HookDemo hd;
+
+        hd = new SubHookDemo();
+        hd.process();
+    }
 }

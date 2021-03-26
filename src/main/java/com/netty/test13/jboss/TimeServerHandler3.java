@@ -12,10 +12,10 @@ import org.jboss.netty.channel.SimpleChannelHandler;
 
 class TimeServerHandler3 extends SimpleChannelHandler {
 
-	@Override
-	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
-		Persons person = new Persons("周杰伦123", 31, 10000.44);
-		ChannelFuture future = e.getChannel().write(person);
-		future.addListener(ChannelFutureListener.CLOSE);
-	}
+    @Override
+    public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
+        Persons person = new Persons("周杰伦123", 31, 10000.44);
+        ChannelFuture future = e.getChannel().write(person);
+        future.addListener(ChannelFutureListener.CLOSE);
+    }
 }

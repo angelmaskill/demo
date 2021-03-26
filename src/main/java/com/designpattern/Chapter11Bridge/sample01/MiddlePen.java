@@ -1,10 +1,8 @@
 package com.designpattern.Chapter11Bridge.sample01;
 
-public class MiddlePen extends Pen
-{
-	public void draw(String name)
-	{
-		String penType="ÖÐºÅÃ«±Ê»æÖÆ";
-		this.color.bepaint(penType,name);			
-	}	
+public class MiddlePen extends Pen {
+    public void draw(String name) {
+        String penType = "ï¿½Ðºï¿½Ã«ï¿½Ê»ï¿½ï¿½ï¿½";
+        this.color.bepaint(penType, name);
+    }
 }

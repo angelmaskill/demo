@@ -11,26 +11,32 @@ public abstract class JdkVersion {
     private static final String javaVersion = System
             .getProperty("java.version");
     private static final int majorJavaVersion;
+
     public static String getJavaVersion() {
         return javaVersion;
     }
+
     public static int getMajorJavaVersion() {
         return majorJavaVersion;
     }
+
     public static boolean isAtLeastJava14() {
         return true;
     }
+
     public static boolean isAtLeastJava15() {
         return getMajorJavaVersion() >= 2;
     }
+
     public static boolean isAtLeastJava16() {
         return getMajorJavaVersion() >= 3;
     }
+
     static {
         //for jre 1.8
         if (javaVersion.indexOf("1.8.") != -1) {
             majorJavaVersion = 5;
-        }else if (javaVersion.indexOf("1.7.") != -1) {
+        } else if (javaVersion.indexOf("1.7.") != -1) {
             majorJavaVersion = 4;
         } else if (javaVersion.indexOf("1.6.") != -1) {
             majorJavaVersion = 3;

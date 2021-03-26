@@ -1,14 +1,11 @@
 package com.designpattern.Chapter27Visitor.sample01;
 
-public class Saler extends Visitor
-{
-	public void visit(Apple apple)
-	{
-		System.out.println("ÊÕÒøÔ±" + name + "¸øÆ»¹û¹ý³Ó£¬È»ºó¼ÆËãÆä¼Û¸ñ¡£");
-	}
-	
-	public void visit(Book book)
-	{
-		System.out.println("ÊÕÒøÔ±" + name + "Ö±½Ó¼ÆËãÊéµÄ¼Û¸ñ¡£");
-	}
+public class Saler extends Visitor {
+    public void visit(Apple apple) {
+        System.out.println("ï¿½ï¿½ï¿½ï¿½Ô±" + name + "ï¿½ï¿½Æ»ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½");
+    }
+
+    public void visit(Book book) {
+        System.out.println("ï¿½ï¿½ï¿½ï¿½Ô±" + name + "Ö±ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼Û¸ï¿½");
+    }
 }

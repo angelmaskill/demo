@@ -57,13 +57,12 @@ package com.xml.jdom.samples;
 
  */
 
-import java.io.*;
-import java.util.*;
-
 import org.jdom.*;
 import org.jdom.filter.ElementFilter;
 import org.jdom.input.*;
 import org.jdom.output.*;
+
+import java.util.Iterator;
 
 /**
  * Demonstrates the use of {@link Parent#getDescendants}.
@@ -112,9 +111,9 @@ public class DescendantDemo {
 
         System.out.println();
         System.out.println(
-             "Only elements with localname of servlet-name or servlet-class:");
+                "Only elements with localname of servlet-name or servlet-class:");
         itr = doc.getDescendants(new ElementFilter("servlet-name")
-                                 .or(new ElementFilter("servlet-class")));
+                .or(new ElementFilter("servlet-class")));
         while (itr.hasNext()) {
             Content c = (Content) itr.next();
             System.out.println(c);

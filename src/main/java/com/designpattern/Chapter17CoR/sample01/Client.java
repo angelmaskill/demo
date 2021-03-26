@@ -1,30 +1,28 @@
 package com.designpattern.Chapter17CoR.sample01;
 
-public class Client
-{
-	public static void main(String args[])
-	{
-		Leader objDirector,objManager,objGeneralManager,objViceGeneralManager;
-		
-		objDirector=new Director("ÍõÃ÷");
-		objManager=new Manager("ÕÔÇ¿");
-		objGeneralManager=new GeneralManager("Àî²¨");
-		objViceGeneralManager=new ViceGeneralManager("Ð¤ºì");
-		
-		objDirector.setSuccessor(objManager);
-		objManager.setSuccessor(objViceGeneralManager);
-		objViceGeneralManager.setSuccessor(objGeneralManager);
-			
-		LeaveRequest lr1=new LeaveRequest("ÕÅÈý",2);
-		objDirector.handleRequest(lr1);
-			
-		LeaveRequest lr2=new LeaveRequest("ÀîËÄ",5);
-		objDirector.handleRequest(lr2);
-		
-		LeaveRequest lr3=new LeaveRequest("ÍõÎå",15);
-		objDirector.handleRequest(lr3);
-						
-		LeaveRequest lr4=new LeaveRequest("ÕÔÁù",25);
-		objDirector.handleRequest(lr4);			
-	}
+public class Client {
+    public static void main(String args[]) {
+        Leader objDirector, objManager, objGeneralManager, objViceGeneralManager;
+
+        objDirector = new Director("ï¿½ï¿½ï¿½ï¿½");
+        objManager = new Manager("ï¿½ï¿½Ç¿");
+        objGeneralManager = new GeneralManager("ï¿½î²¨");
+        objViceGeneralManager = new ViceGeneralManager("Ð¤ï¿½ï¿½");
+
+        objDirector.setSuccessor(objManager);
+        objManager.setSuccessor(objViceGeneralManager);
+        objViceGeneralManager.setSuccessor(objGeneralManager);
+
+        LeaveRequest lr1 = new LeaveRequest("ï¿½ï¿½ï¿½ï¿½", 2);
+        objDirector.handleRequest(lr1);
+
+        LeaveRequest lr2 = new LeaveRequest("ï¿½ï¿½ï¿½ï¿½", 5);
+        objDirector.handleRequest(lr2);
+
+        LeaveRequest lr3 = new LeaveRequest("ï¿½ï¿½ï¿½ï¿½", 15);
+        objDirector.handleRequest(lr3);
+
+        LeaveRequest lr4 = new LeaveRequest("ï¿½ï¿½ï¿½ï¿½", 25);
+        objDirector.handleRequest(lr4);
+    }
 }

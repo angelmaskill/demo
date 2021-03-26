@@ -1,8 +1,5 @@
 /**
- * @(#)FileOperate2.java
- * 
- * Copyright Oristand.All rights reserved. This software is the XXX system.
- * 
+ * @(#)FileOperate2.java Copyright Oristand.All rights reserved. This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -16,6 +13,10 @@
 
 package com.file;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,13 +26,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.io.SAXReader;
-
 /**
  * Class description goes here.
- * 
+ *
  * @author Administrator
  * @since 2015-7-27
  */
@@ -182,7 +179,7 @@ public class FileOperate2 {
 
     /*
      * 七.创建文件(文件夹)
-     * 
+     *
      * 1.创建文件夹
      */
     public void createDir(String path) {
@@ -210,7 +207,8 @@ public class FileOperate2 {
     /*
      * 2.删除目录
      * 要利用File类的delete()方法删除目录时，必须保证该目录下没有文件或者子目录，否则删除失败，因此在实际应用中，我们要删除目录，必须利用递归删除该目录下的所有子目录和文件，然后再删除该目录。
-     */public void delDir(String path) {
+     */
+    public void delDir(String path) {
         File dir = new File(path);
         if (dir.exists()) {
             File[] tmp = dir.listFiles();

@@ -1,8 +1,5 @@
 /**
- * @(#)City.java
- * 
- * Copyright Oristand.All rights reserved. This software is the XXX system.
- * 
+ * @(#)City.java Copyright Oristand.All rights reserved. This software is the XXX system.
  * @Version: 1
  * @JDK: jdk 1.6.0.XXX
  * @Module: demo
@@ -20,7 +17,7 @@ package com.BASETEST.Super;
  * 在Java中，有时还会遇到子类中的成员变量或方法与超类（有时也称父类）中的成员变量或方法同名。
  * 因为子类中的成员变量或方法名优先级高，所以子类中的同名成员变量或方法就隐藏了超类的成员变量或方法，
  * 但是我们如果想要使用超类中的这个成员变量或方法，就需要用到super.
- * 
+ *
  * @author Administrator
  * @since 2015-3-13
  */

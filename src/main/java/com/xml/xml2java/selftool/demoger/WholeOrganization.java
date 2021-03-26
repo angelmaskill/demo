@@ -1,7 +1,5 @@
 package com.xml.xml2java.selftool.demoger;
 
-import java.util.List;
-
 public class WholeOrganization {
     private String classCode;
     private String determinerCode;

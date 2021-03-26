@@ -1,39 +1,31 @@
 package com.designpattern.Chapter21Mediator.sample01;
 
-import java.util.*;
+import java.util.Hashtable;
 
-public class ChatGroup extends AbstractChatroom
-{
-	private Hashtable members=new Hashtable();
-	
-	public void register(Member member)
-	{
-		if(!members.contains(member))
-		{
-			members.put(member.getName(),member);
-			member.setChatroom(this);
-		}
-	}
-	
-   public void sendText(String from,String to,String message)
-   {
-   	  Member member=(Member)members.get(to);
-   	  String newMessage=message;
-   	  newMessage=message.replaceAll("ÈÕ","*");
-	  member.receiveText(from,newMessage);
-   }
-   
-   public void sendImage(String from,String to,String image)
-   {
-   	  Member member=(Member)members.get(to);
-   	  //Ä£ÄâÍ¼Æ¬´óÐ¡ÅÐ¶Ï
-   	  if(image.length()>5)
-   	  {
-   	  	  System.out.println("Í¼Æ¬Ì«´ó£¬·¢ËÍÊ§°Ü£¡");
-   	  }
-   	  else
-   	  {
-   	  	  member.receiveImage(from,image);
-   	  }
-   }
+public class ChatGroup extends AbstractChatroom {
+    private Hashtable members = new Hashtable();
+
+    public void register(Member member) {
+        if (!members.contains(member)) {
+            members.put(member.getName(), member);
+            member.setChatroom(this);
+        }
+    }
+
+    public void sendText(String from, String to, String message) {
+        Member member = (Member) members.get(to);
+        String newMessage = message;
+        newMessage = message.replaceAll("ï¿½ï¿½", "*");
+        member.receiveText(from, newMessage);
+    }
+
+    public void sendImage(String from, String to, String image) {
+        Member member = (Member) members.get(to);
+        //Ä£ï¿½ï¿½Í¼Æ¬ï¿½ï¿½Ð¡ï¿½Ð¶ï¿½
+        if (image.length() > 5) {
+            System.out.println("Í¼Æ¬Ì«ï¿½ó£¬·ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½");
+        } else {
+            member.receiveImage(from, image);
+        }
+    }
 }

@@ -46,15 +46,15 @@
     <distributed/>
 
     <security-role>
-      <role-name>
-         manager
-      </role-name>
-      <role-name>
-         director
-      </role-name>
-      <role-name>
-         president
-      </role-name>
+        <role-name>
+            manager
+        </role-name>
+        <role-name>
+            director
+        </role-name>
+        <role-name>
+            president
+        </role-name>
     </security-role>
 
 

@@ -1,6 +1,7 @@
 package com.redispri.demo8.redislockframework;
-public class CacheLockException extends Throwable{
-	private String msg;
+
+public class CacheLockException extends Throwable {
+    private String msg;
 
     public String getMsg() {
         return msg;

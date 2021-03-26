@@ -53,14 +53,13 @@
  */
 package com.xml.jdom.samples.sax;
 
-import java.io.IOException;
-
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
 import org.jdom.Document;
 import org.jdom.JDOMException;
 import org.jdom.output.SAXOutputter;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
 
 /**
  * An XMLReader wrapper for JDOM documents.
@@ -68,7 +67,7 @@ import org.jdom.output.SAXOutputter;
 public class DocumentReader extends XMLReaderBase {
 
     private final Document doc;
-    
+
     /** Creates new DocumentReader */
     public DocumentReader(Document doc) {
         this.doc = doc;
@@ -78,8 +77,7 @@ public class DocumentReader extends XMLReaderBase {
         SAXOutputter outputter = new SAXOutputter(this, this, this, this, this);
         try {
             outputter.output(doc);
-        }
-        catch (JDOMException ex) {
+        } catch (JDOMException ex) {
             throw new SAXException(ex);
         }
     }

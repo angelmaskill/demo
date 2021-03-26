@@ -1,5 +1,14 @@
 package com.excel;
 
+import com.alibaba.fastjson.JSON;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,7 +18,6 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Currency;
@@ -18,16 +26,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.alibaba.fastjson.JSON;
-
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 /**
  * @Author: yanlu.myl
  * @Description:
@@ -35,84 +33,84 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * @Modified By:
  */
 public class POIReadUtilForJob {
-    // ±£´æÁ½Î»
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»
     private DecimalFormat df_2wei = new DecimalFormat("0.00");
-    // ±£´æËÄÎ»
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»
     private DecimalFormat df_4wei = new DecimalFormat("0.0000");
-    // ±£´æÕûÊý
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private DecimalFormat df_int = new DecimalFormat("#");
 
     /**
-     * ×ÜÐÐÊý
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     private int totalRows = 0;
     /**
-     * ×ÜÁÐÊý
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     private int totalCells = 0;
     /**
-     * ´íÎóÐÅÏ¢
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
      */
     private String errorInfo;
 
     /**
-     * ¹¹Ôì·½·¨
+     * ï¿½ï¿½ï¿½ì·½ï¿½ï¿½
      */
     public POIReadUtilForJob() {
     }
 
     /**
-     * @ÃèÊö£ºµÃµ½×ÜÐÐÊý
-     * @×÷Õß£ºyanlu.myl
-     * @Ê±¼ä£º2018/1/22 ÏÂÎç16:27:15
-     * @²ÎÊý£º@return
-     * @·µ»ØÖµ£ºint
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @ï¿½ï¿½ï¿½ß£ï¿½yanlu.myl
+     * @Ê±ï¿½ä£º2018/1/22 ï¿½ï¿½ï¿½ï¿½16:27:15
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@return
+     * @ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½int
      */
     public int getTotalRows() {
         return totalRows;
     }
 
     /**
-     * @ÃèÊö£ºµÃµ½×ÜÁÐÊý
-     * @×÷Õß£ºyanlu.myl
-     * @Ê±¼ä£º2018/1/22 ÏÂÎç16:27:15
-     * @²ÎÊý£º@return
-     * @·µ»ØÖµ£ºint
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @ï¿½ï¿½ï¿½ß£ï¿½yanlu.myl
+     * @Ê±ï¿½ä£º2018/1/22 ï¿½ï¿½ï¿½ï¿½16:27:15
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@return
+     * @ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½int
      */
     public int getTotalCells() {
         return totalCells;
     }
 
     /**
-     * @ÃèÊö£ºµÃµ½´íÎóÐÅÏ¢
-     * @×÷Õß£ºyanlu.myl
-     * @Ê±¼ä£º2018/1/22 ÏÂÎç16:27:15
-     * @²ÎÊý£º@return
-     * @·µ»ØÖµ£ºString
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+     * @ï¿½ï¿½ï¿½ß£ï¿½yanlu.myl
+     * @Ê±ï¿½ä£º2018/1/22 ï¿½ï¿½ï¿½ï¿½16:27:15
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@return
+     * @ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½String
      */
     public String getErrorInfo() {
         return errorInfo;
     }
 
     /**
-     * @ÃèÊö£ºÑéÖ¤excelÎÄ¼þ
-     * @×÷Õß£ºyanlu.myl
-     * @Ê±¼ä£º2018/1/22 ÏÂÎç16:27:15
-     * @²ÎÊý£º@param filePath¡¡ÎÄ¼þÍêÕûÂ·¾¶
-     * @²ÎÊý£º@return
-     * @·µ»ØÖµ£ºboolean
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤excelï¿½Ä¼ï¿½
+     * @ï¿½ï¿½ï¿½ß£ï¿½yanlu.myl
+     * @Ê±ï¿½ä£º2018/1/22 ï¿½ï¿½ï¿½ï¿½16:27:15
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@param filePathï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@return
+     * @ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½boolean
      */
     public boolean validateExcel(String filePath) {
-        /** ¼ì²éÎÄ¼þÃûÊÇ·ñÎª¿Õ»òÕßÊÇ·ñÊÇExcel¸ñÊ½µÄÎÄ¼þ */
+        /** ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Îªï¿½Õ»ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Excelï¿½ï¿½Ê½ï¿½ï¿½ï¿½Ä¼ï¿½ */
         if (filePath == null || !(
-            WDWUtil2.isExcel2003(filePath) || WDWUtil2.isExcel2007(filePath))) {
-            errorInfo = "ÎÄ¼þÃû²»ÊÇexcel¸ñÊ½";
+                WDWUtil2.isExcel2003(filePath) || WDWUtil2.isExcel2007(filePath))) {
+            errorInfo = "ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½excelï¿½ï¿½Ê½";
             return false;
         }
-        /** ¼ì²éÎÄ¼þÊÇ·ñ´æÔÚ */
+        /** ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ */
         File file = new File(filePath);
         if (file == null || !file.exists()) {
-            errorInfo = "ÎÄ¼þ²»´æÔÚ";
+            errorInfo = "ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
             return false;
         }
         return true;
@@ -132,36 +130,36 @@ public class POIReadUtilForJob {
     }
 
     private static String formattedDecimalToPercentage(double decimal) {
-        //»ñÈ¡¸ñÊ½»¯¶ÔÏó
+        //ï¿½ï¿½È¡ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         NumberFormat nt = NumberFormat.getPercentInstance();
-        //ÉèÖÃ°Ù·ÖÊý¾«È·¶È2¼´±£ÁôÁ½Î»Ð¡Êý
+        //ï¿½ï¿½ï¿½Ã°Ù·ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»Ð¡ï¿½ï¿½
         nt.setMinimumFractionDigits(3);
         return nt.format(decimal);
     }
 
     /**
-     * @ÃèÊö£º¸ù¾ÝÎÄ¼þÃû¶ÁÈ¡excelÎÄ¼þ
-     * @×÷Õß£ºyanlu.myl
-     * @Ê±¼ä£º2018/1/22 ÏÂÎç16:27:15
-     * @²ÎÊý£º@param filePath ÎÄ¼þÍêÕûÂ·¾¶
-     * @²ÎÊý£º@return
-     * @·µ»ØÖµ£ºList
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½È¡excelï¿½Ä¼ï¿½
+     * @ï¿½ï¿½ï¿½ß£ï¿½yanlu.myl
+     * @Ê±ï¿½ä£º2018/1/22 ï¿½ï¿½ï¿½ï¿½16:27:15
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@param filePath ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@return
+     * @ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½List
      */
     public List<List<String>> read(String filePath) {
         List<List<String>> dataLst = new ArrayList<List<String>>();
         InputStream is = null;
         try {
-            /** ÑéÖ¤ÎÄ¼þÊÇ·ñºÏ·¨ */
+            /** ï¿½ï¿½Ö¤ï¿½Ä¼ï¿½ï¿½Ç·ï¿½Ï·ï¿½ */
             if (!validateExcel(filePath)) {
                 System.out.println(errorInfo);
                 return null;
             }
-            /** ÅÐ¶ÏÎÄ¼þµÄÀàÐÍ£¬ÊÇ2003»¹ÊÇ2007 */
+            /** ï¿½Ð¶ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½2003ï¿½ï¿½ï¿½ï¿½2007 */
             boolean isExcel2003 = true;
             if (WDWUtil2.isExcel2007(filePath)) {
                 isExcel2003 = false;
             }
-            /** µ÷ÓÃ±¾ÀàÌá¹©µÄ¸ù¾ÝÁ÷¶ÁÈ¡µÄ·½·¨ */
+            /** ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½á¹©ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½Ä·ï¿½ï¿½ï¿½ */
             File file = new File(filePath);
             is = new FileInputStream(file);
             dataLst = read(is, isExcel2003);
@@ -178,23 +176,23 @@ public class POIReadUtilForJob {
                 }
             }
         }
-        /** ·µ»Ø×îºó¶ÁÈ¡µÄ½á¹û */
+        /** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½Ä½ï¿½ï¿½ */
         return dataLst;
     }
 
     /**
-     * @ÃèÊö£º¸ù¾ÝÁ÷¶ÁÈ¡ExcelÎÄ¼þ
-     * @×÷Õß£ºyanlu.myl
-     * @Ê±¼ä£º2018/1/22 ÏÂÎç16:40:15
-     * @²ÎÊý£º@param inputStream
-     * @²ÎÊý£º@param isExcel2003
-     * @²ÎÊý£º@return
-     * @·µ»ØÖµ£ºList
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡Excelï¿½Ä¼ï¿½
+     * @ï¿½ï¿½ï¿½ß£ï¿½yanlu.myl
+     * @Ê±ï¿½ä£º2018/1/22 ï¿½ï¿½ï¿½ï¿½16:40:15
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@param inputStream
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@param isExcel2003
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@return
+     * @ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½List
      */
     public List<List<String>> read(InputStream inputStream, boolean isExcel2003) {
         List<List<String>> dataLst = null;
         try {
-            /** ¸ù¾Ý°æ±¾Ñ¡Ôñ´´½¨WorkbookµÄ·½Ê½ */
+            /** ï¿½ï¿½ï¿½Ý°æ±¾Ñ¡ï¿½ñ´´½ï¿½Workbookï¿½Ä·ï¿½Ê½ */
             Workbook wb = null;
             if (isExcel2003) {
                 wb = new HSSFWorkbook(inputStream);
@@ -209,98 +207,98 @@ public class POIReadUtilForJob {
     }
 
     /**
-     * @ÃèÊö£º¶ÁÈ¡Êý¾Ý
-     * @×÷Õß£ºyanlu.myl
-     * @Ê±¼ä£º2018/1/22 ÏÂÎç16:50:15
-     * @²ÎÊý£º@param Workbook
-     * @²ÎÊý£º@return
-     * @·µ»ØÖµ£ºList<List<String>>
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
+     * @ï¿½ï¿½ï¿½ß£ï¿½yanlu.myl
+     * @Ê±ï¿½ä£º2018/1/22 ï¿½ï¿½ï¿½ï¿½16:50:15
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@param Workbook
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@return
+     * @ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½List<List<String>>
      */
     private List<List<String>> read(Workbook wb) {
         List<List<String>> dataLst = new ArrayList<List<String>>();
-        /** µÃµ½µÚÒ»¸öshell */
+        /** ï¿½Ãµï¿½ï¿½ï¿½Ò»ï¿½ï¿½shell */
         Sheet sheet = wb.getSheetAt(0);
-        /** µÃµ½ExcelµÄÐÐÊý */
+        /** ï¿½Ãµï¿½Excelï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
         this.totalRows = sheet.getPhysicalNumberOfRows();
-        /** µÃµ½ExcelµÄÁÐÊý */
+        /** ï¿½Ãµï¿½Excelï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
         if (this.totalRows >= 1 && sheet.getRow(0) != null) {
             this.totalCells = sheet.getRow(0).getPhysicalNumberOfCells();
         }
-        /** Ñ­»·ExcelµÄÐÐ */
+        /** Ñ­ï¿½ï¿½Excelï¿½ï¿½ï¿½ï¿½ */
         for (int r = 0; r < this.totalRows; r++) {
             Row row = sheet.getRow(r);
             if (row == null) {
                 continue;
             }
             List<String> rowLst = new ArrayList<String>();
-            /** Ñ­»·ExcelµÄÁÐ */
+            /** Ñ­ï¿½ï¿½Excelï¿½ï¿½ï¿½ï¿½ */
             for (int c = 0; c < this.getTotalCells(); c++) {
                 Cell cell = row.getCell(c);
                 String cellValue = "";
                 if (null != cell) {
-                    // ÒÔÏÂÊÇÅÐ¶ÏÊý¾ÝµÄÀàÐÍ
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½
                     switch (cell.getCellType()) {
-                        case HSSFCell.CELL_TYPE_NUMERIC: // Êý×Ö
+                        case HSSFCell.CELL_TYPE_NUMERIC: // ï¿½ï¿½ï¿½ï¿½
                             if (c == 1 || c == 2 || c == 11) {
                                 cellValue = df_int.format(cell.getNumericCellValue());
                             } else if (c == 5 || c == 6) {
                                 //cellValue = df_4wei.format(cell.getNumericCellValue());
                                 cellValue = formattedDecimalToPercentage(
-                                    cell.getNumericCellValue());
+                                        cell.getNumericCellValue());
                             } else {
                                 cellValue = df_2wei.format(cell.getNumericCellValue());
                             }
                             break;
-                        case HSSFCell.CELL_TYPE_STRING: // ×Ö·û´®
+                        case HSSFCell.CELL_TYPE_STRING: // ï¿½Ö·ï¿½ï¿½ï¿½
                             cellValue = cell.getStringCellValue();
                             break;
                         case HSSFCell.CELL_TYPE_BOOLEAN: // Boolean
                             cellValue = cell.getBooleanCellValue() + "";
                             break;
-                        case HSSFCell.CELL_TYPE_FORMULA: // ¹«Ê½
+                        case HSSFCell.CELL_TYPE_FORMULA: // ï¿½ï¿½Ê½
                             cellValue = cell.getCellFormula() + "";
                             break;
-                        case HSSFCell.CELL_TYPE_BLANK: // ¿ÕÖµ
+                        case HSSFCell.CELL_TYPE_BLANK: // ï¿½ï¿½Öµ
                             cellValue = "";
                             break;
-                        case HSSFCell.CELL_TYPE_ERROR: // ¹ÊÕÏ
-                            cellValue = "·Ç·¨×Ö·û";
+                        case HSSFCell.CELL_TYPE_ERROR: // ï¿½ï¿½ï¿½ï¿½
+                            cellValue = "ï¿½Ç·ï¿½ï¿½Ö·ï¿½";
                             break;
                         default:
-                            cellValue = "Î´ÖªÀàÐÍ";
+                            cellValue = "Î´Öªï¿½ï¿½ï¿½ï¿½";
                             break;
                     }
                 }
                 rowLst.add(cellValue);
             }
-            /** ±£´æµÚrÐÐµÄµÚcÁÐ */
+            /** ï¿½ï¿½ï¿½ï¿½ï¿½rï¿½ÐµÄµï¿½cï¿½ï¿½ */
             dataLst.add(rowLst);
         }
         return dataLst;
     }
 
     /**
-     * @ÃèÊö£ºmain²âÊÔ·½·¨
-     * @×÷Õß£ºyanlu.myl
-     * @Ê±¼ä£º2018/1/22 ÏÂÎç17:12:15
-     * @²ÎÊý£º@param args
-     * @²ÎÊý£º@throws Exception
-     * @·µ»ØÖµ£ºvoid
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mainï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½
+     * @ï¿½ï¿½ï¿½ß£ï¿½yanlu.myl
+     * @Ê±ï¿½ä£º2018/1/22 ï¿½ï¿½ï¿½ï¿½17:12:15
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@param args
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@throws Exception
+     * @ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½void
      */
     public static void main(String[] args) throws Exception {
         POIReadUtilForJob poi = new POIReadUtilForJob();
         List<List<String>> list = poi.read(
-            //"C:\\Users\\yanlu.myl\\Desktop\\temp\\2018ÄêµÚ¶þÅúka½áËã(3).xlsx");
-            "C:\\Users\\yanlu.myl\\Desktop\\temp\\2018ÄêµÚ¶þÅúka½áËã(check).xlsx");
+                //"C:\\Users\\yanlu.myl\\Desktop\\temp\\2018ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½kaï¿½ï¿½ï¿½ï¿½(3).xlsx");
+                "C:\\Users\\yanlu.myl\\Desktop\\temp\\2018ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½kaï¿½ï¿½ï¿½ï¿½(check).xlsx");
         if (list != null) {
             for (int i = 1; i < list.size(); i++) {
-                //System.out.print("µÚ" + (i) + "ÐÐ\t\t");
+                //System.out.print("ï¿½ï¿½" + (i) + "ï¿½ï¿½\t\t");
                 List<String> cellList = list.get(i);
                 YearSettleResultDTO dto = new YearSettleResultDTO();
                 dto.setSettleYear("2017");
                 for (int j = 0; j < cellList.size(); j++) {
-                    /* ´òÓ¡¶ÁÈ¡±í¸ñÖÐµÄÊý¾Ý */
-                    //System.out.println("    µÚ" + (j + 1) + "ÁÐÖµ£º" + cellList.get(j));
+                    /* ï¿½ï¿½Ó¡ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ */
+                    //System.out.println("    ï¿½ï¿½" + (j + 1) + "ï¿½ï¿½Öµï¿½ï¿½" + cellList.get(j));
                     if ((j + 1) == 1) {
                     } else if ((j + 1) == 2) {
                         dto.setBailOrderId(Long.valueOf(cellList.get(j)));
@@ -311,7 +309,7 @@ public class POIReadUtilForJob {
                     } else if ((j + 1) == 6) {
                     } else if ((j + 1) == 7) {
                     } else if ((j + 1) == 8) {
-                        dto.setPrePaySoftWareFee(changY2f(cellList.get(j)));//×ÜÔ¤½É
+                        dto.setPrePaySoftWareFee(changY2f(cellList.get(j)));//ï¿½ï¿½Ô¤ï¿½ï¿½
                     } else if ((j + 1) == 9) {
                     } else if ((j + 1) == 10) {
                         dto.setBaseFee(changY2f(cellList.get(j)));
@@ -319,7 +317,7 @@ public class POIReadUtilForJob {
                         dto.setCunTaoBaseFee(changY2f(cellList.get(j)));
                     } else if ((j + 1) == 12) {
                         boolean isfinish = Long
-                            .valueOf(cellList.get(j)) == 0L ? false : true;
+                                .valueOf(cellList.get(j)) == 0L ? false : true;
                         dto.setFinishBaseFee(isfinish);
                     } else if ((j + 1) == 13) {
                         dto.setRealTimeTecFee(changY2f(cellList.get(j)));
@@ -342,27 +340,27 @@ public class POIReadUtilForJob {
                     }
                 }
                 dto.setRealTimeSoftWareFee(
-                    dto.getCunTaoRealTimeSoftWareFee() + dto.getRealTimeTecFee());
+                        dto.getCunTaoRealTimeSoftWareFee() + dto.getRealTimeTecFee());
 
-                /* ´òÓ¡ÐòÁÐ»¯Ö®ºóµÄ¶ÔÏó×Ö·û´® */
+                /* ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½Ð»ï¿½Ö®ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ */
                 //System.out.println(JSON.toJSONString(dto));
 
-                /* ²âÊÔ·´ÐòÁÐ»¯ÊÇ·ñÄÜ³É¹¦ */
+                /* ï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½Ç·ï¿½ï¿½Ü³É¹ï¿½ */
                 //YearSettleResultDTO yearSettleResultDTO = JSON.parseObject(JSON.toJSONString(dto),
                 //    YearSettleResultDTO.class);
                 //System.out.println(yearSettleResultDTO.toString());
 
-                /* Êä³ösqlÓï¾ä */
+                /* ï¿½ï¿½ï¿½sqlï¿½ï¿½ï¿½ */
                 StringBuffer sb = new StringBuffer();
                 /*sb.append(
                     "insert into hj_bail_ext(gmt_create,  gmt_modified,  bail_order_id,  user_id,"
                         + "  name,  code,  value,  version,  status) values(now(),now(),"
                         + dto.getBailOrderId() + "," + dto.getUserId()
-                        + ",'Äê½á½á¹û','yearsettleresult','" + JSON
+                        + ",'ï¿½ï¿½ï¿½ï¿½ï¿½','yearsettleresult','" + JSON
                         .toJSONString(dto) + "',0,1);");*/
                 sb.append("update hj_bail_ext set gmt_modified = now(), version=1 , value='" + JSON
-                    .toJSONString(dto) + "' where bail_order_id=" + dto.getBailOrderId()
-                    + " and code='yearsettleresult';");
+                        .toJSONString(dto) + "' where bail_order_id=" + dto.getBailOrderId()
+                        + " and code='yearsettleresult';");
                 System.out.println(sb);
             }
         }
@@ -370,30 +368,30 @@ public class POIReadUtilForJob {
 }
 
 /**
- * @ÃèÊö£º¹¤¾ßÀà
- * @×÷Õß£ºyanlu.myl
- * @Ê±¼ä£º2018/1/22 ÏÂÎç16:30:40
+ * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @ï¿½ï¿½ï¿½ß£ï¿½yanlu.myl
+ * @Ê±ï¿½ä£º2018/1/22 ï¿½ï¿½ï¿½ï¿½16:30:40
  */
 class WDWUtil2 {
     /**
-     * @ÃèÊö£ºÊÇ·ñÊÇ2003µÄexcel£¬·µ»ØtrueÊÇ2003
-     * @×÷Õß£ºyanlu.myl
-     * @Ê±¼ä£º2018/1/22 ÏÂÎç16:29:11
-     * @²ÎÊý£º@param filePath¡¡ÎÄ¼þÍêÕûÂ·¾¶
-     * @²ÎÊý£º@return
-     * @·µ»ØÖµ£ºboolean
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½2003ï¿½ï¿½excelï¿½ï¿½ï¿½ï¿½ï¿½ï¿½trueï¿½ï¿½2003
+     * @ï¿½ï¿½ï¿½ß£ï¿½yanlu.myl
+     * @Ê±ï¿½ä£º2018/1/22 ï¿½ï¿½ï¿½ï¿½16:29:11
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@param filePathï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@return
+     * @ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½boolean
      */
     public static boolean isExcel2003(String filePath) {
         return filePath.matches("^.+\\.(?i)(xls)$");
     }
 
     /**
-     * @ÃèÊö£ºÊÇ·ñÊÇ2007µÄexcel£¬·µ»ØtrueÊÇ2007
-     * @×÷Õß£ºyanlu.myl
-     * @Ê±¼ä£º2018/1/22 ÏÂÎç16:28:20
-     * @²ÎÊý£º@param filePath¡¡ÎÄ¼þÍêÕûÂ·¾¶
-     * @²ÎÊý£º@return
-     * @·µ»ØÖµ£ºboolean
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½2007ï¿½ï¿½excelï¿½ï¿½ï¿½ï¿½ï¿½ï¿½trueï¿½ï¿½2007
+     * @ï¿½ï¿½ï¿½ß£ï¿½yanlu.myl
+     * @Ê±ï¿½ä£º2018/1/22 ï¿½ï¿½ï¿½ï¿½16:28:20
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@param filePathï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
+     * @ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@return
+     * @ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½boolean
      */
     public static boolean isExcel2007(String filePath) {
         return filePath.matches("^.+\\.(?i)(xlsx)$");
@@ -404,97 +402,97 @@ class Money implements Serializable, Comparable {
     private static final long serialVersionUID = 3761410806910104373L;
 
     /**
-     * È±Ê¡µÄ±ÒÖÖ´úÂë£¬ÎªCNY£¨ÈËÃñ±Ò£©¡£
+     * È±Ê¡ï¿½Ä±ï¿½ï¿½Ö´ï¿½ï¿½ë£¬ÎªCNYï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò£ï¿½ï¿½ï¿½
      */
     public static final String DEFAULT_CURRENCY_CODE = "CNY";
 
     /**
-     * È±Ê¡µÄÈ¡ÕûÄ£Ê½£¬Îª<code>BigDecimal.ROUND_HALF_EVEN
-     * £¨ËÄÉáÎåÈë£¬µ±Ð¡ÊýÎª0.5Ê±£¬ÔòÈ¡×î½üµÄÅ¼Êý£©¡£
+     * È±Ê¡ï¿½ï¿½È¡ï¿½ï¿½Ä£Ê½ï¿½ï¿½Îª<code>BigDecimal.ROUND_HALF_EVEN
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½Ð¡ï¿½ï¿½Îª0.5Ê±ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Å¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public static final int DEFAULT_ROUNDING_MODE = BigDecimal.ROUND_HALF_EVEN;
 
     /**
-     * Ò»×é¿ÉÄÜµÄÔª/·Ö»»Ëã±ÈÀý¡£
+     * Ò»ï¿½ï¿½ï¿½ï¿½Üµï¿½Ôª/ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ´Ë´¦£¬¡°·Ö¡±ÊÇÖ¸»õ±ÒµÄ×îÐ¡µ¥Î»£¬¡°Ôª¡±ÊÇ»õ±ÒµÄ×î³£ÓÃµ¥Î»£¬
-     * ²»Í¬µÄ±ÒÖÖÓÐ²»Í¬µÄÔª/·Ö»»Ëã±ÈÀý£¬ÈçÈËÃñ±ÒÊÇ100£¬¶øÈÕÔªÎª1¡£
+     * ï¿½Ë´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½Ç»ï¿½ï¿½Òµï¿½ï¿½î³£ï¿½Ãµï¿½Î»ï¿½ï¿½
+     * ï¿½ï¿½Í¬ï¿½Ä±ï¿½ï¿½ï¿½ï¿½Ð²ï¿½Í¬ï¿½ï¿½Ôª/ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½100ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÔªÎª1ï¿½ï¿½
      */
-    private static final int[] centFactors = new int[] {1, 10, 100, 1000};
+    private static final int[] centFactors = new int[]{1, 10, 100, 1000};
 
     /**
-     * Ä¬ÕJµÄµØ…^
+     * Ä¬ï¿½Jï¿½ÄµØ…^
      */
     private static final String DEFAULT_LOCALE = "zh_CN";
     /**
-     * ±£´æ»õ±Òµ¥Î»µÄmap£¬ÓÃÀ´ÏÔÊ¾»õ±Òµ¥Î»£¬ÈçÔª£¬ÃÀÔªµÈ
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½Î»ï¿½ï¿½mapï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Òµï¿½Î»ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½
      */
     protected static Map<String, Map<String, String>> CURRENCY_DISPLAY_UNIT_MAP
-        = new HashMap<String, Map<String, String>>();
+            = new HashMap<String, Map<String, String>>();
 
-    //½øÐÐ³õÊ¼»¯¹¤×÷
+    //ï¿½ï¿½ï¿½Ð³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     static {
-        //º†ówÖÐÎÄµÄŒ¦‘ªål
+        //ï¿½ï¿½ï¿½wï¿½ï¿½ï¿½ÄµÄŒï¿½ï¿½ï¿½ï¿½l
         Map<String, String> zhCNMap = new HashMap<String, String>();
         zhCNMap.put("CNY", "Ôª");
-        zhCNMap.put("POINT", "»ý·Ö");
+        zhCNMap.put("POINT", "ï¿½ï¿½ï¿½ï¿½");
         CURRENCY_DISPLAY_UNIT_MAP.put("zh_CN", zhCNMap);
 
-        //·±ówµÄŒ¦‘ªål
+        //ï¿½ï¿½ï¿½wï¿½ÄŒï¿½ï¿½ï¿½ï¿½l
         Map<String, String> zhHKMap = new HashMap<String, String>();
         zhHKMap.put("CNY", "Ôª");
-        zhHKMap.put("POINT", "·e·Ö");
+        zhHKMap.put("POINT", "ï¿½eï¿½ï¿½");
         CURRENCY_DISPLAY_UNIT_MAP.put("zh_HK", zhHKMap);
     }
 
     /**
-     * ±ØÐë¶¨ÒåÔÚºóÃæ(ÒÀÀµÇ°ÃæµÄ¾²Ì¬±äÁ¿)
+     * ï¿½ï¿½ï¿½ë¶¨ï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Ä¾ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½)
      */
     public static final Money ZERO = new Money(0);
 
     /**
-     * ½ð¶î£¬ÒÔ·ÖÎªµ¥Î»¡£
+     * ï¿½ï¿½î£¬ï¿½Ô·ï¿½Îªï¿½ï¿½Î»ï¿½ï¿½
      */
     private long cent;
 
     /**
-     * ±ÒÖÖ¡£
+     * ï¿½ï¿½ï¿½Ö¡ï¿½
      */
     private Currency currency;
 
-    // ¹¹ÔìÆ÷ ====================================================
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ====================================================
 
     /**
-     * È±Ê¡¹¹ÔìÆ÷¡£
+     * È±Ê¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ´´½¨Ò»¸ö¾ßÓÐÈ±Ê¡½ð¶î£¨0£©ºÍÈ±Ê¡±ÒÖÖµÄ»õ±Ò¶ÔÏó¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È±Ê¡ï¿½ï¿½î£¨0ï¿½ï¿½ï¿½ï¿½È±Ê¡ï¿½ï¿½ï¿½ÖµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
      */
     public Money() {
         this(0l);
     }
 
     /**
-     * ¹¹ÔìÆ÷¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ´´½¨Ò»¸ö¾ßÓÐ½ð¶î<code>yuan</code>Ôª<code>cent</cent>·ÖºÍÈ±Ê¡±ÒÖÖµÄ»õ±Ò¶ÔÏó¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½<code>yuan</code>Ôª<code>cent</cent>ï¿½Öºï¿½È±Ê¡ï¿½ï¿½ï¿½ÖµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
      *
-     * @param yuan ½ð¶îÔªÊý¡£
-     * @param cent ½ð¶î·ÖÊý¡£
+     * @param yuan ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½
+     * @param cent ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public Money(long yuan, int cent) {
         this(yuan, cent, Currency.getInstance(DEFAULT_CURRENCY_CODE));
     }
 
     /**
-     * ¹¹ÔìÆ÷¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ´´½¨Ò»¸ö¾ßÓÐ½ð¶î<code>yuan</code>Ôª<code>cent</cent>·ÖºÍÈ±Ê¡±ÒÖÖµÄ»õ±Ò¶ÔÏó¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½<code>yuan</code>Ôª<code>cent</cent>ï¿½Öºï¿½È±Ê¡ï¿½ï¿½ï¿½ÖµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
      *
-     * @param cent ½ð¶î·ÖÊý¡£
+     * @param cent ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public Money(long cent) {
         this.currency = Currency.getInstance(DEFAULT_CURRENCY_CODE);
@@ -502,13 +500,13 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * ¹¹ÔìÆ÷¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ´´½¨Ò»¸ö¾ßÓÐ½ð¶î<code>yuan</code>Ôª<code>cent</code>·ÖºÍÖ¸¶¨±ÒÖÖµÄ»õ±Ò¶ÔÏó¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½<code>yuan</code>Ôª<code>cent</code>ï¿½Öºï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
      *
-     * @param yuan     ½ð¶îÔªÊý¡£
-     * @param cent     ½ð¶î·ÖÊý¡£
+     * @param yuan     ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½
+     * @param cent     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      * @param currency
      */
     public Money(long yuan, int cent, Currency currency) {
@@ -518,56 +516,56 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * ¹¹ÔìÆ÷¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ´´½¨Ò»¸ö¾ßÓÐ½ð¶î<code>amount</code>ÔªºÍÈ±Ê¡±ÒÖÖµÄ»õ±Ò¶ÔÏó¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½<code>amount</code>Ôªï¿½ï¿½È±Ê¡ï¿½ï¿½ï¿½ÖµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
      *
-     * @param amount ½ð¶î£¬ÒÔÔªÎªµ¥Î»¡£
+     * @param amount ï¿½ï¿½î£¬ï¿½ï¿½ÔªÎªï¿½ï¿½Î»ï¿½ï¿½
      */
     public Money(String amount) {
         this(amount, Currency.getInstance(DEFAULT_CURRENCY_CODE));
     }
 
     /**
-     * ¹¹ÔìÆ÷¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ´´½¨Ò»¸ö¾ßÓÐ½ð¶î<code>amount</code>ÔªºÍÖ¸¶¨±ÒÖÖ<code>currency</code>µÄ»õ±Ò¶ÔÏó¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½<code>amount</code>Ôªï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½<code>currency</code>ï¿½Ä»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
      *
-     * @param amount   ½ð¶î£¬ÒÔÔªÎªµ¥Î»¡£
-     * @param currency ±ÒÖÖ¡£
+     * @param amount   ï¿½ï¿½î£¬ï¿½ï¿½ÔªÎªï¿½ï¿½Î»ï¿½ï¿½
+     * @param currency ï¿½ï¿½ï¿½Ö¡ï¿½
      */
     public Money(String amount, Currency currency) {
         this(new BigDecimal(amount), currency);
     }
 
     /**
-     * ¹¹ÔìÆ÷¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ´´½¨Ò»¸ö¾ßÓÐ½ð¶î<code>amount</code>ÔªºÍÖ¸¶¨±ÒÖÖ<code>currency</code>µÄ»õ±Ò¶ÔÏó¡£
-     * Èç¹û½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬ÔòÊ¹ÓÃÖ¸¶¨µÄÈ¡ÕûÄ£Ê½<code>roundingMode</code>È¡Õû¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½<code>amount</code>Ôªï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½<code>currency</code>ï¿½Ä»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ä£Ê½<code>roundingMode</code>È¡ï¿½ï¿½ï¿½ï¿½
      *
-     * @param amount       ½ð¶î£¬ÒÔÔªÎªµ¥Î»¡£
-     * @param currency     ±ÒÖÖ¡£
-     * @param roundingMode È¡ÕûÄ£Ê½¡£
+     * @param amount       ï¿½ï¿½î£¬ï¿½ï¿½ÔªÎªï¿½ï¿½Î»ï¿½ï¿½
+     * @param currency     ï¿½ï¿½ï¿½Ö¡ï¿½
+     * @param roundingMode È¡ï¿½ï¿½Ä£Ê½ï¿½ï¿½
      */
     public Money(String amount, Currency currency, int roundingMode) {
         this(new BigDecimal(amount), currency, roundingMode);
     }
 
     /**
-     * ¹¹ÔìÆ÷¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ´´½¨Ò»¸ö¾ßÓÐ²ÎÊý<code>amount</code>Ö¸¶¨½ð¶îºÍÈ±Ê¡±ÒÖÖµÄ»õ±Ò¶ÔÏó¡£
-     * Èç¹û½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬ÔòÊ¹ÓÃËÄÉáÎåÈë·½Ê½È¡Õû¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½<code>amount</code>Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È±Ê¡ï¿½ï¿½ï¿½ÖµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë·½Ê½È¡ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ×¢Òâ£ºÓÉÓÚdoubleÀàÐÍÔËËãÖÐ´æÔÚÎó²î£¬Ê¹ÓÃËÄÉáÎåÈë·½Ê½È¡ÕûµÄ
-     * ½á¹û²¢²»È·¶¨£¬Òò´Ë£¬Ó¦¾¡Á¿±ÜÃâÊ¹ÓÃdoubleÀàÐÍ´´½¨»õ±ÒÀàÐÍ¡£
-     * Àý£º
+     * ×¢ï¿½â£ºï¿½ï¿½ï¿½ï¿½doubleï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½î£¬Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë·½Ê½È¡ï¿½ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½doubleï¿½ï¿½ï¿½Í´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¡ï¿½
+     * ï¿½ï¿½ï¿½ï¿½
      * <code>
      * assertEquals(999, Math.round(9.995 * 100));
      * assertEquals(1000, Math.round(999.5));
@@ -577,23 +575,23 @@ class Money implements Serializable, Comparable {
      * assertEquals(1001, money.getCent());
      * </code>
      *
-     * @param amount ½ð¶î£¬ÒÔÔªÎªµ¥Î»¡£
+     * @param amount ï¿½ï¿½î£¬ï¿½ï¿½ÔªÎªï¿½ï¿½Î»ï¿½ï¿½
      */
     public Money(double amount) {
         this(amount, Currency.getInstance(DEFAULT_CURRENCY_CODE));
     }
 
     /**
-     * ¹¹ÔìÆ÷¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ´´½¨Ò»¸ö¾ßÓÐ½ð¶î<code>amount</code>ºÍÖ¸¶¨±ÒÖÖµÄ»õ±Ò¶ÔÏó¡£
-     * Èç¹û½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬ÔòÊ¹ÓÃËÄÉáÎåÈë·½Ê½È¡Õû¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½<code>amount</code>ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë·½Ê½È¡ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ×¢Òâ£ºÓÉÓÚdoubleÀàÐÍÔËËãÖÐ´æÔÚÎó²î£¬Ê¹ÓÃËÄÉáÎåÈë·½Ê½È¡ÕûµÄ
-     * ½á¹û²¢²»È·¶¨£¬Òò´Ë£¬Ó¦¾¡Á¿±ÜÃâÊ¹ÓÃdoubleÀàÐÍ´´½¨»õ±ÒÀàÐÍ¡£
-     * Àý£º
+     * ×¢ï¿½â£ºï¿½ï¿½ï¿½ï¿½doubleï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½î£¬Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë·½Ê½È¡ï¿½ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½doubleï¿½ï¿½ï¿½Í´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¡ï¿½
+     * ï¿½ï¿½ï¿½ï¿½
      * <code>
      * assertEquals(999, Math.round(9.995 * 100));
      * assertEquals(1000, Math.round(999.5));
@@ -603,8 +601,8 @@ class Money implements Serializable, Comparable {
      * assertEquals(1001, money.getCent());
      * </code>
      *
-     * @param amount   ½ð¶î£¬ÒÔÔªÎªµ¥Î»¡£
-     * @param currency ±ÒÖÖ¡£
+     * @param amount   ï¿½ï¿½î£¬ï¿½ï¿½ÔªÎªï¿½ï¿½Î»ï¿½ï¿½
+     * @param currency ï¿½ï¿½ï¿½Ö¡ï¿½
      */
     public Money(double amount, Currency currency) {
         this.currency = currency;
@@ -612,78 +610,78 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * ¹¹ÔìÆ÷¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ´´½¨Ò»¸ö¾ßÓÐ½ð¶î<code>amount</code>ºÍÈ±Ê¡±ÒÖÖµÄ»õ±Ò¶ÔÏó¡£
-     * Èç¹û½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬ÔòÊ¹ÓÃÈ±Ê¡È¡ÕûÄ£Ê½<code>DEFAULT_ROUNDING_MODE</code>È¡Õû¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½<code>amount</code>ï¿½ï¿½È±Ê¡ï¿½ï¿½ï¿½ÖµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½È±Ê¡È¡ï¿½ï¿½Ä£Ê½<code>DEFAULT_ROUNDING_MODE</code>È¡ï¿½ï¿½ï¿½ï¿½
      *
-     * @param amount ½ð¶î£¬ÒÔÔªÎªµ¥Î»¡£
+     * @param amount ï¿½ï¿½î£¬ï¿½ï¿½ÔªÎªï¿½ï¿½Î»ï¿½ï¿½
      */
     public Money(BigDecimal amount) {
         this(amount, Currency.getInstance(DEFAULT_CURRENCY_CODE));
     }
 
     /**
-     * ¹¹ÔìÆ÷¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ´´½¨Ò»¸ö¾ßÓÐ²ÎÊý<code>amount</code>Ö¸¶¨½ð¶îºÍÈ±Ê¡±ÒÖÖµÄ»õ±Ò¶ÔÏó¡£
-     * Èç¹û½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬ÔòÊ¹ÓÃÖ¸¶¨µÄÈ¡ÕûÄ£Ê½<code>roundingMode</code>È¡Õû¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½<code>amount</code>Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È±Ê¡ï¿½ï¿½ï¿½ÖµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ä£Ê½<code>roundingMode</code>È¡ï¿½ï¿½ï¿½ï¿½
      *
-     * @param amount       ½ð¶î£¬ÒÔÔªÎªµ¥Î»¡£
-     * @param roundingMode È¡ÕûÄ£Ê½
+     * @param amount       ï¿½ï¿½î£¬ï¿½ï¿½ÔªÎªï¿½ï¿½Î»ï¿½ï¿½
+     * @param roundingMode È¡ï¿½ï¿½Ä£Ê½
      */
     public Money(BigDecimal amount, int roundingMode) {
         this(amount, Currency.getInstance(DEFAULT_CURRENCY_CODE), roundingMode);
     }
 
     /**
-     * ¹¹ÔìÆ÷¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ´´½¨Ò»¸ö¾ßÓÐ½ð¶î<code>amount</code>ºÍÖ¸¶¨±ÒÖÖµÄ»õ±Ò¶ÔÏó¡£
-     * Èç¹û½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬ÔòÊ¹ÓÃÈ±Ê¡µÄÈ¡ÕûÄ£Ê½<code>DEFAULT_ROUNDING_MODE</code>½øÐÐÈ¡Õû¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½<code>amount</code>ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½È±Ê¡ï¿½ï¿½È¡ï¿½ï¿½Ä£Ê½<code>DEFAULT_ROUNDING_MODE</code>ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
      *
-     * @param amount   ½ð¶î£¬ÒÔÔªÎªµ¥Î»¡£
-     * @param currency ±ÒÖÖ
+     * @param amount   ï¿½ï¿½î£¬ï¿½ï¿½ÔªÎªï¿½ï¿½Î»ï¿½ï¿½
+     * @param currency ï¿½ï¿½ï¿½ï¿½
      */
     public Money(BigDecimal amount, Currency currency) {
         this(amount, currency, DEFAULT_ROUNDING_MODE);
     }
 
     /**
-     * ¹¹ÔìÆ÷¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ´´½¨Ò»¸ö¾ßÓÐ½ð¶î<code>amount</code>ºÍÖ¸¶¨±ÒÖÖµÄ»õ±Ò¶ÔÏó¡£
-     * Èç¹û½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬ÔòÊ¹ÓÃÖ¸¶¨µÄÈ¡ÕûÄ£Ê½<code>roundingMode</code>È¡Õû¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½<code>amount</code>ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ä£Ê½<code>roundingMode</code>È¡ï¿½ï¿½ï¿½ï¿½
      *
-     * @param amount       ½ð¶î£¬ÒÔÔªÎªµ¥Î»¡£
-     * @param currency     ±ÒÖÖ¡£
-     * @param roundingMode È¡ÕûÄ£Ê½¡£
+     * @param amount       ï¿½ï¿½î£¬ï¿½ï¿½ÔªÎªï¿½ï¿½Î»ï¿½ï¿½
+     * @param currency     ï¿½ï¿½ï¿½Ö¡ï¿½
+     * @param roundingMode È¡ï¿½ï¿½Ä£Ê½ï¿½ï¿½
      */
     public Money(BigDecimal amount, Currency currency, int roundingMode) {
         this.currency = currency;
         this.cent = rounding(amount.movePointRight(currency.getDefaultFractionDigits()),
-            roundingMode);
+                roundingMode);
     }
 
-    // Bean·½·¨ ====================================================
+    // Beanï¿½ï¿½ï¿½ï¿½ ====================================================
 
     /**
-     * »ñÈ¡±¾»õ±Ò¶ÔÏó´ú±íµÄ½ð¶îÊý¡£
+     * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
-     * @return ½ð¶îÊý£¬ÒÔÔªÎªµ¥Î»¡£
+     * @return ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÔªÎªï¿½ï¿½Î»ï¿½ï¿½
      */
     public BigDecimal getAmount() {
         return BigDecimal.valueOf(this.cent, this.currency.getDefaultFractionDigits());
     }
 
     /**
-     * ÉèÖÃ±¾»õ±Ò¶ÔÏó´ú±íµÄ½ð¶îÊý¡£
+     * ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
-     * @param amount ½ð¶îÊý£¬ÒÔÔªÎªµ¥Î»¡£
+     * @param amount ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÔªÎªï¿½ï¿½Î»ï¿½ï¿½
      */
     public void setAmount(BigDecimal amount) {
         if (amount != null) {
@@ -692,18 +690,18 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * »ñÈ¡±¾»õ±Ò¶ÔÏó´ú±íµÄ½ð¶îÊý¡£
+     * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
-     * @return ½ð¶îÊý£¬ÒÔ·ÖÎªµ¥Î»¡£
+     * @return ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½Îªï¿½ï¿½Î»ï¿½ï¿½
      */
     public long getCent() {
         return this.cent;
     }
 
     /**
-     * »ñÈ¡±¾»õ±Ò¶ÔÏó´ú±íµÄ±ÒÖÖ¡£
+     * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½Ö¡ï¿½
      *
-     * @return ±¾»õ±Ò¶ÔÏóËù´ú±íµÄ±ÒÖÖ¡£
+     * @return ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½Ö¡ï¿½
      * @deprecated use getCurrencyCode()
      */
     public Currency getCurrency() {
@@ -711,107 +709,107 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * »ñÈ¡±¾»õ±Ò¶ÔÏó´ú±íµÄ±ÒÖÖ´úÂë
+     * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½Ö´ï¿½ï¿½ï¿½
      *
-     * @return ±ÒÖÖ´úÂë
+     * @return ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½
      */
     public String getCurrencyCode() {
         return this.currency.getCurrencyCode();
     }
 
     /**
-     * »ñÈ¡±¾»õ±Ò±ÒÖÖµÄÔª/·Ö»»Ëã±ÈÂÊ¡£
+     * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ò±ï¿½ï¿½Öµï¿½Ôª/ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½Ê¡ï¿½
      *
-     * @return ±¾»õ±Ò±ÒÖÖµÄÔª/·Ö»»Ëã±ÈÂÊ¡£
+     * @return ï¿½ï¿½ï¿½ï¿½ï¿½Ò±ï¿½ï¿½Öµï¿½Ôª/ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½Ê¡ï¿½
      */
     public int getCentFactor() {
         return centFactors[this.currency.getDefaultFractionDigits()];
     }
 
-    // »ù±¾¶ÔÏó·½·¨ ===================================================
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó·½·ï¿½ ===================================================
 
     /**
-     * ÅÐ¶Ï±¾»õ±Ò¶ÔÏóÓëÁíÒ»¶ÔÏóÊÇ·ñÏàµÈ¡£
+     * ï¿½Ð¶Ï±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½È¡ï¿½
      *
      * <p>
-     * ±¾»õ±Ò¶ÔÏóÓëÁíÒ»¶ÔÏóÏàµÈµÄ³ä·Ö±ØÒªÌõ¼þÊÇ£º<br>
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÈµÄ³ï¿½Ö±ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ç£ï¿½<br>
      * <ul>
-     * <li>ÁíÒ»¶ÔÏóÒ²Êô»õ±Ò¶ÔÏóÀà¡£
-     * <li>½ð¶îÏàÍ¬¡£
-     * <li>±ÒÖÖÏàÍ¬¡£
+     * <li>ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½à¡£
+     * <li>ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½
+     * <li>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½
      * </ul>
      *
-     * @param other ´ý±È½ÏµÄÁíÒ»¶ÔÏó¡£
-     * @return <code>true</code>±íÊ¾ÏàµÈ£¬<code>false</code>±íÊ¾²»ÏàµÈ¡£
+     * @param other ï¿½ï¿½ï¿½È½Ïµï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
+     * @return <code>true</code>ï¿½ï¿½Ê¾ï¿½ï¿½È£ï¿½<code>false</code>ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½È¡ï¿½
      * @see Object#equals(Object)
      */
     public boolean equals(Object other) {
-        return (other instanceof Money) && equals((Money)other);
+        return (other instanceof Money) && equals((Money) other);
     }
 
     /**
-     * ÅÐ¶Ï±¾»õ±Ò¶ÔÏóÓëÁíÒ»»õ±Ò¶ÔÏóÊÇ·ñÏàµÈ¡£
+     * ï¿½Ð¶Ï±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½È¡ï¿½
      *
      * <p>
-     * ±¾»õ±Ò¶ÔÏóÓëÁíÒ»»õ±Ò¶ÔÏóÏàµÈµÄ³ä·Ö±ØÒªÌõ¼þÊÇ£º<br>
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ÈµÄ³ï¿½Ö±ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ç£ï¿½<br>
      * <ul>
-     * <li>½ð¶îÏàÍ¬¡£
-     * <li>±ÒÖÖÏàÍ¬¡£
+     * <li>ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½
+     * <li>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½
      * </ul>
      *
-     * @param other ´ý±È½ÏµÄÁíÒ»»õ±Ò¶ÔÏó¡£
-     * @return <code>true</code>±íÊ¾ÏàµÈ£¬<code>false</code>±íÊ¾²»ÏàµÈ¡£
+     * @param other ï¿½ï¿½ï¿½È½Ïµï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * @return <code>true</code>ï¿½ï¿½Ê¾ï¿½ï¿½È£ï¿½<code>false</code>ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½È¡ï¿½
      */
     public boolean equals(Money other) {
         return this.currency.equals(other.currency) && (this.cent == other.cent);
     }
 
     /**
-     * ¼ÆËã±¾»õ±Ò¶ÔÏóµÄÔÓ´ÕÖµ¡£
+     * ï¿½ï¿½ï¿½ã±¾ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Ó´ï¿½Öµï¿½ï¿½
      *
-     * @return ±¾»õ±Ò¶ÔÏóµÄÔÓ´ÕÖµ¡£
+     * @return ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Ó´ï¿½Öµï¿½ï¿½
      * @see Object#hashCode()
      */
     public int hashCode() {
-        return (int)(this.cent ^ (this.cent >>> 32));
+        return (int) (this.cent ^ (this.cent >>> 32));
     }
 
-    // Comparable½Ó¿Ú ========================================
+    // Comparableï¿½Ó¿ï¿½ ========================================
 
     /**
-     * ¶ÔÏó±È½Ï¡£
+     * ï¿½ï¿½ï¿½ï¿½È½Ï¡ï¿½
      *
      * <p>
-     * ±È½Ï±¾¶ÔÏóÓëÁíÒ»¶ÔÏóµÄ´óÐ¡¡£
-     * Èç¹û´ý±È½ÏµÄ¶ÔÏóµÄÀàÐÍ²»ÊÇ<code>Money</code>£¬ÔòÅ×³ö<code>java.lang.ClassCastException</code>¡£
-     * Èç¹û´ý±È½ÏµÄÁ½¸ö»õ±Ò¶ÔÏóµÄ±ÒÖÖ²»Í¬£¬ÔòÅ×³ö<code>java.lang.IllegalArgumentException</code>¡£
-     * Èç¹û±¾»õ±Ò¶ÔÏóµÄ½ð¶îÉÙÓÚ´ý±È½Ï»õ±Ò¶ÔÏó£¬Ôò·µ»Ø-1¡£
-     * Èç¹û±¾»õ±Ò¶ÔÏóµÄ½ð¶îµÈÓÚ´ý±È½Ï»õ±Ò¶ÔÏó£¬Ôò·µ»Ø0¡£
-     * Èç¹û±¾»õ±Ò¶ÔÏóµÄ½ð¶î´óÓÚ´ý±È½Ï»õ±Ò¶ÔÏó£¬Ôò·µ»Ø1¡£
+     * ï¿½È½Ï±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È½ÏµÄ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½<code>Money</code>ï¿½ï¿½ï¿½ï¿½ï¿½×³ï¿½<code>java.lang.ClassCastException</code>ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä±ï¿½ï¿½Ö²ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½×³ï¿½<code>java.lang.IllegalArgumentException</code>ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½È½Ï»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ò·µ»ï¿½-1ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½È½Ï»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ò·µ»ï¿½0ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½È½Ï»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ò·µ»ï¿½1ï¿½ï¿½
      *
-     * @param other ÁíÒ»¶ÔÏó¡£
-     * @return -1±íÊ¾Ð¡ÓÚ£¬0±íÊ¾µÈÓÚ£¬1±íÊ¾´óÓÚ¡£
-     * @throws ClassCastException ´ý±È½Ï»õ±Ò¶ÔÏó²»ÊÇ<code>Money</code>¡£
-     * IllegalArgumentException ´ý±È½Ï»õ±Ò¶ÔÏóÓë±¾»õ±Ò¶ÔÏóµÄ±ÒÖÖ²»Í¬¡£
+     * @param other ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
+     * @return -1ï¿½ï¿½Ê¾Ð¡ï¿½Ú£ï¿½0ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ú£ï¿½1ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ú¡ï¿½
+     * @throws ClassCastException ï¿½ï¿½ï¿½È½Ï»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½<code>Money</code>ï¿½ï¿½
+     *                            IllegalArgumentException ï¿½ï¿½ï¿½È½Ï»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ë±¾ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä±ï¿½ï¿½Ö²ï¿½Í¬ï¿½ï¿½
      * @see Comparable#compareTo(Object)
      */
     public int compareTo(Object other) {
-        return compareTo((Money)other);
+        return compareTo((Money) other);
     }
 
     /**
-     * »õ±Ò±È½Ï¡£
+     * ï¿½ï¿½ï¿½Ò±È½Ï¡ï¿½
      *
      * <p>
-     * ±È½Ï±¾»õ±Ò¶ÔÏóÓëÁíÒ»»õ±Ò¶ÔÏóµÄ´óÐ¡¡£
-     * Èç¹û´ý±È½ÏµÄÁ½¸ö»õ±Ò¶ÔÏóµÄ±ÒÖÖ²»Í¬£¬ÔòÅ×³ö<code>java.lang.IllegalArgumentException</code>¡£
-     * Èç¹û±¾»õ±Ò¶ÔÏóµÄ½ð¶îÉÙÓÚ´ý±È½Ï»õ±Ò¶ÔÏó£¬Ôò·µ»Ø-1¡£
-     * Èç¹û±¾»õ±Ò¶ÔÏóµÄ½ð¶îµÈÓÚ´ý±È½Ï»õ±Ò¶ÔÏó£¬Ôò·µ»Ø0¡£
-     * Èç¹û±¾»õ±Ò¶ÔÏóµÄ½ð¶î´óÓÚ´ý±È½Ï»õ±Ò¶ÔÏó£¬Ôò·µ»Ø1¡£
+     * ï¿½È½Ï±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä´ï¿½Ð¡ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä±ï¿½ï¿½Ö²ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½×³ï¿½<code>java.lang.IllegalArgumentException</code>ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½È½Ï»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ò·µ»ï¿½-1ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½È½Ï»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ò·µ»ï¿½0ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½È½Ï»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ò·µ»ï¿½1ï¿½ï¿½
      *
-     * @param other ÁíÒ»¶ÔÏó¡£
-     * @return -1±íÊ¾Ð¡ÓÚ£¬0±íÊ¾µÈÓÚ£¬1±íÊ¾´óÓÚ¡£
-     * @throws IllegalArgumentException ´ý±È½Ï»õ±Ò¶ÔÏóÓë±¾»õ±Ò¶ÔÏóµÄ±ÒÖÖ²»Í¬¡£
+     * @param other ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
+     * @return -1ï¿½ï¿½Ê¾Ð¡ï¿½Ú£ï¿½0ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ú£ï¿½1ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ú¡ï¿½
+     * @throws IllegalArgumentException ï¿½ï¿½ï¿½È½Ï»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ë±¾ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä±ï¿½ï¿½Ö²ï¿½Í¬ï¿½ï¿½
      */
     public int compareTo(Money other) {
         assertSameCurrencyAs(other);
@@ -826,34 +824,34 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * »õ±Ò±È½Ï¡£
+     * ï¿½ï¿½ï¿½Ò±È½Ï¡ï¿½
      *
      * <p>
-     * ÅÐ¶Ï±¾»õ±Ò¶ÔÏóÊÇ·ñ´óÓÚÁíÒ»»õ±Ò¶ÔÏó¡£
-     * Èç¹û´ý±È½ÏµÄÁ½¸ö»õ±Ò¶ÔÏóµÄ±ÒÖÖ²»Í¬£¬ÔòÅ×³ö<code>java.lang.IllegalArgumentException</code>¡£
-     * Èç¹û±¾»õ±Ò¶ÔÏóµÄ½ð¶î´óÓÚ´ý±È½Ï»õ±Ò¶ÔÏó£¬Ôò·µ»Øtrue£¬·ñÔò·µ»Øfalse¡£
+     * ï¿½Ð¶Ï±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä±ï¿½ï¿½Ö²ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½×³ï¿½<code>java.lang.IllegalArgumentException</code>ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½È½Ï»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ò·µ»ï¿½trueï¿½ï¿½ï¿½ï¿½ï¿½ò·µ»ï¿½falseï¿½ï¿½
      *
-     * @param other ÁíÒ»¶ÔÏó¡£
-     * @return true±íÊ¾´óÓÚ£¬false±íÊ¾²»´óÓÚ£¨Ð¡ÓÚµÈÓÚ£©¡£
-     * @throws IllegalArgumentException ´ý±È½Ï»õ±Ò¶ÔÏóÓë±¾»õ±Ò¶ÔÏóµÄ±ÒÖÖ²»Í¬¡£
+     * @param other ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
+     * @return trueï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ú£ï¿½falseï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½Ð¡ï¿½Úµï¿½ï¿½Ú£ï¿½ï¿½ï¿½
+     * @throws IllegalArgumentException ï¿½ï¿½ï¿½È½Ï»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ë±¾ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä±ï¿½ï¿½Ö²ï¿½Í¬ï¿½ï¿½
      */
     public boolean greaterThan(Money other) {
         return compareTo(other) > 0;
     }
 
-    // »õ±ÒËãÊõ ==========================================
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ==========================================
 
     /**
-     * »õ±Ò¼Ó·¨¡£
+     * ï¿½ï¿½ï¿½Ò¼Ó·ï¿½ï¿½ï¿½
      *
      * <p>
-     * Èç¹ûÁ½»õ±Ò±ÒÖÖÏàÍ¬£¬Ôò·µ»ØÒ»¸öÐÂµÄÏàÍ¬±ÒÖÖµÄ»õ±Ò¶ÔÏó£¬Æä½ð¶îÎª
-     * Á½»õ±Ò¶ÔÏó½ð¶îÖ®ºÍ£¬±¾»õ±Ò¶ÔÏóµÄÖµ²»±ä¡£
-     * Èç¹ûÁ½»õ±Ò¶ÔÏó±ÒÖÖ²»Í¬£¬Å×³ö<code>java.lang.IllegalArgumentException</code>¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò±ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ò·µ»ï¿½Ò»ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ÖµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ä¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½Í¬ï¿½ï¿½ï¿½×³ï¿½<code>java.lang.IllegalArgumentException</code>ï¿½ï¿½
      *
-     * @param other ×÷Îª¼ÓÊýµÄ»õ±Ò¶ÔÏó¡£
-     * @return Ïà¼ÓºóµÄ½á¹û¡£
-     * @throws IllegalArgumentException Èç¹û±¾»õ±Ò¶ÔÏóÓëÁíÒ»»õ±Ò¶ÔÏó±ÒÖÖ²»Í¬¡£
+     * @param other ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * @return ï¿½ï¿½Óºï¿½Ä½ï¿½ï¿½ï¿½ï¿½
+     * @throws IllegalArgumentException ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½Í¬ï¿½ï¿½
      */
     public Money add(Money other) {
         assertSameCurrencyAs(other);
@@ -862,15 +860,15 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * »õ±ÒÀÛ¼Ó¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Û¼Ó¡ï¿½
      *
      * <p>
-     * Èç¹ûÁ½»õ±Ò±ÒÖÖÏàÍ¬£¬Ôò±¾»õ±Ò¶ÔÏóµÄ½ð¶îµÈÓÚÁ½»õ±Ò¶ÔÏó½ð¶îÖ®ºÍ£¬²¢·µ»Ø±¾»õ±Ò¶ÔÏóµÄÒýÓÃ¡£
-     * Èç¹ûÁ½»õ±Ò¶ÔÏó±ÒÖÖ²»Í¬£¬Å×³ö<code>java.lang.IllegalArgumentException</code>¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò±ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ò±¾»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¡ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½Í¬ï¿½ï¿½ï¿½×³ï¿½<code>java.lang.IllegalArgumentException</code>ï¿½ï¿½
      *
-     * @param other ×÷Îª¼ÓÊýµÄ»õ±Ò¶ÔÏó¡£
-     * @return ÀÛ¼ÓºóµÄ±¾»õ±Ò¶ÔÏó¡£
-     * @throws IllegalArgumentException Èç¹û±¾»õ±Ò¶ÔÏóÓëÁíÒ»»õ±Ò¶ÔÏó±ÒÖÖ²»Í¬¡£
+     * @param other ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * @return ï¿½Û¼Óºï¿½Ä±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * @throws IllegalArgumentException ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½Í¬ï¿½ï¿½
      */
     public Money addTo(Money other) {
         assertSameCurrencyAs(other);
@@ -881,16 +879,16 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * »õ±Ò¼õ·¨¡£
+     * ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * Èç¹ûÁ½»õ±Ò±ÒÖÖÏàÍ¬£¬Ôò·µ»ØÒ»¸öÐÂµÄÏàÍ¬±ÒÖÖµÄ»õ±Ò¶ÔÏó£¬Æä½ð¶îÎª
-     * ±¾»õ±Ò¶ÔÏóµÄ½ð¶î¼õÈ¥²ÎÊý»õ±Ò¶ÔÏóµÄ½ð¶î¡£±¾»õ±Ò¶ÔÏóµÄÖµ²»±ä¡£
-     * Èç¹ûÁ½»õ±Ò±ÒÖÖ²»Í¬£¬Å×³ö<code>java.lang.IllegalArgumentException</code>¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò±ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ò·µ»ï¿½Ò»ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ÖµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½î¡£ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ä¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò±ï¿½ï¿½Ö²ï¿½Í¬ï¿½ï¿½ï¿½×³ï¿½<code>java.lang.IllegalArgumentException</code>ï¿½ï¿½
      *
-     * @param other ×÷Îª¼õÊýµÄ»õ±Ò¶ÔÏó¡£
-     * @return Ïà¼õºóµÄ½á¹û¡£
-     * @throws IllegalArgumentException Èç¹û±¾»õ±Ò¶ÔÏóÓëÁíÒ»»õ±Ò¶ÔÏó±ÒÖÖ²»Í¬¡£
+     * @param other ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * @return ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½
+     * @throws IllegalArgumentException ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½Í¬ï¿½ï¿½
      */
     public Money subtract(Money other) {
         assertSameCurrencyAs(other);
@@ -899,15 +897,15 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * »õ±ÒÀÛ¼õ¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Û¼ï¿½ï¿½ï¿½
      *
      * <p>
-     * Èç¹ûÁ½»õ±Ò±ÒÖÖÏàÍ¬£¬Ôò±¾»õ±Ò¶ÔÏóµÄ½ð¶îµÈÓÚÁ½»õ±Ò¶ÔÏó½ð¶îÖ®²î£¬²¢·µ»Ø±¾»õ±Ò¶ÔÏóµÄÒýÓÃ¡£
-     * Èç¹ûÁ½»õ±Ò±ÒÖÖ²»Í¬£¬Å×³ö<code>java.lang.IllegalArgumentException</code>¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò±ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ò±¾»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½î£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¡ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò±ï¿½ï¿½Ö²ï¿½Í¬ï¿½ï¿½ï¿½×³ï¿½<code>java.lang.IllegalArgumentException</code>ï¿½ï¿½
      *
-     * @param other ×÷Îª¼õÊýµÄ»õ±Ò¶ÔÏó¡£
-     * @return ÀÛ¼õºóµÄ±¾»õ±Ò¶ÔÏó¡£
-     * @throws IllegalArgumentException Èç¹û±¾»õ±Ò¶ÔÏóÓëÁíÒ»»õ±Ò¶ÔÏó±ÒÖÖ²»Í¬¡£
+     * @param other ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * @return ï¿½Û¼ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * @throws IllegalArgumentException ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½Í¬ï¿½ï¿½
      */
     public Money subtractFrom(Money other) {
         assertSameCurrencyAs(other);
@@ -918,27 +916,27 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * »õ±Ò³Ë·¨¡£
+     * ï¿½ï¿½ï¿½Ò³Ë·ï¿½ï¿½ï¿½
      *
      * <p>
-     * ·µ»ØÒ»¸öÐÂµÄ»õ±Ò¶ÔÏó£¬±ÒÖÖÓë±¾»õ±Ò¶ÔÏóÏàÍ¬£¬½ð¶îÎª±¾»õ±Ò¶ÔÏóµÄ½ð¶î³ËÒÔ³ËÊý¡£
-     * ±¾»õ±Ò¶ÔÏóµÄÖµ²»±ä¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ÂµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ó£¬±ï¿½ï¿½ï¿½ï¿½ë±¾ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ä¡£
      *
-     * @param val ³ËÊý
-     * @return ³Ë·¨ºóµÄ½á¹û¡£
+     * @param val ï¿½ï¿½ï¿½ï¿½
+     * @return ï¿½Ë·ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½
      */
     public Money multiply(long val) {
         return newMoneyWithSameCurrency(this.cent * val);
     }
 
     /**
-     * »õ±ÒÀÛ³Ë¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Û³Ë¡ï¿½
      *
      * <p>
-     * ±¾»õ±Ò¶ÔÏó½ð¶î³ËÒÔ³ËÊý£¬²¢·µ»Ø±¾»õ±Ò¶ÔÏó¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
      *
-     * @param val ³ËÊý
-     * @return ÀÛ³ËºóµÄ±¾»õ±Ò¶ÔÏó¡£
+     * @param val ï¿½ï¿½ï¿½ï¿½
+     * @return ï¿½Û³Ëºï¿½Ä±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
      */
     public Money multiplyBy(long val) {
         this.cent *= val;
@@ -947,28 +945,28 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * »õ±Ò³Ë·¨¡£
+     * ï¿½ï¿½ï¿½Ò³Ë·ï¿½ï¿½ï¿½
      *
      * <p>
-     * ·µ»ØÒ»¸öÐÂµÄ»õ±Ò¶ÔÏó£¬±ÒÖÖÓë±¾»õ±Ò¶ÔÏóÏàÍ¬£¬½ð¶îÎª±¾»õ±Ò¶ÔÏóµÄ½ð¶î³ËÒÔ³ËÊý¡£
-     * ±¾»õ±Ò¶ÔÏóµÄÖµ²»±ä¡£Èç¹ûÏà³ËºóµÄ½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬ÔòËÄÉáÎåÈë¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ÂµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ó£¬±ï¿½ï¿½ï¿½ï¿½ë±¾ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ä¡£ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½Ä½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¡£
      *
-     * @param val ³ËÊý
-     * @return Ïà³ËºóµÄ½á¹û¡£
+     * @param val ï¿½ï¿½ï¿½ï¿½
+     * @return ï¿½ï¿½Ëºï¿½Ä½ï¿½ï¿½ï¿½ï¿½
      */
     public Money multiply(double val) {
         return newMoneyWithSameCurrency(Math.round(this.cent * val));
     }
 
     /**
-     * »õ±ÒÀÛ³Ë¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Û³Ë¡ï¿½
      *
      * <p>
-     * ±¾»õ±Ò¶ÔÏó½ð¶î³ËÒÔ³ËÊý£¬²¢·µ»Ø±¾»õ±Ò¶ÔÏó¡£
-     * Èç¹ûÏà³ËºóµÄ½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬ÔòÊ¹ÓÃËÄÉáÎåÈë¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½Ä½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¡£
      *
-     * @param val ³ËÊý
-     * @return ÀÛ³ËºóµÄ±¾»õ±Ò¶ÔÏó¡£
+     * @param val ï¿½ï¿½ï¿½ï¿½
+     * @return ï¿½Û³Ëºï¿½Ä±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
      */
     public Money multiplyBy(double val) {
         this.cent = Math.round(this.cent * val);
@@ -977,46 +975,46 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * »õ±Ò³Ë·¨¡£
+     * ï¿½ï¿½ï¿½Ò³Ë·ï¿½ï¿½ï¿½
      *
      * <p>
-     * ·µ»ØÒ»¸öÐÂµÄ»õ±Ò¶ÔÏó£¬±ÒÖÖÓë±¾»õ±Ò¶ÔÏóÏàÍ¬£¬½ð¶îÎª±¾»õ±Ò¶ÔÏóµÄ½ð¶î³ËÒÔ³ËÊý¡£
-     * ±¾»õ±Ò¶ÔÏóµÄÖµ²»±ä¡£Èç¹ûÏà³ËºóµÄ½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬Ê¹ÓÃÈ±Ê¡µÄÈ¡ÕûÄ£Ê½
-     * <code>DEFUALT_ROUNDING_MODE</code>½øÐÐÈ¡Õû¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ÂµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ó£¬±ï¿½ï¿½ï¿½ï¿½ë±¾ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ä¡£ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½Ä½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½Ê¹ï¿½ï¿½È±Ê¡ï¿½ï¿½È¡ï¿½ï¿½Ä£Ê½
+     * <code>DEFUALT_ROUNDING_MODE</code>ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
      *
-     * @param val ³ËÊý
-     * @return Ïà³ËºóµÄ½á¹û¡£
+     * @param val ï¿½ï¿½ï¿½ï¿½
+     * @return ï¿½ï¿½Ëºï¿½Ä½ï¿½ï¿½ï¿½ï¿½
      */
     public Money multiply(BigDecimal val) {
         return multiply(val, DEFAULT_ROUNDING_MODE);
     }
 
     /**
-     * »õ±ÒÀÛ³Ë¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Û³Ë¡ï¿½
      *
      * <p>
-     * ±¾»õ±Ò¶ÔÏó½ð¶î³ËÒÔ³ËÊý£¬²¢·µ»Ø±¾»õ±Ò¶ÔÏó¡£
-     * Èç¹ûÏà³ËºóµÄ½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬Ê¹ÓÃÈ±Ê¡µÄÈ¡Õû·½Ê½
-     * <code>DEFUALT_ROUNDING_MODE</code>½øÐÐÈ¡Õû¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½Ä½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½Ê¹ï¿½ï¿½È±Ê¡ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ê½
+     * <code>DEFUALT_ROUNDING_MODE</code>ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
      *
-     * @param val ³ËÊý
-     * @return ÀÛ³ËºóµÄ½á¹û¡£
+     * @param val ï¿½ï¿½ï¿½ï¿½
+     * @return ï¿½Û³Ëºï¿½Ä½ï¿½ï¿½ï¿½ï¿½
      */
     public Money multiplyBy(BigDecimal val) {
         return multiplyBy(val, DEFAULT_ROUNDING_MODE);
     }
 
     /**
-     * »õ±Ò³Ë·¨¡£
+     * ï¿½ï¿½ï¿½Ò³Ë·ï¿½ï¿½ï¿½
      *
      * <p>
-     * ·µ»ØÒ»¸öÐÂµÄ»õ±Ò¶ÔÏó£¬±ÒÖÖÓë±¾»õ±Ò¶ÔÏóÏàÍ¬£¬½ð¶îÎª±¾»õ±Ò¶ÔÏóµÄ½ð¶î³ËÒÔ³ËÊý¡£
-     * ±¾»õ±Ò¶ÔÏóµÄÖµ²»±ä¡£Èç¹ûÏà³ËºóµÄ½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬Ê¹ÓÃÖ¸¶¨µÄÈ¡Õû·½Ê½
-     * <code>roundingMode</code>½øÐÐÈ¡Õû¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ÂµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ó£¬±ï¿½ï¿½ï¿½ï¿½ë±¾ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ä¡£ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½Ä½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½Ê¹ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ê½
+     * <code>roundingMode</code>ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
      *
-     * @param val          ³ËÊý
-     * @param roundingMode È¡Õû·½Ê½
-     * @return Ïà³ËºóµÄ½á¹û¡£
+     * @param val          ï¿½ï¿½ï¿½ï¿½
+     * @param roundingMode È¡ï¿½ï¿½ï¿½ï¿½Ê½
+     * @return ï¿½ï¿½Ëºï¿½Ä½ï¿½ï¿½ï¿½ï¿½
      */
     public Money multiply(BigDecimal val, int roundingMode) {
         BigDecimal newCent = BigDecimal.valueOf(this.cent).multiply(val);
@@ -1025,16 +1023,16 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * »õ±ÒÀÛ³Ë¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Û³Ë¡ï¿½
      *
      * <p>
-     * ±¾»õ±Ò¶ÔÏó½ð¶î³ËÒÔ³ËÊý£¬²¢·µ»Ø±¾»õ±Ò¶ÔÏó¡£
-     * Èç¹ûÏà³ËºóµÄ½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬Ê¹ÓÃÖ¸¶¨µÄÈ¡Õû·½Ê½
-     * <code>roundingMode</code>½øÐÐÈ¡Õû¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½Ä½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½Ê¹ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ê½
+     * <code>roundingMode</code>ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
      *
-     * @param val          ³ËÊý
-     * @param roundingMode È¡Õû·½Ê½
-     * @return ÀÛ³ËºóµÄ½á¹û¡£
+     * @param val          ï¿½ï¿½ï¿½ï¿½
+     * @param roundingMode È¡ï¿½ï¿½ï¿½ï¿½Ê½
+     * @return ï¿½Û³Ëºï¿½Ä½ï¿½ï¿½ï¿½ï¿½
      */
     public Money multiplyBy(BigDecimal val, int roundingMode) {
         BigDecimal newCent = BigDecimal.valueOf(this.cent).multiply(val);
@@ -1045,28 +1043,28 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * »õ±Ò³ý·¨¡£
+     * ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ·µ»ØÒ»¸öÐÂµÄ»õ±Ò¶ÔÏó£¬±ÒÖÖÓë±¾»õ±Ò¶ÔÏóÏàÍ¬£¬½ð¶îÎª±¾»õ±Ò¶ÔÏóµÄ½ð¶î³ýÒÔ³ýÊý¡£
-     * ±¾»õ±Ò¶ÔÏóµÄÖµ²»±ä¡£Èç¹ûÏà³ýºóµÄ½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬Ê¹ÓÃËÄÉáÎåÈë·½Ê½È¡Õû¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ÂµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ó£¬±ï¿½ï¿½ï¿½ï¿½ë±¾ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ä¡£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë·½Ê½È¡ï¿½ï¿½ï¿½ï¿½
      *
-     * @param val ³ýÊý
-     * @return Ïà³ýºóµÄ½á¹û¡£
+     * @param val ï¿½ï¿½ï¿½ï¿½
+     * @return ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½
      */
     public Money divide(double val) {
         return newMoneyWithSameCurrency(Math.round(this.cent / val));
     }
 
     /**
-     * »õ±ÒÀÛ³ý¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Û³ï¿½ï¿½ï¿½
      *
      * <p>
-     * ±¾»õ±Ò¶ÔÏó½ð¶î³ýÒÔ³ýÊý£¬²¢·µ»Ø±¾»õ±Ò¶ÔÏó¡£
-     * Èç¹ûÏà³ýºóµÄ½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬Ê¹ÓÃËÄÉáÎåÈë·½Ê½È¡Õû¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë·½Ê½È¡ï¿½ï¿½ï¿½ï¿½
      *
-     * @param val ³ýÊý
-     * @return ÀÛ³ýºóµÄ½á¹û¡£
+     * @param val ï¿½ï¿½ï¿½ï¿½
+     * @return ï¿½Û³ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½
      */
     public Money divideBy(double val) {
         this.cent = Math.round(this.cent / val);
@@ -1075,31 +1073,31 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * »õ±Ò³ý·¨¡£
+     * ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ·µ»ØÒ»¸öÐÂµÄ»õ±Ò¶ÔÏó£¬±ÒÖÖÓë±¾»õ±Ò¶ÔÏóÏàÍ¬£¬½ð¶îÎª±¾»õ±Ò¶ÔÏóµÄ½ð¶î³ýÒÔ³ýÊý¡£
-     * ±¾»õ±Ò¶ÔÏóµÄÖµ²»±ä¡£Èç¹ûÏà³ýºóµÄ½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬Ê¹ÓÃÈ±Ê¡µÄÈ¡ÕûÄ£Ê½
-     * <code>DEFAULT_ROUNDING_MODE</code>½øÐÐÈ¡Õû¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ÂµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ó£¬±ï¿½ï¿½ï¿½ï¿½ë±¾ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ä¡£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½Ê¹ï¿½ï¿½È±Ê¡ï¿½ï¿½È¡ï¿½ï¿½Ä£Ê½
+     * <code>DEFAULT_ROUNDING_MODE</code>ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
      *
-     * @param val ³ýÊý
-     * @return Ïà³ýºóµÄ½á¹û¡£
+     * @param val ï¿½ï¿½ï¿½ï¿½
+     * @return ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½
      */
     public Money divide(BigDecimal val) {
         return divide(val, DEFAULT_ROUNDING_MODE);
     }
 
     /**
-     * »õ±Ò³ý·¨¡£
+     * ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * <p>
-     * ·µ»ØÒ»¸öÐÂµÄ»õ±Ò¶ÔÏó£¬±ÒÖÖÓë±¾»õ±Ò¶ÔÏóÏàÍ¬£¬½ð¶îÎª±¾»õ±Ò¶ÔÏóµÄ½ð¶î³ýÒÔ³ýÊý¡£
-     * ±¾»õ±Ò¶ÔÏóµÄÖµ²»±ä¡£Èç¹ûÏà³ýºóµÄ½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬Ê¹ÓÃÖ¸¶¨µÄÈ¡ÕûÄ£Ê½
-     * <code>roundingMode</code>½øÐÐÈ¡Õû¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ÂµÄ»ï¿½ï¿½Ò¶ï¿½ï¿½ó£¬±ï¿½ï¿½ï¿½ï¿½ë±¾ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ä¡£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½Ê¹ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ä£Ê½
+     * <code>roundingMode</code>ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
      *
-     * @param val          ³ýÊý
-     * @param roundingMode È¡Õû
-     * @return Ïà³ýºóµÄ½á¹û¡£
+     * @param val          ï¿½ï¿½ï¿½ï¿½
+     * @param roundingMode È¡ï¿½ï¿½
+     * @return ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½
      */
     public Money divide(BigDecimal val, int roundingMode) {
         BigDecimal newCent = BigDecimal.valueOf(this.cent).divide(val, roundingMode);
@@ -1108,31 +1106,31 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * »õ±ÒÀÛ³ý¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Û³ï¿½ï¿½ï¿½
      *
      * <p>
-     * ±¾»õ±Ò¶ÔÏó½ð¶î³ýÒÔ³ýÊý£¬²¢·µ»Ø±¾»õ±Ò¶ÔÏó¡£
-     * Èç¹ûÏà³ýºóµÄ½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬Ê¹ÓÃÈ±Ê¡µÄÈ¡ÕûÄ£Ê½
-     * <code>DEFAULT_ROUNDING_MODE</code>½øÐÐÈ¡Õû¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½Ê¹ï¿½ï¿½È±Ê¡ï¿½ï¿½È¡ï¿½ï¿½Ä£Ê½
+     * <code>DEFAULT_ROUNDING_MODE</code>ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
      *
-     * @param val ³ýÊý
-     * @return ÀÛ³ýºóµÄ½á¹û¡£
+     * @param val ï¿½ï¿½ï¿½ï¿½
+     * @return ï¿½Û³ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½
      */
     public Money divideBy(BigDecimal val) {
         return divideBy(val, DEFAULT_ROUNDING_MODE);
     }
 
     /**
-     * »õ±ÒÀÛ³ý¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Û³ï¿½ï¿½ï¿½
      *
      * <p>
-     * ±¾»õ±Ò¶ÔÏó½ð¶î³ýÒÔ³ýÊý£¬²¢·µ»Ø±¾»õ±Ò¶ÔÏó¡£
-     * Èç¹ûÏà³ýºóµÄ½ð¶î²»ÄÜ×ª»»ÎªÕûÊý·Ö£¬Ê¹ÓÃÖ¸¶¨µÄÈ¡ÕûÄ£Ê½
-     * <code>roundingMode</code>½øÐÐÈ¡Õû¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½î²»ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½Ê¹ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ä£Ê½
+     * <code>roundingMode</code>ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
      *
-     * @param val          ³ýÊý
+     * @param val          ï¿½ï¿½ï¿½ï¿½
      * @param roundingMode
-     * @return ÀÛ³ýºóµÄ½á¹û¡£
+     * @return ï¿½Û³ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½
      */
     public Money divideBy(BigDecimal val, int roundingMode) {
         BigDecimal newCent = BigDecimal.valueOf(this.cent).divide(val, roundingMode);
@@ -1143,16 +1141,16 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * »õ±Ò·ÖÅä¡£
+     * ï¿½ï¿½ï¿½Ò·ï¿½ï¿½ä¡£
      *
      * <p>
-     * ½«±¾»õ±Ò¶ÔÏó¾¡¿ÉÄÜÆ½¾ù·ÖÅä³É<code>targets</code>·Ý¡£
-     * Èç¹û²»ÄÜÆ½¾ù·ÖÅä¾¡£¬Ôò½«ÁãÍ··Åµ½¿ªÊ¼µÄÈô¸É·ÝÖÐ¡£·ÖÅä
-     * ÔËËãÄÜ¹»È·±£²»»á¶ªÊ§½ð¶îÁãÍ·¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ó¾¡¿ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½<code>targets</code>ï¿½Ý¡ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ä¾¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½Åµï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½É·ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½á¶ªÊ§ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½
      *
-     * @param targets ´ý·ÖÅäµÄ·ÝÊý
-     * @return »õ±Ò¶ÔÏóÊý×é£¬Êý×éµÄ³¤¶ÈÓë·ÖÅä·ÝÊýÏàÍ¬£¬Êý×éÔªËØ
-     * ´Ó´óµ½Ð¡ÅÅÁÐ£¬ËùÓÐ»õ±Ò¶ÔÏóµÄ½ð¶î×î¶àÖ»Ïà²î1·Ö¡£
+     * @param targets ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
+     * @return ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½
+     * ï¿½Ó´ï¿½Ð¡ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½1ï¿½Ö¡ï¿½
      */
     public Money[] allocate(int targets) {
         Money[] results = new Money[targets];
@@ -1160,7 +1158,7 @@ class Money implements Serializable, Comparable {
         Money lowResult = newMoneyWithSameCurrency(this.cent / targets);
         Money highResult = newMoneyWithSameCurrency(lowResult.cent + 1);
 
-        int remainder = (int)this.cent % targets;
+        int remainder = (int) this.cent % targets;
 
         for (int i = 0; i < remainder; i++) {
             results[i] = highResult;
@@ -1174,15 +1172,15 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * »õ±Ò·ÖÅä¡£
+     * ï¿½ï¿½ï¿½Ò·ï¿½ï¿½ä¡£
      *
      * <p>
-     * ½«±¾»õ±Ò¶ÔÏó°´ÕÕ¹æ¶¨µÄ±ÈÀý·ÖÅä³ÉÈô¸É·Ý¡£·ÖÅäËùÊ£µÄÁãÍ·
-     * ´ÓµÚÒ»·Ý¿ªÊ¼Ë³Ðò·ÖÅä¡£·ÖÅäÔËËãÈ·±£²»»á¶ªÊ§½ð¶îÁãÍ·¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½Õ¹æ¶¨ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É·Ý¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½Í·
+     * ï¿½Óµï¿½Ò»ï¿½Ý¿ï¿½Ê¼Ë³ï¿½ï¿½ï¿½ï¿½ä¡£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½á¶ªÊ§ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½
      *
-     * @param ratios ·ÖÅä±ÈÀýÊý×é£¬Ã¿Ò»¸ö±ÈÀýÊÇÒ»¸ö³¤ÕûÐÍ£¬´ú±í
-     *               Ïà¶ÔÓÚ×ÜÊýµÄÏà¶ÔÊý¡£
-     * @return »õ±Ò¶ÔÏóÊý×é£¬Êý×éµÄ³¤¶ÈÓë·ÖÅä±ÈÀýÊý×éµÄ³¤¶ÈÏàÍ¬¡£
+     * @param ratios ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£¬Ã¿Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½
+     *               ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @return ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½
      */
     public Money[] allocate(long[] ratios) {
         Money[] results = new Money[ratios.length];
@@ -1207,10 +1205,10 @@ class Money implements Serializable, Comparable {
         return results;
     }
 
-    // ¸ñÊ½»¯·½·¨ =================================================
+    // ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ =================================================
 
     /**
-     * Éú³É±¾¶ÔÏóµÄÈ±Ê¡×Ö·û´®±íÊ¾
+     * ï¿½ï¿½ï¿½É±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È±Ê¡ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
      *
      * @return string
      */
@@ -1236,17 +1234,17 @@ class Money implements Serializable, Comparable {
         //        return sb.toString();
     }
 
-    // ÄÚ²¿·½·¨ ===================================================
+    // ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ ===================================================
 
     /**
-     * ¶ÏÑÔ±¾»õ±Ò¶ÔÏóÓëÁíÒ»»õ±Ò¶ÔÏóÊÇ·ñ¾ßÓÐÏàÍ¬µÄ±ÒÖÖ¡£
+     * ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½Ä±ï¿½ï¿½Ö¡ï¿½
      *
      * <p>
-     * Èç¹û±¾»õ±Ò¶ÔÏóÓëÁíÒ»»õ±Ò¶ÔÏó¾ßÓÐÏàÍ¬µÄ±ÒÖÖ£¬Ôò·½·¨·µ»Ø¡£
-     * ·ñÔòÅ×³öÔËÐÐÊ±Òì³£<code>java.lang.IllegalArgumentException</code>¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½Ä±ï¿½ï¿½Ö£ï¿½ï¿½ò·½·ï¿½ï¿½ï¿½ï¿½Ø¡ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½×³ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ì³£<code>java.lang.IllegalArgumentException</code>ï¿½ï¿½
      *
-     * @param other ÁíÒ»»õ±Ò¶ÔÏó
-     * @throws IllegalArgumentException Èç¹û±¾»õ±Ò¶ÔÏóÓëÁíÒ»»õ±Ò¶ÔÏó±ÒÖÖ²»Í¬¡£
+     * @param other ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+     * @throws IllegalArgumentException ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½Í¬ï¿½ï¿½
      */
     protected void assertSameCurrencyAs(Money other) {
         if (!this.currency.equals(other.currency)) {
@@ -1255,21 +1253,21 @@ class Money implements Serializable, Comparable {
     }
 
     /**
-     * ¶ÔBigDecimalÐÍµÄÖµ°´Ö¸¶¨È¡Õû·½Ê½È¡Õû¡£
+     * ï¿½ï¿½BigDecimalï¿½Íµï¿½Öµï¿½ï¿½Ö¸ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ê½È¡ï¿½ï¿½ï¿½ï¿½
      *
-     * @param val          ´ýÈ¡ÕûµÄBigDecimalÖµ
-     * @param roundingMode È¡Õû·½Ê½
-     * @return È¡ÕûºóµÄlongÐÍÖµ
+     * @param val          ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½BigDecimalÖµ
+     * @param roundingMode È¡ï¿½ï¿½ï¿½ï¿½Ê½
+     * @return È¡ï¿½ï¿½ï¿½ï¿½ï¿½longï¿½ï¿½Öµ
      */
     protected long rounding(BigDecimal val, int roundingMode) {
         return val.setScale(0, roundingMode).longValue();
     }
 
     /**
-     * ´´½¨Ò»¸ö±ÒÖÖÏàÍ¬£¬¾ßÓÐÖ¸¶¨½ð¶îµÄ»õ±Ò¶ÔÏó¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
      *
-     * @param cent1 ½ð¶î£¬ÒÔ·ÖÎªµ¥Î»
-     * @return Ò»¸öÐÂ½¨µÄ±ÒÖÖÏàÍ¬£¬¾ßÓÐÖ¸¶¨½ð¶îµÄ»õ±Ò¶ÔÏó
+     * @param cent1 ï¿½ï¿½î£¬ï¿½Ô·ï¿½Îªï¿½ï¿½Î»
+     * @return Ò»ï¿½ï¿½ï¿½Â½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
      */
     protected Money newMoneyWithSameCurrency(long cent1) {
         Money money = new Money(0, this.currency);
@@ -1279,12 +1277,12 @@ class Money implements Serializable, Comparable {
         return money;
     }
 
-    // µ÷ÊÔ·½Ê½ ==================================================
+    // ï¿½ï¿½ï¿½Ô·ï¿½Ê½ ==================================================
 
     /**
-     * Éú³É±¾¶ÔÏóÄÚ²¿±äÁ¿µÄ×Ö·û´®±íÊ¾£¬ÓÃÓÚµ÷ÊÔ¡£
+     * ï¿½ï¿½ï¿½É±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½Ô¡ï¿½
      *
-     * @return ±¾¶ÔÏóÄÚ²¿±äÁ¿µÄ×Ö·û´®±íÊ¾¡£
+     * @return ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½
      */
     public String dump() {
         String lineSeparator = System.getProperty("line.separator");
@@ -1309,27 +1307,27 @@ class Money implements Serializable, Comparable {
 class YearSettleResultDTO implements Serializable {
 
     private static final long serialVersionUID = -5936469934430068682L;
-    private String settleYear ;						//Äê½áÄê·Ý
-    private Long bailOrderId;                       //ºÏÍ¬id													--µÚ2ÁÐ
-    private Long userId;                            //ÉÌ¼ÒID													--µÚ3ÁÐ
-    private Long prePaySoftWareFee            ;		//Ô¤½ÉÈí¼þ·þÎñÄê·Ñ			--×ÜÔ¤½É						    --µÚ8ÁÐ
-    private Long baseFee                      ;		//²ÎÓë±£µ×µÄ³É½»¶î		    --²ÎÓë±£µ×³É½»¶î£¨°üº¬´åÌÔ£©	    --µÚ10ÁÐ
-    private Long cunTaoBaseFee                ;		//´åÌÔ²ÎÓë±£µ×µÄ³É½»¶î	    --´åÌÔ³É½»¶î					    --µÚ11ÁÐ
-    private Long realTimeSoftWareFee          ;		//ÊµÊ±»®¿ÛÈí¼þ·þÎñ·Ñ		--ÊµÊ±»®¿Û¼¼Êõ·þÎñ·Ñ£¨²»°üº¬´åÌÔ£©+ÊµÊ±»®¿Û´åÌÔ·þÎñ·Ñ
-    private Long realTimeTecFee;                    //ÊµÊ±»®¿Û¼¼Êõ·þÎñ·Ñ£¨²»°üº¬´åÌÔ£©						    --µÚ13ÁÐ
-    private Long cunTaoRealTimeSoftWareFee    ;		//´åÌÔÊµÊ±»®¿ÛÈí¼þ·þÎñ·Ñ	--ÊµÊ±»®¿Û´åÌÔ·þÎñ·Ñ			    --µÚ14ÁÐ
-    private Boolean isFinishBaseFee           ;		//ÊÇ·ñÍê³É±£µ×³É½»¶î		--ÊÇ·ñ´ïµ½±£µ×				    --µÚ12ÁÐ
-    private Long receiveSoftWareFee           ;		//Ó¦ÊÕÈí¼þ·þÎñ·Ñ			--Ó¦ÊÕÓ¶½ð						--µÚ15ÁÐ
-    private Long refundAmount                 ;		//Ó¦ÍË¿î½ð¶î				--Ó¦ÍË½ð¶î						--µÚ16ÁÐ
-    private Long hasRefundAmountTechFee       ;		//ÒÑÍË¿î½ð¶î£¨Äê·Ñ£©		--ÒÑÍËÄê·Ñ						--µÚ17ÁÐ
-    private Long hasRefundAmountCommission    ;		//ÒÑÍË¿î½ð¶î£¨Ó¶½ð£©		--ÒÑÍËÓ¶½ð						--µÚ19ÁÐ
-    private Date techFeeRefundTime;					//ÒÑÍËÄê·ÑµÄÍË¿îÊ±¼ä										--µÚ18ÁÐ
-    private Date commissionRefundTime; 				//ÒÑÍËÓ¶½ðµÄÍË¿îÊ±¼ä										--µÚ20ÁÐ
-    private Long backAmount                   ;		//Ó¦²¹½É½ð¶î  			amount
-    private Long hasBackAmount                ;		//ÒÑ²¹½É½ð¶î  			amount - unpay_amount
-    private Long notBackAmount                ;		//Î´²¹½É½ð¶î  			unpay_amount
-    private Long curOrderAmount               ;		//µ±Ç°ÊµÊ±³É½»¶î 			baseFee
-    private Long monthTotalCurOrderAmount     ;		//ÔÂ»ã×Ü³É½»¶î 			baseFee
+    private String settleYear;                        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    private Long bailOrderId;                       //ï¿½ï¿½Í¬id													--ï¿½ï¿½2ï¿½ï¿½
+    private Long userId;                            //ï¿½Ì¼ï¿½ID													--ï¿½ï¿½3ï¿½ï¿½
+    private Long prePaySoftWareFee;        //Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½			--ï¿½ï¿½Ô¤ï¿½ï¿½						    --ï¿½ï¿½8ï¿½ï¿½
+    private Long baseFee;        //ï¿½ï¿½ï¿½ë±£ï¿½×µÄ³É½ï¿½ï¿½ï¿½		    --ï¿½ï¿½ï¿½ë±£ï¿½×³É½ï¿½ï¿½î£¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½	    --ï¿½ï¿½10ï¿½ï¿½
+    private Long cunTaoBaseFee;        //ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ë±£ï¿½×µÄ³É½ï¿½ï¿½ï¿½	    --ï¿½ï¿½ï¿½Ô³É½ï¿½ï¿½ï¿½					    --ï¿½ï¿½11ï¿½ï¿½
+    private Long realTimeSoftWareFee;        //ÊµÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½		--ÊµÊ±ï¿½ï¿½ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½+ÊµÊ±ï¿½ï¿½ï¿½Û´ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ï¿½
+    private Long realTimeTecFee;                    //ÊµÊ±ï¿½ï¿½ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½						    --ï¿½ï¿½13ï¿½ï¿½
+    private Long cunTaoRealTimeSoftWareFee;        //ï¿½ï¿½ï¿½ï¿½ÊµÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	--ÊµÊ±ï¿½ï¿½ï¿½Û´ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ï¿½			    --ï¿½ï¿½14ï¿½ï¿½
+    private Boolean isFinishBaseFee;        //ï¿½Ç·ï¿½ï¿½ï¿½É±ï¿½ï¿½×³É½ï¿½ï¿½ï¿½		--ï¿½Ç·ï¿½ïµ½ï¿½ï¿½ï¿½ï¿½				    --ï¿½ï¿½12ï¿½ï¿½
+    private Long receiveSoftWareFee;        //Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½			--Ó¦ï¿½ï¿½Ó¶ï¿½ï¿½						--ï¿½ï¿½15ï¿½ï¿½
+    private Long refundAmount;        //Ó¦ï¿½Ë¿ï¿½ï¿½ï¿½				--Ó¦ï¿½Ë½ï¿½ï¿½						--ï¿½ï¿½16ï¿½ï¿½
+    private Long hasRefundAmountTechFee;        //ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½î£¨ï¿½ï¿½Ñ£ï¿½		--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½						--ï¿½ï¿½17ï¿½ï¿½
+    private Long hasRefundAmountCommission;        //ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½î£¨Ó¶ï¿½ï¿½		--ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½						--ï¿½ï¿½19ï¿½ï¿½
+    private Date techFeeRefundTime;                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñµï¿½ï¿½Ë¿ï¿½Ê±ï¿½ï¿½										--ï¿½ï¿½18ï¿½ï¿½
+    private Date commissionRefundTime;                //ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½Ê±ï¿½ï¿½										--ï¿½ï¿½20ï¿½ï¿½
+    private Long backAmount;        //Ó¦ï¿½ï¿½ï¿½É½ï¿½ï¿½  			amount
+    private Long hasBackAmount;        //ï¿½Ñ²ï¿½ï¿½É½ï¿½ï¿½  			amount - unpay_amount
+    private Long notBackAmount;        //Î´ï¿½ï¿½ï¿½É½ï¿½ï¿½  			unpay_amount
+    private Long curOrderAmount;        //ï¿½ï¿½Ç°ÊµÊ±ï¿½É½ï¿½ï¿½ï¿½ 			baseFee
+    private Long monthTotalCurOrderAmount;        //ï¿½Â»ï¿½ï¿½Ü³É½ï¿½ï¿½ï¿½ 			baseFee
 
     public String getSettleYear() {
         return settleYear;
@@ -1502,27 +1500,27 @@ class YearSettleResultDTO implements Serializable {
     @Override
     public String toString() {
         return "YearSettleResultDTO{" +
-            "settleYear='" + settleYear + '\'' +
-            ", bailOrderId=" + bailOrderId +
-            ", userId=" + userId +
-            ", prePaySoftWareFee=" + prePaySoftWareFee +
-            ", baseFee=" + baseFee +
-            ", cunTaoBaseFee=" + cunTaoBaseFee +
-            ", realTimeSoftWareFee=" + realTimeSoftWareFee +
-            ", realTimeTecFee=" + realTimeTecFee +
-            ", cunTaoRealTimeSoftWareFee=" + cunTaoRealTimeSoftWareFee +
-            ", isFinishBaseFee=" + isFinishBaseFee +
-            ", receiveSoftWareFee=" + receiveSoftWareFee +
-            ", refundAmount=" + refundAmount +
-            ", hasRefundAmountTechFee=" + hasRefundAmountTechFee +
-            ", hasRefundAmountCommission=" + hasRefundAmountCommission +
-            ", techFeeRefundTime=" + techFeeRefundTime +
-            ", commissionRefundTime=" + commissionRefundTime +
-            ", backAmount=" + backAmount +
-            ", hasBackAmount=" + hasBackAmount +
-            ", notBackAmount=" + notBackAmount +
-            ", curOrderAmount=" + curOrderAmount +
-            ", monthTotalCurOrderAmount=" + monthTotalCurOrderAmount +
-            '}';
+                "settleYear='" + settleYear + '\'' +
+                ", bailOrderId=" + bailOrderId +
+                ", userId=" + userId +
+                ", prePaySoftWareFee=" + prePaySoftWareFee +
+                ", baseFee=" + baseFee +
+                ", cunTaoBaseFee=" + cunTaoBaseFee +
+                ", realTimeSoftWareFee=" + realTimeSoftWareFee +
+                ", realTimeTecFee=" + realTimeTecFee +
+                ", cunTaoRealTimeSoftWareFee=" + cunTaoRealTimeSoftWareFee +
+                ", isFinishBaseFee=" + isFinishBaseFee +
+                ", receiveSoftWareFee=" + receiveSoftWareFee +
+                ", refundAmount=" + refundAmount +
+                ", hasRefundAmountTechFee=" + hasRefundAmountTechFee +
+                ", hasRefundAmountCommission=" + hasRefundAmountCommission +
+                ", techFeeRefundTime=" + techFeeRefundTime +
+                ", commissionRefundTime=" + commissionRefundTime +
+                ", backAmount=" + backAmount +
+                ", hasBackAmount=" + hasBackAmount +
+                ", notBackAmount=" + notBackAmount +
+                ", curOrderAmount=" + curOrderAmount +
+                ", monthTotalCurOrderAmount=" + monthTotalCurOrderAmount +
+                '}';
     }
 }

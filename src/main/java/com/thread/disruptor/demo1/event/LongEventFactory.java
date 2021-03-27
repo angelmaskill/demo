@@ -1,4 +1,4 @@
-package com.thread.disruptor.demo1;
+package com.thread.disruptor.demo1.event;
 
 import com.lmax.disruptor.EventFactory;
 

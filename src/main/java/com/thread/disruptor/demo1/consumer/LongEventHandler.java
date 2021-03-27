@@ -1,6 +1,7 @@
-package com.thread.disruptor.demo1;
+package com.thread.disruptor.demo1.consumer;
 
 import com.lmax.disruptor.EventHandler;
+import com.thread.disruptor.demo1.event.LongEvent;
 
 /**
  * @ClassName LongEventHandler

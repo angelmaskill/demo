@@ -1,8 +1,7 @@
-package com.thread.disruptor.demo1;
+package com.thread.disruptor.demo1.producer;
 
 import com.lmax.disruptor.RingBuffer;
-
-import java.nio.ByteBuffer;
+import com.thread.disruptor.demo1.event.LongEvent;
 
 /**
  * @ClassName LongEventProducer
@@ -12,29 +11,29 @@ import java.nio.ByteBuffer;
  */
 //定义生产者
 public class LongEventProducer {
+    /*核心类:环形数组*/
     public final RingBuffer<LongEvent> ringBuffer;
 
+    /*通过构造方法初始化环形数组这个核心类*/
     public LongEventProducer(RingBuffer<LongEvent> ringBuffer) {
         this.ringBuffer = ringBuffer;
     }
 
-    public void onData(ByteBuffer byteBuffer) {
-        // 1.ringBuffer 事件队列 下一个槽
+    /**
+     * 生产事件的方法
+     * 往环形数组里方数据
+     * @param data
+     */
+    public void onData(Long data) {
+        // 1.ringBuffer 事件队列 下一个空的位置
         long sequence = ringBuffer.next();
-        Long data = null;
         try {
             //2.取出空的事件队列
             LongEvent longEvent = ringBuffer.get(sequence);
-            data = byteBuffer.getLong(0);
-            //3.获取事件队列传递的数据
+            //3.设置事件中封装的数据
             longEvent.setValue(data);
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         } finally {
-            System.out.println("生产这准备发送数据");
+            System.out.println("生产者准备发送数据: "+ data);
             //4.发布事件
             ringBuffer.publish(sequence);
         }

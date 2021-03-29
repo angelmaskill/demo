@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class DisruptorDemo {
     public static void main(String[] args) {
-        oneProducer();
+        mulProducer();
     }
 
     private static void oneProducer() {

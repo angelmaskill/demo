@@ -17,18 +17,19 @@ public class DoubleLinkedListDemo {
 
         //创建链表
         DoubleLinkedList doubleLinkedList = new DoubleLinkedList();
-        doubleLinkedList.add(hero1);
-        doubleLinkedList.add(hero2);
-        doubleLinkedList.add(hero3);
-        doubleLinkedList.add(hero4);
+        doubleLinkedList.addByOrder(hero1);
+        doubleLinkedList.addByOrder(hero3);
+        doubleLinkedList.addByOrder(hero4);
+        doubleLinkedList.addByOrder(hero2);
 
         doubleLinkedList.showList("添加元素后的双向链表： ");
-        doubleLinkedList.delete(2);
+        /*doubleLinkedList.delete(2);
+        doubleLinkedList.delete(10);
         doubleLinkedList.showList("删除元素后的双向链表： ");
         doubleLinkedList.delete(1);
         doubleLinkedList.delete(3);
         doubleLinkedList.delete(4);
-        doubleLinkedList.showList("删空的双向链表： ");
+        doubleLinkedList.showList("删空的双向链表： ");*/
 
     }
 }
@@ -60,6 +61,47 @@ class DoubleLinkedList {
                 break;
             }
             temp = temp.next;
+        }
+    }
+
+    /*在链表尾部添加新的节点*/
+    public void addByOrder(Hero2Node hero2Node) {
+        Hero2Node head = getHead();
+        /*如果只有一个头，则直接添加到头的后边即可*/
+        if (head.next == null) {
+            head.next = hero2Node;
+            hero2Node.pre = head;
+            hero2Node.next = null;
+            return;
+        }
+        Hero2Node temp = head.next;
+        if (temp == null) {
+            head.next = hero2Node;
+            hero2Node.pre = head;
+            return;
+        }
+        while (temp != null) {
+            if (temp.heroNo == hero2Node.heroNo) {
+                System.out.printf("当前节点已经存在 ！当前节点：%s ,添加节点 %s", temp.heroName, hero2Node.heroName);
+                return;
+            }
+            // 如果插入的节点比当前节点大
+            if (temp.heroNo < hero2Node.heroNo) {
+                if (temp.next == null) {
+                    temp.next = hero2Node;
+                    hero2Node.pre = temp;
+                    break;
+                }
+                temp = temp.next;
+            }
+            // 插入节点比当前节点小
+            if (temp.heroNo > hero2Node.heroNo) {
+                hero2Node.next = temp;
+                hero2Node.pre = temp.pre;
+                temp.pre.next = hero2Node;
+                temp.pre = hero2Node;
+                break;
+            }
         }
     }
 

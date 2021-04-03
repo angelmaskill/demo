@@ -1,5 +1,7 @@
 package com.algorithm.linkedlist;
 
+import java.util.Stack;
+
 /**
  * @Author: AngelMa
  * @Description: 模拟单向链表
@@ -27,6 +29,9 @@ public class SingleLinkedListDemo {
         System.out.println("反转之前！");
         singleLinkedList.List();
 
+        System.out.println("反转打印！");
+        singleLinkedList.reversePrint();//未改变链表的结构
+
         singleLinkedList.reverseList(singleLinkedList.getHead());
         System.out.println("反转之后！");
         singleLinkedList.List();
@@ -38,7 +43,6 @@ public class SingleLinkedListDemo {
 
         System.out.println("删除后");
         singleLinkedList.List();*/
-
 
     }
 }
@@ -106,15 +110,33 @@ class SingleLinkedList {
         }
     }
 
-    public void reverseList(HeroNode head){
+    /**
+     * 使用栈的方式来逆序打印单向链表
+     */
+    public void reversePrint() {
+        Stack<HeroNode> stack = new Stack<>();
+        if (head.next == null) {
+            return;
+        }
+        HeroNode current = head.next;
+        while (current != null) {
+            stack.add(current);
+            current = current.next;
+        }
+        while (stack.size() > 0) {
+            System.out.println(stack.pop());
+        }
+    }
+
+    public void reverseList(HeroNode head) {
         /*一个节点都没有，或者只有一个节点，无需反转*/
-        if(head.next == null || head.next.next == null) {
-            return ;
+        if (head.next == null || head.next.next == null) {
+            return;
         }
         HeroNode current = head.next;
         HeroNode next = null;
         HeroNode reverseHead = new HeroNode(0, "", "");
-        while(current != null) {
+        while (current != null) {
             next = current.next;//先把当前节点的下一个节点暂存起来，后边要用到
             current.next = reverseHead.next;//让当前节点指向新的链表的头的下一个。
             reverseHead.next = current;//让新链表头指向当前节点
@@ -123,13 +145,14 @@ class SingleLinkedList {
         head.next = reverseHead.next;
 
     }
+
     public static int getLength(HeroNode head) {
-        if(head.next == null) {
+        if (head.next == null) {
             return 0;
         }
         int length = 0;
         HeroNode cur = head.next;
-        while(cur != null) {
+        while (cur != null) {
             length++;
             cur = cur.next;
         }

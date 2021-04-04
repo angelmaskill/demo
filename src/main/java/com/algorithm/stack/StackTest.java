@@ -1,4 +1,4 @@
-package com.algorithm.linkedlist;
+package com.algorithm.stack;
 
 /**
  * @Author: AngelMa

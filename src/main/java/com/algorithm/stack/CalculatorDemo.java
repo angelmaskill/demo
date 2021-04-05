@@ -13,22 +13,48 @@ public class CalculatorDemo {
         ArrayStack operArrayStack = new ArrayStack(100);
         //String expression = "2-1*9-4";
         //String expression = "7*2*2-5+1-5+3-4";
-        String expression = "7*2*2-5+1-5-5-3-5*2*2+3-4";
-        char[] chars = expression.toCharArray();
-        for (char aChar : chars) {
+        String expression = "70*2*2-5+1-5-5-3-5*2*2+3-4";
+        int index = 0;
+        String keepNum = ""; //用于拼接 多位数
+        while (true) {
+            char aChar = expression.substring(index, index + 1).charAt(0);
             boolean isDigit = Calculator.isDigit(aChar);
             boolean isOperator = Calculator.isOperator(aChar);
             if (isDigit) {
-                // 解析数字如数栈
-                dataArrayStack.push(aChar);
+                keepNum = pushData(dataArrayStack, expression, index, keepNum, aChar);
             } else if (isOperator) {
                 // 解析操作符，入操作符栈
                 pushOperator(dataArrayStack, operArrayStack, aChar);
+            }
+            index++;
+            if (index >= expression.length()) {
+                break;
             }
         }
 
         //获取最终的结果
         getFinalResult(dataArrayStack, operArrayStack);
+    }
+
+    private static String pushData(ArrayStack dataArrayStack, String expression, int index,
+        String keepNum, char aChar) {
+        // 解析数字如数栈
+        keepNum += aChar;
+        //如果ch已经是expression的最后一位，就直接入栈
+        if (index == expression.length() - 1) {
+            dataArrayStack.push(Integer.parseInt(keepNum));
+        } else {
+
+            //判断下一个字符是不是数字，如果是数字，就继续扫描，如果是运算符，则入栈
+            //注意是看后一位，不是index++
+            if (Calculator.isOperator(expression.substring(index + 1, index + 2).charAt(0))) {
+                //如果后一位是运算符，则入栈 keepNum = "1" 或者 "123"
+                dataArrayStack.push(Integer.parseInt(keepNum));
+                //重要的!!!!!!, keepNum清空
+                keepNum = "";
+            }
+        }
+        return keepNum;
     }
 
     private static void pushOperator(ArrayStack dataArrayStack, ArrayStack operArrayStack,

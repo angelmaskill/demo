@@ -26,8 +26,8 @@ public class EightQueen {
 
     public static void main(String[] args) {
         //测试一把 ， 8皇后是否正确
-        EightQueen queue8 = new EightQueen();
-        queue8.check(0);
+        EightQueen queen8 = new EightQueen();
+        queen8.check(0);
         System.out.printf("一共有%d解法", count);
         System.out.printf("一共判断冲突的次数%d次", judgeCount); // 1.5w
 

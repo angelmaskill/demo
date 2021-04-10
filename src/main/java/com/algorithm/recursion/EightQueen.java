@@ -79,8 +79,9 @@ public class EightQueen {
     //写一个方法，可以将皇后摆放的位置输出
     private void print() {
         count++;
+        System.out.printf("第%d种解法：", count);
         for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + " ");
+            System.out.printf( array[i] + " ");
         }
         System.out.println();
     }

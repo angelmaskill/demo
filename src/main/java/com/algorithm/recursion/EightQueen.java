@@ -10,7 +10,16 @@ public class EightQueen {
 
     //定义一个max表示共有多少个皇后
     int max = 8;
-    //定义数组array, 保存皇后放置位置的结果,比如 arr = {0 , 4, 7, 5, 2, 6, 1, 3}
+
+    /**
+     * 数组的下标= 放置的是第几个皇后 = 放置所在行
+     * 数组的值  = 放置的列
+     * <pre>
+     *      定义数组array, 保存皇后放置位置的结果,比如 arr = {0 , 4, 7, 5, 2, 6, 1, 3}
+     *      对应 arr 下标 表示第几行，即第几个皇后，
+     *      arr[i] = lombok.val , val 表示第 i+1 个皇后，放在第 i+1 行的第 val+1 列
+     * </pre>
+     */
     int[] array = new int[max];
     static int count = 0;
     static int judgeCount = 0;
@@ -34,7 +43,7 @@ public class EightQueen {
 
         //依次放入皇后，并判断是否冲突
         for (int i = 0; i < max; i++) {
-            //先把当前这个皇后 n , 放到该行的第1列
+            //先把当前这个皇后 n , 放到该行的第i列
             array[n] = i;
             //判断当放置第n个皇后到i列时，是否冲突
             if (judge(n)) { // 不冲突

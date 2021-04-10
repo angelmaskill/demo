@@ -43,12 +43,16 @@ public class EightQueen {
 
         //依次放入皇后，并判断是否冲突
         for (int i = 0; i < max; i++) {
+            System.out.printf("尝试将皇后%d 放到第%d 列,", n, i);
             //先把当前这个皇后 n , 放到该行的第i列
             array[n] = i;
             //判断当放置第n个皇后到i列时，是否冲突
             if (judge(n)) { // 不冲突
                 //接着放n+1个皇后,即开始递归
+                System.out.printf("继续放置%d个皇后.",n+1);
                 check(n + 1); //
+            }else{
+                System.out.print("与原来位置产生冲突.");
             }
             //如果冲突，就继续执行 array[n] = i; 即将第n个皇后，放置在本行得 后移的一个位置
         }

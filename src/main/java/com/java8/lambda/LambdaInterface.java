@@ -1,5 +1,6 @@
 package com.java8.lambda;
 
+import org.apache.poi.ss.formula.functions.T;
 
 /**
  * @ClassName LambdaInterface
@@ -9,5 +10,5 @@ package com.java8.lambda;
  */
 @FunctionalInterface
 public interface LambdaInterface<T> {
-    public T apply();
+    public T apply(T t);
 }

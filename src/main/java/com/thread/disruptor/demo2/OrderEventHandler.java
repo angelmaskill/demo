@@ -11,13 +11,13 @@ import lombok.extern.slf4j.Slf4j;
  * @Date 2021-03-27 10:04
  */
 @Slf4j
-public class OrderEventHandler implements EventHandler<OrderEvent>, WorkHandler<OrderEvent> {
+public class OrderEventHandler implements EventHandler<com.thread.disruptor.demo2.OrderEvent>, WorkHandler<com.thread.disruptor.demo2.OrderEvent> {
     @Override
-    public void onEvent(OrderEvent event, long sequence, boolean endOfBatch) {
-        log.info("event: {}, sequence: {}, endOfBatch: {}", event, sequence, endOfBatch);
+    public void onEvent(com.thread.disruptor.demo2.OrderEvent event, long sequence, boolean endOfBatch) {
+        //log.info("event: {}, sequence: {}, endOfBatch: {}", event, sequence, endOfBatch);
     }
     @Override
-    public void onEvent(OrderEvent event) {
+    public void onEvent(com.thread.disruptor.demo2.OrderEvent event) {
         log.info("event: {}", event);
     }
 }

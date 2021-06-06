@@ -1,8 +1,11 @@
 package com.java8.lambda;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import org.junit.Test;
 
@@ -71,5 +74,31 @@ public class LambdaPri {
             .forEach((name) -> {
                 System.out.println(name + " ");
             });
+    }
+
+    //测试消费者
+    @Test
+    public void testConsumer() {
+        rundata("张三", str -> System.out.println("hello! " + str));
+    }
+
+    private void rundata(String str, Consumer<String> consumer) {
+        consumer.accept(str);
+    }
+
+    @Test
+    //生产型接口
+    public void testSupper() {
+        List<Integer> arrayList = wrapNumList(10, () -> (int)(Math.random() * 100));
+        arrayList.forEach(System.out::println);
+    }
+
+    //需求：产生指定个数的整数，并放入集合中
+    private ArrayList<Integer> wrapNumList(int sum, Supplier<Integer> supplier) {
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        for (int i = 0; i < sum; i++) {
+            arrayList.add(supplier.get());
+        }
+        return arrayList;
     }
 }

@@ -19,7 +19,7 @@ public class Student {
     }
 
     public void setName(String name) {
-        this.name = name!=null ? name.trim() : null;
+        this.name = name != null ? name.trim() : null;
     }
 
     public Integer getScore() {
@@ -28,6 +28,13 @@ public class Student {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public Student() {
+    }
+
+    public Student(String name) {
+        this.name = name;
     }
 
     public Student(String name, Integer score) {
@@ -52,5 +59,17 @@ public class Student {
     @Override
     public String toString() {
         return "Student{" + "name='" + name + '\'' + ", score=" + score + ", cls=" + cls + '}';
+    }
+
+    public String modify(String name, int score, int cls) {
+        String oldstr = this.toString();
+        this.setName(name);
+        this.setScore(score);
+        this.setCls(cls);
+        return "old:" + oldstr + ";new:" + this.toString();
+    }
+
+    public String show(String str) {
+        return str;
     }
 }

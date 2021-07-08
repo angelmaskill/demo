@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
  */
 public class DynamicProxy implements InvocationHandler {
     /**
-     * object:被代理的真实对象
+     * object: 委托类的对象引用
      */
     private Object object;
 

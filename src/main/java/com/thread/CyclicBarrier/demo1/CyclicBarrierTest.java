@@ -1,4 +1,4 @@
-package com.thread.CyclicBarrier;
+package com.thread.CyclicBarrier.demo1;
 
 import java.io.IOException;
 import java.util.Random;
@@ -7,6 +7,14 @@ import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * 字面意思回环栅栏，通过它可以实现让一组线程等待至某个状态之后再全部同时执行。
+ * 通过CyclicBarrier的await()方法，线程就处于barrier状态。
+ *
+ * 业务语义：
+ *      1. 一开始就知道需要 n 人成团
+ *      2. 等人都到齐了才能出发。
+ */
 public class CyclicBarrierTest {
 
     public static void main(String[] args) throws IOException, InterruptedException {

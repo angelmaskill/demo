@@ -29,7 +29,6 @@ public class RealSubject implements Subject {
 
     @Override
     public void sleep() {
-        // TODO Auto-generated method stub
         System.out.println("睡觉");
     }
 

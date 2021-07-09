@@ -1,46 +1,44 @@
-/**
- * @(#)ThreadTestJoin.java Copyright Oristand.All rights reserved.
- * This software is the XXX system.
- * @Version: 1
- * @JDK: jdk 1.6.0.XXX
- * @Module: demo
- */
-/*- 				History
- **********************************************
- *  ID      DATE           PERSON       REASON
- *  1     2014-10-24     Administrator    Created
- **********************************************
- */
-
 package com.thread.testJoin;
 
-/**
- * Class description goes here.
- * java多线程之调度合并
- * @author Administrator
- * @since 2014-10-24
- */
-public class ThreadTestJoin {
-    public static void main(String[] args) {
+/***
+ * 测试:join用法
+ * Java Thread中， join() 方法是让调用该方法的主线程执行run()时暂时卡住，等run()执行完成后， 主线程再调用执行join()后面的代码
+ * */
+class ThreadTesterA implements Runnable {
 
-        Thread t1 = new MyThread1();
-        t1.start();
-        for (int i = 0; i < 20; i++) {
-            System.out.println("主线程第" + i + "次执行！");
-            if (i > 2)
-                try { //t1线程合并到主线程中，主线程停止执行过程，转而执行t1线程，直到t1执行完毕后继续。                                
-                    t1.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+    private int counter;
+
+    @Override
+    public void run() {
+        while (counter <= 10) {
+            System.out.print("Counter = " + counter + " ");
+            counter++;
         }
+        System.out.println();
     }
 }
 
-class MyThread1 extends Thread {
+class ThreadTesterB implements Runnable {
+
+    private int i;
+
+    @Override
     public void run() {
-        for (int i = 0; i < 10; i++) {
-            System.out.println("线程1第" + i + "次执行！");
+        while (i <= 10) {
+            System.out.print("i = " + i + " ");
+            i++;
         }
+        System.out.println();
+    }
+}
+
+public class ThreadTestJoin {
+    public static void main(String[] args) throws InterruptedException {
+        Thread ta = new Thread(new ThreadTesterA());
+        Thread tb = new Thread(new ThreadTesterB());
+        ta.start();
+        ta.join(); // wait ta to be finished
+        tb.start();
+        tb.join(); // in this program, this may be removed
     }
 }

@@ -1,4 +1,4 @@
-package com.designpattern.DTDL.demo4;
+package com.DTDL.demo4;
 
 /**
  * 代理接口。处理给定名字的任务。

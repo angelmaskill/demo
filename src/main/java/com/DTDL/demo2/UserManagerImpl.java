@@ -1,4 +1,4 @@
-package com.designpattern.DTDL.demo2;
+package com.DTDL.demo2;
 
 public class UserManagerImpl implements UserManager {
 

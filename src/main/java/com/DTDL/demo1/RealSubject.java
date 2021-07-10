@@ -12,7 +12,7 @@
  **********************************************
  */
 
-package com.designpattern.DTDL.demo1;
+package com.DTDL.demo1;
 
 /**
  ** 真实对象：定义目标操作  

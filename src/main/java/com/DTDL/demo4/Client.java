@@ -1,4 +1,4 @@
-package com.designpattern.DTDL.demo4;
+package com.DTDL.demo4;
 
 /**
  * jdk 动态代理

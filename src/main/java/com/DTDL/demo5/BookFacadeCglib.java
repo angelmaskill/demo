@@ -1,4 +1,4 @@
-package com.designpattern.DTDL.demo5;
+package com.DTDL.demo5;
 
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;

@@ -2,6 +2,8 @@ package com.DTDL.demo7;
 
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -16,18 +18,26 @@ import java.util.List;
 public class TestClient {
     public static void main(String[] args) {
         //初始化原始对象
-        ArrayList<String> list = new ArrayList<String>();
-        list.add("a");
-        list.add("a");
-        list.add("ab");
+        Collection<String> list = initList();
+
         //获取被代理类的class
-        Class<? extends ArrayList> aClass = list.getClass();
-        System.out.println(aClass);
+        Class<? extends Collection> aClass = list.getClass();
 
         //生成代理类，只能用接口接收
         List newList = (List) Proxy.newProxyInstance(aClass.getClassLoader(), aClass.getInterfaces(), new ArrayListProxyHandler(list));
 
         newList.remove("a");
         System.out.println(list);
+    }
+
+    private static Collection<String> initList() {
+        /*ArrayList<String> list = new ArrayList<String>();
+        list.add("a");
+        list.add("a");
+        list.add("ab");*/
+
+        Collection<String> list = new ArrayList<>();
+        Collections.addAll(list, "a", "a", "ab");
+        return list;
     }
 }

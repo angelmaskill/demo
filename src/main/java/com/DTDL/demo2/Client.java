@@ -1,4 +1,4 @@
-package com.designpattern.DTDL.demo2;
+package com.DTDL.demo2;
 
 /**
  * 静态代理的实现.

@@ -1,7 +1,7 @@
-package com.designpattern.DTDL.demo3;
+package com.DTDL.demo3;
 
-import com.designpattern.DTDL.demo2.UserManager;
-import com.designpattern.DTDL.demo2.UserManagerImpl;
+import com.DTDL.demo2.UserManager;
+import com.DTDL.demo2.UserManagerImpl;
 
 /**
  * jdk 动态代理

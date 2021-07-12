@@ -1,4 +1,4 @@
-package com.designpattern.DTDL.demo5;
+package com.DTDL.demo5;
 
 /**
  * 这个是没有实现接口的实现类

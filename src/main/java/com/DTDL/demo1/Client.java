@@ -12,7 +12,7 @@
  **********************************************
  */
 
-package com.designpattern.DTDL.demo1;
+package com.DTDL.demo1;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;

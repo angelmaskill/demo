@@ -1,4 +1,4 @@
-package com.designpattern.DTDL.demo5;
+package com.DTDL.demo5;
 
 public class TestCglib {
 

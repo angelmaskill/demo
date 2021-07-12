@@ -1,4 +1,4 @@
-package com.designpattern.DTDL.demo6;
+package com.DTDL.demo6;
 
 /**
  * @ClassName UserMapper

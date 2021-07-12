@@ -1,4 +1,4 @@
-package com.designpattern.DTDL.demo6;
+package com.DTDL.demo6;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

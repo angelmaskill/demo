@@ -1,4 +1,4 @@
-package com.designpattern.DTDL.demo4;
+package com.DTDL.demo4;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -15,6 +15,14 @@ public class SubjectInvocationHandler implements InvocationHandler {
         this.delegate = delegate;
     }
 
+    /**
+     * invoke 是用来进行增强处理的
+     * @param proxy： 动态生成的代理类的实例
+     * @param method： 当前目标对象正在执行的方法
+     * @param args： 当前目标对象正在执行的方法参数
+     * @return
+     * @throws Throwable
+     */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         long stime = System.currentTimeMillis();

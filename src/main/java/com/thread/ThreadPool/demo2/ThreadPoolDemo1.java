@@ -1,8 +1,10 @@
 package com.thread.ThreadPool.demo2;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import commonutil.DateUtils;
+import lombok.SneakyThrows;
+
+import java.util.Date;
+import java.util.concurrent.*;
 
 /**
  * @author myl
@@ -18,6 +20,7 @@ public class ThreadPoolDemo1 {
      * @param args
      */
     public static void main(String[] args) {
+        new ThreadPoolDemo1().testMyThreadPool();
     }
 
     private void testNewFixedThreadPool() {
@@ -53,5 +56,44 @@ public class ThreadPoolDemo1 {
                 System.out.println(Thread.currentThread().getName() + "," + " bombing!");// 多久后开始bombing，然后每个多久bomning
             }
         }, 5, 2, TimeUnit.SECONDS);
+    }
+
+    /**
+     * 测试自定义线程池
+     */
+    private void testMyThreadPool() {
+        ThreadPoolExecutor pool = new ThreadPoolExecutor(2, 7, 60l, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(4));
+        for (int i = 1; i <= 6; i++) {
+            pool.execute(new mytask("张" + i, pool));
+        }
+    }
+
+    class mytask implements Runnable {
+        private String name;
+        private ThreadPoolExecutor pool;
+
+
+        public mytask(String name, ThreadPoolExecutor pool) {
+            this.name = name;
+            this.pool = pool;
+        }
+
+        @SneakyThrows
+        @Override
+        public void run() {
+            print(pool);
+            System.out.println(DateUtils.dateToString(new Date()) + " name " + name + " is  running");
+            Thread.sleep(4000);
+            System.out.println(DateUtils.dateToString(new Date()) + " name " + name + " is  finished");
+            print(pool);
+        }
+    }
+
+    private void print(ThreadPoolExecutor threadPoolExecutor) {
+        int poolSize = threadPoolExecutor.getPoolSize();
+        long taskCount = threadPoolExecutor.getTaskCount();
+        int corePoolSize = threadPoolExecutor.getCorePoolSize();
+        int size = threadPoolExecutor.getQueue().size();
+        System.out.println(DateUtils.dateToString(new Date()) + " 当前池子里的线程数:" + poolSize + "；任务数目:" + taskCount + "；核心线程数目:" + corePoolSize+"; 队列中任务数量："+size);
     }
 }

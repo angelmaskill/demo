@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+import lombok.Data;
 import org.junit.Test;
 
 /**
@@ -101,4 +103,33 @@ public class LambdaPri {
         }
         return arrayList;
     }
+
+    //测试function
+    public void method1() {
+        Function<Numbers, Integer> test1 = i -> i.getN1() - i.getN2();
+        Function<Numbers, Integer> test2 = i -> i.getN1() * i.getN2();
+        System.out.println(calculate(test1, 111, 5));
+        System.out.println(calculate(test2, 111, 5));
+
+        Function<Integer, Integer> fun1 = n -> n * 2;
+        Function<Integer, Integer> fun2 = n -> n * n;
+
+        //andThen 先用自己，然后then再用其它
+        System.out.println(fun1.andThen(fun2).apply(3));//36
+        //compose 先调用其它在用自己
+        System.out.println(fun1.compose(fun2).apply(3));//18
+    }
+
+    private Integer calculate(Function<Numbers, Integer> test, Integer number1, Integer number2) {
+        Numbers n = new Numbers();
+        n.setN1(number1);
+        n.setN2(number2);
+        return test.apply(n);
+    }
+}
+@Data
+class Numbers {
+    private Integer n1;
+    private Integer n2;
+    private Integer n3;
 }

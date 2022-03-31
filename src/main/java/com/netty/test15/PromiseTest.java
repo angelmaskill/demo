@@ -2,7 +2,7 @@ package com.netty.test15;
 
 import io.netty.channel.EventLoop;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.util.concurrent.DefaultPromise;
+import io.netty.util.concurrent.*;
 import junit.framework.TestCase;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * netty-Promise 模型
+ *
  * <p>
  * 将值（future）与其计算方式（promise）分离，从而允许更灵活地进行计算，特别是通过并行化。
  * Future 表示目标计算的返回值，Promise 表示计算的方式，这个模型将返回结果和计算逻辑分离，目的是为了让计算逻辑不影响返回结果，从而抽象出一套异步编程模型。
@@ -75,5 +76,56 @@ public class PromiseTest extends TestCase {
         });
         Thread.sleep(2000);
         log.info("主线程跑完了！");
+    }
+
+    @Test
+    public void test4() {
+        // 构造线程池
+        EventExecutor executor = new DefaultEventExecutor();
+
+        // 创建 DefaultPromise 实例
+        final Promise promise = new DefaultPromise(executor);
+
+        // 下面给这个 promise 添加两个 listener
+        promise.addListener(new GenericFutureListener<Future<Integer>>() {
+            @Override
+            public void operationComplete(Future future) throws Exception {
+                if (future.isSuccess()) {
+                    System.out.println("任务结束，结果：" + future.get());
+                } else {
+                    System.out.println("任务失败，异常：" + future.cause());
+                }
+            }
+        }).addListener(new GenericFutureListener<Future<Integer>>() {
+            @Override
+            public void operationComplete(Future future) throws Exception {
+                System.out.println("任务结束，balabala...");
+            }
+        });
+
+        // 提交任务到线程池，1 秒后执行结束，设置执行 promise 的结果
+        executor.submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                }
+                // 设置 promise 的结果
+                // promise.setFailure(new RuntimeException());
+                // 具体的任务不一定就要在这个 executor 中被执行。
+                // 任务结束以后，需要调用 promise.setSuccess(result) 或失败 作为通知
+                System.out.println("before promise.setSucess()");
+                promise.setSuccess(123456);
+            }
+        });
+
+        try {
+            // main 线程阻塞等待执行结果
+            promise.sync();
+            System.out.println("main 线程从 promise.sync() 阻塞中返回");
+        } catch (InterruptedException e) {
+
+        }
     }
 }

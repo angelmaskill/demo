@@ -36,10 +36,10 @@ public class FutureTest1 extends TestCase {
         String mainThreadName = Thread.currentThread().getName();
         long l = System.currentTimeMillis();
         //获取 eventGroup 对象，方法一：比较耗时。
-        EventLoop group = new NioEventLoopGroup().next();
+        //EventLoop group = new NioEventLoopGroup().next();
 
-        //方法2： 比较快速：
-        // EventExecutorGroup group = new DefaultEventExecutorGroup(4);
+        //方法2：创建4个线程：SingleThreadEventExecutor ，比较快速：
+        EventExecutorGroup group = new DefaultEventExecutorGroup(4);
         System.out.println(mainThreadName + " 获取group, 主线程运算耗时:" + (System.currentTimeMillis() - l)+ "ms");
         Future<String> submit = group.submit(new Callable<String>() {
             @Override

@@ -8,10 +8,11 @@ import java.util.concurrent.*;
 
 /**
  * CompletableFuture 练习
+ * Java 8 中新增加了一个类：CompletableFuture，它提供了非常强大的 Future 的扩展功能，最重要的是实现了回调的功能。
  *
  * <p>
- * 前面提到了 Netty 和 Guava 的扩展都提供了 addListener 这样的接口，用于处理 Callback 调用，但其实 jdk1.8 已经提供了一种更为高级的回
- * 调方式：CompletableFuture。首先尝试用 CompletableFuture 来解决回调的问题。
+ * 前面提到了 Netty 和 Guava 的扩展都提供了 addListener 这样的接口，用于处理 Callback 调用，但其实
+ * jdk1.8 已经提供了一种更为高级的回调方式：CompletableFuture。首先尝试用 CompletableFuture 来解决回调的问题。
  *
  * @author ：yanlu.myl
  * @date ：Created in 2022-3-31 13:26
@@ -20,6 +21,30 @@ import java.util.concurrent.*;
  * @version:
  */
 public class FutureTest3 extends TestCase {
+
+    /*
+     * CompletableFuture.runAsync()方法提供了异步执行无返回值任务的功能。
+     * CompletableFuture.supplyAsync()方法提供了异步执行有返回值任务的功能。
+     */
+    @Test
+    public void test1() {
+        System.out.println("start");
+        //异步非阻塞
+        CompletableFuture.runAsync(() -> {
+            try {
+                Thread.sleep(3000);
+                System.out.println("sleep done");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("done");
+    }
 
     /**
      * 主线程运算耗时:43ms
@@ -34,7 +59,7 @@ public class FutureTest3 extends TestCase {
      * @throws InterruptedException
      */
     @Test
-    public void test() throws InterruptedException {
+    public void test2() throws InterruptedException {
         long l = System.currentTimeMillis();
         CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(() -> {
             System.out.println("执行耗时操作...");

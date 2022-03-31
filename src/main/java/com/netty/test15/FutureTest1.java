@@ -1,7 +1,5 @@
 package com.netty.test15;
 
-import io.netty.channel.EventLoop;
-import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.util.concurrent.*;
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -51,7 +49,7 @@ public class FutureTest1 extends TestCase {
         // NIO线程中异步获取结果
         submit.addListener(new GenericFutureListener<Future<? super String>>() {
             @Override
-            public void operationComplete(io.netty.util.concurrent.Future<? super String> future) throws Exception {
+            public void operationComplete(Future<? super String> future) {
                 System.out.println("子线程:" + Thread.currentThread().getName() + "获得结果！getnow:" + future.getNow() + "运算耗时:" + (System.currentTimeMillis() - l) + "ms");
             }
         });
@@ -68,7 +66,7 @@ public class FutureTest1 extends TestCase {
     public void testFuture() {
         long l = System.currentTimeMillis();
         EventExecutorGroup group = new DefaultEventExecutorGroup(4);
-        io.netty.util.concurrent.Future<Integer> f = group.submit(new Callable<Integer>() {
+        Future<Integer> f = group.submit(new Callable<Integer>() {
             @Override
             public Integer call() throws Exception {
                 System.out.println("执行耗时操作...");
@@ -78,7 +76,7 @@ public class FutureTest1 extends TestCase {
         });
         f.addListener(new FutureListener<Object>() {
             @Override
-            public void operationComplete(io.netty.util.concurrent.Future<Object> objectFuture) throws Exception {
+            public void operationComplete(Future<Object> objectFuture) throws Exception {
                 System.out.println("计算结果:：" + objectFuture.get());
             }
         });

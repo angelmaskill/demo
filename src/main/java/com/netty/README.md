@@ -26,3 +26,4 @@
     
 ## 参考链接:    
 http://www.cnblogs.com/orange1438/p/5009769.html    
+JAVA 拾遗 --Future 模式与 Promise 模式 https://www.cnkirito.moe/future-and-promise/

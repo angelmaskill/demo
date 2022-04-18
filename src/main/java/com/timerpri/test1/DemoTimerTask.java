@@ -1,16 +1,19 @@
 package com.timerpri.test1;
 
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class DemoTimerTask {
     public static void main(String[] args) {
-        java.util.Timer timer = new java.util.Timer(true);
-        java.util.TimerTask task = new java.util.TimerTask() {
-
+        Timer timer = new Timer(true);
+        TimerTask task = new TimerTask() {
             @Override
             public void run() {
                 System.out.println("需要定时执行的任务...");
             }
         };
-        java.util.Date time = new java.util.Date();
+        Date time = new Date();
         long delay = 2000;
         long period = 5000;
 

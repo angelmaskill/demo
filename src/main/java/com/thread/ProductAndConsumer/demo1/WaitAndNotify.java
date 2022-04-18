@@ -73,8 +73,9 @@ class Person {
 
     public void produce() throws InterruptedException {
         synchronized (synObj) {
-            while (foodNum == 5) {
+            while (foodNum == MAX_NUM) {
                 System.out.println("box is full，size = " + foodNum);
+
                 synObj.wait();
             }
             foodNum++;

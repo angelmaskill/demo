@@ -18,6 +18,11 @@ import java.util.TimerTask;
  * 参考：https://www.yiibai.com/java/java-timer-timertask-example.html
  *
  * </pre>
+ * Timer天生缺陷：
+ * ①由于Timer只是创建了一个thread去执行queue中的task，那么就可能会出现上一个任务执行延迟了，会影响到下一个定时任务。
+ * ②在TimerThread#mainloop中，也可看到，如果抛出了InterruptedException之外无法捕获到的异常时，mainloop就会中断，Timer也就无法使用了。
+ * <p>
+ * 原文链接：https://blog.csdn.net/xixi_haha123/article/details/81082321
  *
  * @author ：yanlu.myl
  * @date ：Created in 2022-4-18 15:23
@@ -45,11 +50,20 @@ public class MyTimerTask extends TimerTask {
         }
     }
 
+    /**
+     * Timer就是一个线程, 使用schedule方法完成对TimerTask的调度，
+     * 多个TimerTask可以共用一个Timer,Timer对象调用一次schedule方法就是创建了一个线程，
+     * 当然同一个Timer执行一次cancel()方法后，所有Timer线程都被终止
+     *
+     * @param args
+     */
     public static void main(String args[]) {
         TimerTask timerTask = new MyTimerTask();
         //running timer task as daemon thread
         Timer timer = new Timer(true);
         //跑完一个任务之后，间隔x s ，执行下一个任务
+        //scheduleAtFixedRate 方法： 每次的执行都是以初始时计算好的时间为准，如果出现某次任务的延迟，则之后的任务会快速执行，即按计划时间执行。
+        //schedule方法: 如果出现某一次任务的延迟，那么之后的任务都会以period为周期进行延迟。
         timer.scheduleAtFixedRate(timerTask, 0, 5 * 1000);
         System.out.println("TimerTask started");
 

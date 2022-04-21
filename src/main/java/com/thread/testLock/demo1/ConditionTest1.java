@@ -9,6 +9,18 @@ import java.util.concurrent.locks.ReentrantLock;
 import lombok.SneakyThrows;
 
 /**
+ * Condition中的await()方法相当于Object的wait()方法，
+ * Condition中的signal()方法相当于Object的notify()方法，
+ * Condition中的signalAll()相当于Object的notifyAll()方法。
+ * <p>
+ *
+ * 不同的是，Object中的wait() ,notify() ,notifyAll()方法是和"同步锁"(synchronized关键字)捆绑使用的；
+ * 而Condition是需要与"互斥锁"/"共享锁"捆绑使用的。
+ *
+ * 参考：
+ * http://www.codebaoku.com/it-java/it-java-226561.html
+ * https://www.jianshu.com/p/28387056eeb4
+ *
  * <pre>
  * 设计一个可以放 10 个任务的队列 一个生产者往里放任务；一个消费者去队列中取任务
  *      没有任务的时候，是不能消费的；一旦消费了，表示可以通知工人继续生产
@@ -78,8 +90,8 @@ public class ConditionTest1 {
                     Thread.sleep(speed);//生产者生产一个任务之后暂定一会再继续
                     canConsumer.signal();
                     System.out.println(
-                        this.name + "向队列中插入一个数据,当前 size: " + queue.size() + ",isProducing: "
-                        + isProducing);
+                            this.name + "向队列中插入一个数据,当前 size: " + queue.size() + ",isProducing: "
+                                    + isProducing);
                     isProducing = true;
                 } finally {
                     lock.unlock();
@@ -118,8 +130,8 @@ public class ConditionTest1 {
                     Thread.sleep(this.speed);//消费者消费一个任务之后暂定一会儿再继续
                     canProduce.signal();//通知工人生产
                     System.out.println(
-                        this.name + "从队列中移除一个数据,当前 size: " + queue.size() + ",isConsuming: "
-                        + isConsuming);
+                            this.name + "从队列中移除一个数据,当前 size: " + queue.size() + ",isConsuming: "
+                                    + isConsuming);
                     isConsuming = true;
                 } finally {
                     lock.unlock();

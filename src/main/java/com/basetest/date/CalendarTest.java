@@ -1,7 +1,7 @@
 package com.basetest.date;
 
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+//import org.testng.annotations.DataProvider;
+//import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 import java.text.ParseException;
@@ -16,7 +16,7 @@ import java.util.Date;
  * @Modified By:
  */
 public class CalendarTest {
-    @DataProvider(name = "user")
+    //@DataProvider(name = "user")
     public Object[][] createUser(Method m) {
         return new Object[][]{
                 {"2018-8-31 21:59:06", new String[]{"星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"}}
@@ -30,7 +30,7 @@ public class CalendarTest {
      *
      * @param weeks
      */
-    @Test(dataProvider = "user")
+    //@Test(dataProvider = "user")
     public void testSetFirstDayOfWeek(String datestr, String[] weeks) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date bizTime = sdf.parse(datestr);

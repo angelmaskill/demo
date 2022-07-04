@@ -66,6 +66,7 @@ public class FutureTest3 extends TestCase {
             timeConsumingOperation();
             return 100;
         });
+        // 异步执行完之后，进行异步回调
         completableFuture.whenComplete((result, e) -> {
             System.out.println(Thread.currentThread().getName() + "线程拿到结果：" + result);
         });

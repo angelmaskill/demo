@@ -1,4 +1,4 @@
-package com.BASETEST.equals;
+package com.basetest.equals;
 
 import java.util.HashMap;
 import java.util.Objects;

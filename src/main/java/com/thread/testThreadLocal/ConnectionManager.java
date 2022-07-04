@@ -1,5 +1,8 @@
 package com.thread.testThreadLocal;
 
+import com.basetest.abs.TestAbs;
+import org.junit.Test;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -9,8 +12,9 @@ import java.sql.SQLException;
  * @author 爽
  */
 public class ConnectionManager {
-
-    /** 线程内共享Connection，ThreadLocal通常是全局的，支持泛型 */
+    /**
+     * 线程内共享Connection，ThreadLocal通常是全局的，支持泛型
+     */
     private static ThreadLocal<Connection> threadLocal = new ThreadLocal<Connection>();
 
     public static Connection getCurrConnection() {

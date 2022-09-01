@@ -16,32 +16,16 @@ import java.util.stream.Stream;
  * @version:
  */
 public class StreamTest2 {
-
-    private List<Employee> getAllEmployees() {
-        List<Employee> lists = new ArrayList<>();
-        Employee e1 = new Employee("大壮", "上海公司", "研发一部", 28, 3000);
-        Employee e2 = new Employee("二牛", "上海公司", "研发一部", 24, 2000);
-        Employee e3 = new Employee("铁柱", "上海公司", "研发二部", 34, 5000);
-        Employee e4 = new Employee("翠花", "南京公司", "测试一部", 27, 3000);
-        Employee e5 = new Employee("玲玲", "南京公司", "测试二部", 31, 4000);
-        lists.add(e1);
-        lists.add(e2);
-        lists.add(e3);
-        lists.add(e4);
-        lists.add(e5);
-        return lists;
-    }
-
     /**
-     * @return 预置的测试数据2
+     * @return 预置的测试数据
      */
-    private List<Employee> getAllEmployees2() {
+    private List<Employee> getAllEmployees() {
         return Stream.of(
-                new Employee("上海公司", "研发一部", "大壮", 28, 3000),
-                new Employee("上海公司", "研发一部", "二牛", 24, 2000),
-                new Employee("上海公司", "研发二部", "铁柱", 34, 5000),
-                new Employee("南京公司", "测试一部", "翠花", 27, 3000),
-                new Employee("南京公司", "测试二部", "玲玲", 31, 4000)
+                new Employee("大壮","上海公司", "研发一部",  28, 3000),
+                new Employee("二牛","上海公司", "研发一部",  24, 2000),
+                new Employee("铁柱","上海公司", "研发二部",  34, 5000),
+                new Employee("翠花","南京公司", "测试一部",  27, 3000),
+                new Employee("玲玲","南京公司", "测试二部",  31, 4000)
         ).collect(Collectors.toList());
     }
 

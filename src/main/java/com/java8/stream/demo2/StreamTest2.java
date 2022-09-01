@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author ：yanlu.myl
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
  */
 public class StreamTest2 {
 
-    public List<Employee> getAllEmployees() {
+    private List<Employee> getAllEmployees() {
         List<Employee> lists = new ArrayList<>();
         Employee e1 = new Employee("大壮", "上海公司", "研发一部", 28, 3000);
         Employee e2 = new Employee("二牛", "上海公司", "研发一部", 24, 2000);
@@ -29,6 +30,19 @@ public class StreamTest2 {
         lists.add(e4);
         lists.add(e5);
         return lists;
+    }
+
+    /**
+     * @return 预置的测试数据2
+     */
+    private List<Employee> getAllEmployees2() {
+        return Stream.of(
+                new Employee("上海公司", "研发一部", "大壮", 28, 3000),
+                new Employee("上海公司", "研发一部", "二牛", 24, 2000),
+                new Employee("上海公司", "研发二部", "铁柱", 34, 5000),
+                new Employee("南京公司", "测试一部", "翠花", 27, 3000),
+                new Employee("南京公司", "测试二部", "玲玲", 31, 4000)
+        ).collect(Collectors.toList());
     }
 
 

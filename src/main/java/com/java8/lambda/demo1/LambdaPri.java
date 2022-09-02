@@ -1,4 +1,4 @@
-package com.java8.lambda;
+package com.java8.lambda.demo1;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -126,10 +126,4 @@ public class LambdaPri {
         n.setN2(number2);
         return test.apply(n);
     }
-}
-@Data
-class Numbers {
-    private Integer n1;
-    private Integer n2;
-    private Integer n3;
 }

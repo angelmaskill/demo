@@ -1,4 +1,4 @@
-package com.java8.lambda;
+package com.java8.lambda.demo1;
 
 public class ThreadLam {
     public static void main(String[] args) {

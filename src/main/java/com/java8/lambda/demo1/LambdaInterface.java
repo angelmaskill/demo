@@ -1,4 +1,4 @@
-package com.java8.lambda;
+package com.java8.lambda.demo1;
 
 import org.apache.poi.ss.formula.functions.T;
 

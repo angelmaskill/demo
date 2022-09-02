@@ -1,4 +1,4 @@
-package com.java8.lambda;
+package com.java8.lambda.demo1;
 
 import java.util.List;
 

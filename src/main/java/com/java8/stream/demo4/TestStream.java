@@ -89,6 +89,15 @@ public class TestStream {
         System.out.println(results);
     }
 
+    @Test
+    public void testFlatmap(){
+        List<String> words = new ArrayList(){};
+        words.add("hello");
+        words.add("world");
+        List<String> collect = words.stream().flatMap(s -> Arrays.stream(s.split(""))).collect(Collectors.toList());
+        System.out.println(collect);
+    }
+
     /**
      * peek和foreach，都可以用于对元素进行遍历然后逐个的进行处理。
      * <p>

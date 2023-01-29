@@ -1,6 +1,5 @@
 package com.java8.stream.demo4;
 
-import com.sun.istack.internal.NotNull;
 import org.junit.Test;
 
 import java.util.*;
@@ -23,7 +22,7 @@ public class TestStream {
      * @param sentence 给定的句子，约定非空，且单词之间仅由一个空格分隔
      * @return 倒序输出符合条件的单词列表
      */
-    public List<String> sortGetTop3LongWords(@NotNull String sentence) {
+    public List<String> sortGetTop3LongWords( String sentence) {
         // 先切割句子，获取具体的单词信息
         String[] words = sentence.split(" ");
         List<String> wordList = new ArrayList<>();
@@ -50,7 +49,7 @@ public class TestStream {
      * @param sentence 给定的句子，约定非空，且单词之间仅由一个空格分隔
      * @return 倒序输出符合条件的单词列表
      */
-    public List<String> sortGetTop3LongWordsByStream(@NotNull String sentence) {
+    public List<String> sortGetTop3LongWordsByStream( String sentence) {
         return Arrays.stream(sentence.split(" "))
                 .filter(word -> word.length() > 5)
                 .sorted((o1, o2) -> o2.length() - o1.length())

@@ -26,7 +26,6 @@ import com.google.common.collect.SetMultimap;
 import com.google.common.collect.Sets;
 import com.google.common.collect.TreeMultimap;
 import com.google.common.primitives.Ints;
-import com.sun.istack.internal.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -255,7 +254,6 @@ public class GuavaTest {
 
         // 将集合按照主键映射成map,场景:主键唯一  
         Map<String, A> aMap = Maps.uniqueIndex(aList, new Function<A, String>() {
-            @Nullable
             @Override
             public String apply(A a) {
                 return a.getName();
@@ -394,7 +392,6 @@ public class GuavaTest {
     }
 
     class A {
-        @Nullable
         private int age;
         private String name;
         private String gender;
